@@ -1,6 +1,6 @@
 body {
   padding: 2em;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 10px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
@@ -9,5 +9,128 @@ a {
 
 .btn {
 	margin: 2px;
-	min-width: 4em;
+	min-width: 50px;
+}
+
+.yellow {
+	background-color: #fd0;
+	color: #404040;
+}
+
+.dark {
+	background-color: #222222;
+	color: #ffffff;
+}
+
+table, p, span {
+	font-size: 2rem;
+}
+
+.table.table-shrink {
+	width: auto;
+}
+
+
+.row.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+}
+.row.no-gutters > [class^="col-"],
+.row.no-gutters > [class*=" col-"] {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+/*
+	Font Size
+*/
+
+.text-xxxhuge {
+    font-size: 5.250rem
+}
+
+.text-xxhuge {
+    font-size: 4rem
+}
+
+.text-xhuge {
+    font-size: 3.250rem
+}
+
+.text-huge {
+    font-size: 2.750rem
+}
+
+.text-xxxlarge {
+    font-size: 2.250rem
+}
+
+.text-xxlarge {
+    font-size: 1.875rem
+}
+
+.text-xlarge {
+    font-size: 1.500rem
+}
+
+.text-large {
+    font-size: 1.188rem
+}
+
+.text-medium {
+    font-size: 1rem
+}
+
+.text-regular {
+    font-size: 0.875rem
+}
+
+.text-small {
+    font-size: 0.813em
+}
+
+.text-xsmall {
+    font-size: 0.688em
+}
+
+.text-xxsmall {
+    font-size: 0.500rem
+}
+
+@media only screen and (max-width: 25.8125em), only screen and (min-width: 25.875em) and (max-width: 40em), only screen and (min-width: 40.0625em) and (max-width: 48em) {
+    .text-xxhuge {
+        font-size:4rem
+    }
+
+    .text-xxhuge {
+        font-size: 2.750rem
+    }
+
+    .text-xhuge {
+        font-size: 2.2rem
+    }
+
+    .text-huge {
+        font-size: 1.875rem
+    }
+
+    .text-xxxlarge {
+        font-size: 1.688rem
+    }
+
+    .text-xxlarge {
+        font-size: 1.500rem
+    }
+
+    .text-xlarge {
+        font-size: 1.250rem
+    }
+
+    .text-large {
+        font-size: 1rem
+    }
+
+    .text-medium {
+        font-size: 0.938rem
+    }
 }

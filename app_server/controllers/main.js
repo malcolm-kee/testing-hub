@@ -1,4 +1,4 @@
 /* Get home page */
 module.exports.index = function(req, res) {
-	res.render('index', {title: 'DSO Portal'});
+	res.render('index', {title: 'Welcome to DSO!'});
 };

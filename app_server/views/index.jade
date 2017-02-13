@@ -1,27 +1,170 @@
 extends layout
 
 block content
-	header
-		h1= title
-	h3 Popular Link
-	.row
-		table.table.table-hover.table-condensed.table-responsive
-			tr
-				th Offerings
-				th Link
-			tr
-				td Device Bundle
-					small (Postpaid IPHONE_7 Bundle)
-				td
-					a(href="https://storeqa.digi.com.my/storefront/mini-cart.ep?pID=IPHONE_7_DGPP#buy", target="_blank").btn.btn-primary QA
-					a(href="https://storeuat.digi.com.my/storefront/mini-cart.ep?pID=IPHONE_7_DGPP#buy", target="_blank").btn.btn-primary UAT
-					a(href="https://store.digi.com.my/storefront/product-config.ep?pID=IPHONE_7_DGPP#buy", target="_blank").btn.btn-primary PROD
-			tr
-				td Postpaid Plan
-					small (Postpaid 110 Plan New Line, COP, CR)
-				td
-					a(href="https://storeqa.digi.com.my/storefront/product-config.ep?pID=10202VPA&isBundle=y&ppymttype=POSTPAID&ptype=VOICE&_ga=1.82725398.1200425632.1479720347", target="_blank").btn.btn-primary QA
-					a(href="https://storeuat.digi.com.my/storefront/product-config.ep?pID=10202VPA&isBundle=y&ppymttype=POSTPAID&ptype=VOICE&_ga=1.82725398.1200425632.1479720347", target="_blank").btn.btn-primary UAT
-	p Welcome to #{title}
-	p However, this site is not ready yet.
-	p Stay tuned!
+	nav.navbar.navbar-inverse.navbar-fixed-top
+		.container
+			a(href="/").navbar-brand Welcome to DSO!
+	.container
+		.bs-docs-section
+			.row
+				.col-lg-12
+					header.page-header
+						h1= title
+					.container
+						.row
+							.col-sm-8
+								h2 Popular Link
+								table.table.table-hover.table-condensed.table-responsive.table-bordered
+									thead.yellow
+										tr
+											th Offerings
+											th Link
+									tbody
+										tr
+											td Device Bundle 
+												span.text-xsmall (Postpaid IPHONE_7 Bundle)
+											td
+												div.btn-group.btn-group-lg
+													a(href="https://storeqa.digi.com.my/storefront/mini-cart.ep?pID=IPHONE_7_DGPP#buy", target="_blank").btn.btn-primary QA
+													a(href="https://storeuat.digi.com.my/storefront/mini-cart.ep?pID=IPHONE_7_DGPP#buy", target="_blank").btn.btn-primary UAT
+										tr
+											td Device Bundle 
+												span.text-xsmall (Samsung Galaxy J7 Bundle)
+											td
+												div.btn-group.btn-group-lg
+													a(href="https://storeqa.digi.com.my/storefront/mini-cart.ep?pID=SAMSUNG_GALAXY_J7_PRIME_DGPP#buy", target="_blank").btn.btn-primary QA
+													a(href="https://storeuat.digi.com.my/storefront/mini-cart.ep?pID=SAMSUNG_GALAXY_J7_PRIME_DGPP#buy", target="_blank").btn.btn-primary UAT
+										tr
+											td Postpaid Plan 
+												span.text-xsmall (Postpaid 110 Plan New Line, COP, CR)
+											td
+												div.btn-group.btn-group-lg
+													a(href="https://storeqa.digi.com.my/storefront/product-config.ep?pID=10202VPA&isBundle=y&ppymttype=POSTPAID&ptype=VOICE&_ga=1.82725398.1200425632.1479720347", target="_blank").btn.btn-primary QA
+													a(href="https://storeuat.digi.com.my/storefront/product-config.ep?pID=10202VPA&isBundle=y&ppymttype=POSTPAID&ptype=VOICE&_ga=1.82725398.1200425632.1479720347", target="_blank").btn.btn-primary UAT
+										tr
+											td Prepaid Plan 
+												span.text-xsmall (Prepaid Best 2016 Plan)
+											td
+												div.btn-group.btn-group-lg
+													a(href="https://storeqa.digi.com.my/storefront/product-config.ep?pID=20015&isBundle=n&ppymttype=PREPAID&ptype=VOICE&_ga=1.127936268.1200425632.1479720347", target="_blank").btn.btn-primary QA
+													a(href="https://storeuat.digi.com.my/storefront/product-config.ep?pID=20015&isBundle=n&ppymttype=PREPAID&ptype=VOICE&_ga=1.127936268.1200425632.1479720347").btn.btn-primary UAT
+										tr
+											td Prepaid Broadband 
+												span.text-xsmall (Prepaid Home Broadband Plan)
+											td
+												div.btn-group.btn-group-lg
+													a(href="https://storeqa.digi.com.my/storefront/product-config.ep?pID=20017&isBundle=n&ppymttype=PREPAID&ptype=BB&_ga=1.127936268.1200425632.1479720347", target="_blank").btn.btn-primary QA
+													a(href="https://storeuat.digi.com.my/storefront/product-config.ep?pID=20017&isBundle=n&ppymttype=PREPAID&ptype=BB&_ga=1.127936268.1200425632.1479720347", target="_blank").btn.btn-primary UAT
+							.col-sm-4
+								.well
+									.panel.panel-success
+										.panel-heading
+											h3.panel-title Coming next
+										.panel-body
+											.list-group
+												span.list-group-item Links stored and retrieved from DB
+												span.list-group-item Authentication for access with login
+												span.list-group-item Why don't you tell me your thought? 
+													a(href="mailto:malcolm.keeweesiong@gmail.com").btn.btn-block.btn-primary.text-xxlarge Email me
+						.row
+							.col-sm-6
+								h2 Preprod Testing Access
+								table.table.table-hover.table-condensed.table-responsive.table-bordered
+									thead.yellow
+										tr
+											th Offering
+											th Link
+									tbody
+										tr
+											td IPhone 7 Bundle
+											td
+												div.btn-group.btn-group-lg
+													a(href="https://storeqa.digi.com.my/storefront/mini-cart.ep?pID=IPHONE_7_DGPP#buy", target="_blank").btn.btn-primary QA
+													a(href="https://storeuat.digi.com.my/storefront/mini-cart.ep?pID=IPHONE_7_DGPP#buy", target="_blank").btn.btn-primary UAT
+										tr
+											td IPhone 7 Plus Bundle
+											td
+												div.btn-group.btn-group-lg
+													a(href="https://storeqa.digi.com.my/storefront/mini-cart.ep?pID=IPHONE_7PLUS_DGPP#buy", target="_blank").btn.btn-primary QA
+													a(href="https://storeuat.digi.com.my/storefront/mini-cart.ep?pID=IPHONE_7PLUS_DGPP#buy", target="_blank").btn.btn-primary UAT
+										tr
+											td Samsung Galaxy J7 Bundle
+											td
+												div.btn-group.btn-group-lg
+													a(href="https://storeqa.digi.com.my/storefront/mini-cart.ep?pID=SAMSUNG_GALAXY_J7_PRIME_DGPP#buy", target="_blank").btn.btn-primary QA
+													a(href="https://storeuat.digi.com.my/storefront/mini-cart.ep?pID=SAMSUNG_GALAXY_J7_PRIME_DGPP#buy", target="_blank").btn.btn-primary UAT
+										tr
+											td Postpaid 50
+											td
+												div.btn-group.btn-group-lg
+													a(href="https://storeqa.digi.com.my/storefront/product-config.ep?pID=10201VPA&isBundle=y&ppymttype=POSTPAID&ptype=VOICE&_ga=1.64925487.1200425632.1479720347Postpaid", target="_blank").btn.btn-primary QA
+													a(href="https://storeuat.digi.com.my/storefront/product-config.ep?pID=10201VPA&isBundle=y&ppymttype=POSTPAID&ptype=VOICE&_ga=1.64925487.1200425632.1479720347Postpaid", target="_blank").btn.btn-primary UAT
+										tr
+											td Postpaid 80
+											td
+												div.btn-group.btn-group-lg
+													a(href="https://storeqa.digi.com.my/storefront/product-config.ep?pID=10200VPA&isBundle=y&ppymttype=POSTPAID&ptype=VOICE&_ga=1.82725398.1200425632.1479720347", target="_blank").btn.btn-primary QA
+													a(href="https://storeuat.digi.com.my/storefront/product-config.ep?pID=10200VPA&isBundle=y&ppymttype=POSTPAID&ptype=VOICE&_ga=1.82725398.1200425632.1479720347", target="_blank").btn.btn-primary UAT
+										tr
+											td Postpaid 110
+											td
+												div.btn-group.btn-group-lg
+													a(href="https://storeqa.digi.com.my/storefront/product-config.ep?pID=10202VPA&isBundle=y&ppymttype=POSTPAID&ptype=VOICE&_ga=1.82725398.1200425632.1479720347", target="_blank").btn.btn-primary QA
+													a(href="https://storeuat.digi.com.my/storefront/product-config.ep?pID=10202VPA&isBundle=y&ppymttype=POSTPAID&ptype=VOICE&_ga=1.82725398.1200425632.1479720347", target="_blank").btn.btn-primary UAT
+										tr
+											td Prepaid Best 2016 Plan
+											td
+												div.btn-group.btn-group-lg
+													a(href="https://storeqa.digi.com.my/storefront/product-config.ep?pID=20015&isBundle=n&ppymttype=PREPAID&ptype=VOICE&_ga=1.127936268.1200425632.1479720347", target="_blank").btn.btn-primary QA
+													a(href="https://storeuat.digi.com.my/storefront/product-config.ep?pID=20015&isBundle=n&ppymttype=PREPAID&ptype=VOICE&_ga=1.127936268.1200425632.1479720347").btn.btn-primary UAT
+										tr
+											td Prepaid Home Broadband Plan
+											td
+												div.btn-group.btn-group-lg
+													a(href="https://storeqa.digi.com.my/storefront/product-config.ep?pID=20017&isBundle=n&ppymttype=PREPAID&ptype=BB&_ga=1.127936268.1200425632.1479720347", target="_blank").btn.btn-primary QA
+													a(href="https://storeuat.digi.com.my/storefront/product-config.ep?pID=20017&isBundle=n&ppymttype=PREPAID&ptype=BB&_ga=1.127936268.1200425632.1479720347", target="_blank").btn.btn-primary UAT
+										tr
+											td IPhone 7 Rosegold Staff
+											td
+												div.btn-group.btn-group-lg
+													a(href="https://storeqa.digi.com.my/storefront/my-device.ep?pID=IPHONE_7PLUS_STA&selDeviceSku=IPHONE_7PLUS_STA_ROSEGOLD_32GB&oqty=1&clearCart=Y&_ga=1.56518187.1200425632.1479720347", target="_blank").btn.btn-primary QA
+													a(href="https://storeuat.digi.com.my/storefront/my-device.ep?pID=IPHONE_7PLUS_STA&selDeviceSku=IPHONE_7PLUS_STA_ROSEGOLD_32GB&oqty=1&clearCart=Y&_ga=1.56518187.1200425632.1479720347", target="_blank").btn.btn-primary UAT
+										tr
+											td IPhone 7 Black Staff
+											td
+												div.btn-group.btn-group-lg
+													a(href="https://storeqa.digi.com.my/storefront/my-device.ep?pID=IPHONE_7_STA&selDeviceSku=IPHONE_7_STA_BLACK_128GB&oqty=1&clearCart=Y&_ga=1.56518187.1200425632.1479720347", target="_blank").btn.btn-primary QA
+													a(href="https://storeuat.digi.com.my/storefront/my-device.ep?pID=IPHONE_7_STA&selDeviceSku=IPHONE_7_STA_BLACK_128GB&oqty=1&clearCart=Y&_ga=1.56518187.1200425632.1479720347", target="_blank").btn.btn-primary UAT
+
+							.col-sm-6
+								h2 Testing Access
+								table.table.table-hover.table-condensed.table-responsive.table-bordered
+									thead.yellow
+										tr
+											th Environment
+											th Link
+									tbody
+										tr
+											td Postpaid Plan Bundle
+											td 
+												div.btn-group.btn-group-lg
+													a(href="https://storeqa.digi.com.my/storefront/product-config.ep?pID=GALAXY_S5&isBundle=y&ppymttype=POSTPAID&ptype=VOICE&selDeviceSku=GALAXY_S5_CHARBLACK_16GB&selPlanSku=DGSP148A_24MONTH&storeCode", target="_blank").btn.btn-primary QA
+													a(href="https://storeuat.digi.com.my/storefront/product-config.ep?pID=GALAXY_S5&isBundle=y&ppymttype=POSTPAID&ptype=VOICE&selDeviceSku=GALAXY_S5_CHARBLACK_16GB&selPlanSku=DGSP148A_24MONTH&storeCode", target="_blank").btn.btn-primary UAT
+										tr
+											td Postpaid Negative Case
+											td
+												div.btn-group.btn-group-lg
+													a(href="https://storeqa.digi.com.my/storefront/product-config.ep?pID=IPHONE_6PLUS&isBundle=y&ppymttype=POSTPAID&ptype=VOICE&selDeviceSku=IPHONE_6PLUS_GOLD_16GB&selPlanSku=10226_24MONTH", target="_blank").btn.btn-primary QA
+													a(href="https://storeuat.digi.com.my/storefront/product-config.ep?pID=IPHONE_6PLUS&isBundle=y&ppymttype=POSTPAID&ptype=VOICE&selDeviceSku=IPHONE_6PLUS_GOLD_16GB&selPlanSku=10226_24MONTH", target="_blank").btn.btn-primary UAT
+										tr
+											td Postpaid PPA 148 Plan
+											td
+												div.btn-group.btn-group-lg
+													a(href="https://storeqa.digi.com.my/storefront/product-config.ep?pID=10170VPA&isBundle=y&ppymttype=POSTPAID&ptype=VOICE&_ga=1.147976480.false#/", target="_blank").btn.btn-primary QA
+													a(href="https://storeuat.digi.com.my/storefront/product-config.ep?pID=10170VPA&isBundle=y&ppymttype=POSTPAID&ptype=VOICE&_ga=1.147976480.false#/", target="_blank").btn.btn-primary UAT
+										tr
+											td Prepaid Plan
+											td
+												div.btn-group.btn-group-lg
+													a(href="https://storeqa.digi.com.my/storefront/product-config.ep?pID=20003&isBundle=n&ppymttype=PREPAID&ptype=VOICE&_ga=1.164576191.1630836739.1476439133", target="_blank").btn.btn-primary QA
+													a(href="https://storeuat.digi.com.my/storefront/product-config.ep?pID=20003&isBundle=n&ppymttype=PREPAID&ptype=VOICE&_ga=1.164576191.1630836739.1476439133", target="_blank").btn.btn-primary UAT
