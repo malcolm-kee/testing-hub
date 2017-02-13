@@ -1,10 +1,14 @@
 doctype html
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/lib/css/bootstrap.paper.min.css')
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    meta(name='robots', content='noindex')
-    meta(name='viewport', content='initial-scale=1')
-  body
-    block content
+	head
+		title= title
+		link(rel='stylesheet', href='/lib/css/bootstrap.paper.min.css')
+		link(rel='stylesheet', href='/stylesheets/style.css')
+		meta(name='robots', content='noindex')
+		meta(name='viewport', content='initial-scale=1')
+	body
+		nav.navbar.navbar-inverse.navbar-fixed-top
+			.container
+				a(href="/").navbar-brand Welcome to DSO!
+		.container-fluid
+			block content
