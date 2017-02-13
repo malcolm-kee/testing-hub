@@ -1,3 +1,9 @@
+/****
+**
+**	CUSTOM ADJUSTMENT
+**
+**/
+
 body {
   padding: 2em;
   font: 10px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -10,16 +16,6 @@ a {
 .btn {
 	margin: 2px;
 	min-width: 50px;
-}
-
-.yellow {
-	background-color: #fd0;
-	color: #404040;
-}
-
-.dark {
-	background-color: #222222;
-	color: #ffffff;
 }
 
 table, p, span {
@@ -41,10 +37,34 @@ table, p, span {
   padding-left: 0;
 }
 
-/*
-	Font Size
+@media screen and (max-width: 550px) {
+	.page-header h1 {
+		display: none;
+	}
+
+	table, p, span {
+		font-size: 1.8rem;
+	}
+
+	h2 {
+		font-size: 3rem;
+	}
+}
+
+@media screen and (max-width: 435px) {
+	h2 {
+		font-size: 2rem;
+	}
+}
+
+/*******
+*	
+*	HELPER
+*
+*	
 */
 
+/* Font Size */
 .text-xxxhuge {
     font-size: 5.250rem
 }
@@ -133,4 +153,16 @@ table, p, span {
     .text-medium {
         font-size: 0.938rem
     }
+}
+
+/* COLOR */
+
+.yellow {
+	background-color: #fd0;
+	color: #404040;
+}
+
+.dark {
+	background-color: #222222;
+	color: #ffffff;
 }
