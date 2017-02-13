@@ -1,7 +1,27 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  p However, this site is not ready yet.
-  p Stay tuned!
+	header
+		h1= title
+	h3 Popular Link
+	.row
+		table.table.table-hover.table-condensed.table-responsive
+			tr
+				th Offerings
+				th Link
+			tr
+				td Device Bundle
+					small (Postpaid IPHONE_7 Bundle)
+				td
+					a(href="https://storeqa.digi.com.my/storefront/mini-cart.ep?pID=IPHONE_7_DGPP#buy", target="_blank").btn.btn-primary QA
+					a(href="https://storeuat.digi.com.my/storefront/mini-cart.ep?pID=IPHONE_7_DGPP#buy", target="_blank").btn.btn-primary UAT
+					a(href="https://store.digi.com.my/storefront/product-config.ep?pID=IPHONE_7_DGPP#buy", target="_blank").btn.btn-primary PROD
+			tr
+				td Postpaid Plan
+					small (Postpaid 110 Plan New Line, COP, CR)
+				td
+					a(href="https://storeqa.digi.com.my/storefront/product-config.ep?pID=10202VPA&isBundle=y&ppymttype=POSTPAID&ptype=VOICE&_ga=1.82725398.1200425632.1479720347", target="_blank").btn.btn-primary QA
+					a(href="https://storeuat.digi.com.my/storefront/product-config.ep?pID=10202VPA&isBundle=y&ppymttype=POSTPAID&ptype=VOICE&_ga=1.82725398.1200425632.1479720347", target="_blank").btn.btn-primary UAT
+	p Welcome to #{title}
+	p However, this site is not ready yet.
+	p Stay tuned!
