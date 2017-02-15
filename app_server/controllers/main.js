@@ -86,6 +86,20 @@ module.exports.index = function(req, res) {
 							url: 'https://storeuat.digi.com.my/storefront/product-config.ep?pID=20017&isBundle=n&ppymttype=PREPAID&ptype=BB&_ga=1.127936268.1200425632.1479720347'
 						}
 					]
+				},
+				{
+					name: 'Prepaid MNP',
+					details: 'Digi Prepaid Best MNP',
+					links: [
+						{
+							env: 'QA',
+							url: 'https://storeqa.digi.com.my/storefront/product-config.ep?pID=20018&isBundle=n&ppymttype=PREPAID&ptype=VOICE&_ga=1.164576191.1630836739.1476439133'
+						},
+						{
+							env: 'UAT',
+							url: 'https://storeuat.digi.com.my/storefront/product-config.ep?pID=20018&isBundle=n&ppymttype=PREPAID&ptype=VOICE&_ga=1.164576191.1630836739.1476439133'
+						}
+					]
 				}
 			],
 			preprod_offerings: [
@@ -190,6 +204,19 @@ module.exports.index = function(req, res) {
 						{
 							env: 'UAT',
 							url: 'https://storeuat.digi.com.my/storefront/product-config.ep?pID=20017&isBundle=n&ppymttype=PREPAID&ptype=BB&_ga=1.127936268.1200425632.1479720347'
+						}
+					]
+				},
+				{
+					name: 'Digi Prepaid Best MNP',
+					links: [
+						{
+							env: 'QA',
+							url: 'https://storeqa.digi.com.my/storefront/product-config.ep?pID=20018&isBundle=n&ppymttype=PREPAID&ptype=VOICE&_ga=1.164576191.1630836739.1476439133'
+						},
+						{
+							env: 'UAT',
+							url: 'https://storeuat.digi.com.my/storefront/product-config.ep?pID=20018&isBundle=n&ppymttype=PREPAID&ptype=VOICE&_ga=1.164576191.1630836739.1476439133'
 						}
 					]
 				},
