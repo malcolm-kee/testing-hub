@@ -2,7 +2,7 @@
 module.exports.index = function(req, res) {
 	res.render('index', 
 		{
-			title: 'Welcome to DSO!',
+			title: 'Brotherhood of DSO',
 			upcoming_items: [
 				{
 					name: 'Links stored and retrieved from DB'
@@ -89,15 +89,15 @@ module.exports.index = function(req, res) {
 				},
 				{
 					name: 'Prepaid MNP',
-					details: 'Digi Prepaid Best MNP',
+					details: 'Digi Prepaid Live MNP',
 					links: [
 						{
 							env: 'QA',
-							url: 'https://storeqa.digi.com.my/storefront/product-config.ep?pID=20018&isBundle=n&ppymttype=PREPAID&ptype=VOICE&_ga=1.164576191.1630836739.1476439133'
+							url: 'https://storeqa.digi.com.my/storefront/product-config.ep?pID=20019&isBundle=n&ppymttype=PREPAID&ptype=VOICE&_ga=1.164576191.1630836739.1476439133 '
 						},
 						{
 							env: 'UAT',
-							url: 'https://storeuat.digi.com.my/storefront/product-config.ep?pID=20018&isBundle=n&ppymttype=PREPAID&ptype=VOICE&_ga=1.164576191.1630836739.1476439133'
+							url: 'https://storeuat.digi.com.my/storefront/product-config.ep?pID=20019&isBundle=n&ppymttype=PREPAID&ptype=VOICE&_ga=1.164576191.1630836739.1476439133'
 						}
 					]
 				}
@@ -217,6 +217,19 @@ module.exports.index = function(req, res) {
 						{
 							env: 'UAT',
 							url: 'https://storeuat.digi.com.my/storefront/product-config.ep?pID=20018&isBundle=n&ppymttype=PREPAID&ptype=VOICE&_ga=1.164576191.1630836739.1476439133'
+						}
+					]
+				},
+				{
+					name: 'Digi Prepaid Live MNP',
+					links: [
+						{
+							env: 'QA',
+							url: 'https://storeqa.digi.com.my/storefront/product-config.ep?pID=20019&isBundle=n&ppymttype=PREPAID&ptype=VOICE&_ga=1.164576191.1630836739.1476439133 '
+						},
+						{
+							env: 'UAT',
+							url: 'https://storeuat.digi.com.my/storefront/product-config.ep?pID=20019&isBundle=n&ppymttype=PREPAID&ptype=VOICE&_ga=1.164576191.1630836739.1476439133'
 						}
 					]
 				},
