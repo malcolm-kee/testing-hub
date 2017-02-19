@@ -1,5 +1,8 @@
 var mongoose = require('mongoose');
 var dbURI = 'mongodb://localhost/DSOPortal';
+if (process.env.NODE_ENV === 'production') {
+	dbURI = process.env.MONGOLAB_URI;
+}
 
 mongoose.connect(dbURI);
 
@@ -37,3 +40,5 @@ process.on('SIGTERM', function() {
 		process.exit(0);
 	});
 });
+
+require('./dso_schema');
