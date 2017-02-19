@@ -66,6 +66,11 @@ nav a {
     color: #ffffff;
 }
 
+nav a:hover {
+    background: #581663;
+    color: #ffffff;
+}
+
 .btn {
 	margin: 2px;
 	min-width: 50px;
