@@ -19,7 +19,7 @@ module.exports.index = function(req, res) {
 			popular_offerings: [
 				{
 					name: 'Device Bundle',
-					details: 'Postpaid IPHONE_7 Bundle',
+					details: 'Postpaid iPhone 7 Bundle',
 					links: [
 						{
 							env: 'QA',
@@ -47,7 +47,7 @@ module.exports.index = function(req, res) {
 				},
 				{
 					name: 'Postpaid Plan',
-					details: 'Postpaid 110 Plan New Line, COP, CR',
+					details: 'Postpaid 110',
 					links: [
 						{
 							env: 'QA',
@@ -75,7 +75,7 @@ module.exports.index = function(req, res) {
 				},
 				{
 					name: 'Prepaid Broadband',
-					details: 'Prepaid Home Broadband Plan',
+					details: 'Prepaid Home Broadband',
 					links: [
 						{
 							env: 'QA',

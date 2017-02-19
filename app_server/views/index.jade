@@ -7,67 +7,78 @@ block content
 				h1= title
 			.container
 				.row
-					.col-sm-8.col-xs-12
-						h2 
-							span.glyphicon.glyphicon-pushpin.dark
-							|  Popular Link
-						table.table.table-hover.table-condensed.table-responsive.table-bordered
-							thead.yellow
-								tr
-									th Offerings
-									th Link
-							tbody
+					.col-sm-12.col-xs-12
+						.popular-links
+							h2 
+								span.glyphicon.glyphicon-pushpin.dark
+								|  Popular Link
+							.row
 								each offering in popular_offerings
-									tr
-										td #{offering.name}
-											span.text-xsmall  (#{offering.details})
-										td
-											div.btn-group.btn-group-lg
+									.col-xs-6.col-sm-4.col-md-3.pad-vertical
+										.offering
+											.offering-details
+												h3.text-xxlarge #{offering.details}
+											.btn-group.btn-group-justified.env-links
 												each link in offering.links
-													a(href="#{link.url}", target="_blank").btn.btn-primary #{link.env}
-					.col-sm-4.col-xs-12
-						.well
-							.panel.panel-success
-								.panel-heading
-									h3.panel-title Coming next
-								.panel-body
-									.list-group
-										each item in upcoming_items
-											span.list-group-item= item.name
-										span.list-group-item= call_to_action.description
-											a(href="#{call_to_action.link}").btn.btn-block.btn-primary.text-xxlarge= call_to_action.name
+													a(href="#{link.url}", target="_blank").btn.btn-primary.text-xxlarge #{link.env}
+				//-
+					Malcolm: remove the upcoming boxes
+					.row
+						.col-sm-8.col-xs-12
+							h2 
+								span.glyphicon.glyphicon-pushpin.dark
+								|  Popular Link
+							table.table.table-hover.table-condensed.table-responsive.table-bordered
+								thead.yellow
+									tr
+										th Offerings
+										th Link
+								tbody
+									each offering in popular_offerings
+										tr
+											td #{offering.name}
+												span.text-xsmall  (#{offering.details})
+											td
+												div.btn-group.btn-group-lg
+													each link in offering.links
+														a(href="#{link.url}", target="_blank").btn.btn-primary #{link.env}
+						.col-sm-4.col-xs-12
+							.well
+								.panel.panel-success
+									.panel-heading
+										h3.panel-title Coming next
+									.panel-body
+										.list-group
+											each item in upcoming_items
+												span.list-group-item= item.name
+											span.list-group-item= call_to_action.description
+												a(href="#{call_to_action.link}").btn.btn-block.btn-primary.text-xxlarge= call_to_action.name
 				.row
-					.col-sm-6.col-xs-12
-						h2 
-							span.glyphicon.glyphicon-wrench.dark
-							|  Preprod Testing
-						table.table.table-hover.table-condensed.table-responsive.table-bordered
-							thead.yellow
-								tr
-									th Offering
-									th Link
-							tbody
+					.col-sm-8.col-xs-12.col-md-6
+						.preprod-links
+							h2 
+								span.glyphicon.glyphicon-wrench.dark
+								|  Preprod
+							.row
 								each offering in preprod_offerings
-									tr
-										td= offering.name
-										td
-											div.btn-group.btn-group-lg
+									.col-xs-6.pad-vertical
+										.offering
+											.offering-details
+												h3.text-xxlarge= offering.name
+											.btn-group.btn-group-justified.env-links
 												each link in offering.links
-													a(href="#{link.url}", target="_blank").btn.btn-primary #{link.env}
-					.col-sm-6.col-xs-12
-						h2 
-							span.glyphicon.glyphicon-cog.dark
-							|  Staging Testing
-						table.table.table-hover.table-condensed.table-responsive.table-bordered
-							thead.yellow
-								tr
-									th Environment
-									th Link
-							tbody
+													a(href="#{link.url}", target="_blank").btn.btn-primary.text-xxlarge #{link.env}
+					.col-sm-4.col-xs-12.col-md-6
+						.staging-links
+							h2 
+								span.glyphicon.glyphicon-cog.dark
+								|  Staging
+							.row
 								each offering in staging_offerings
-									tr
-										td= offering.name
-										td
-											div.btn-group.btn-group-lg
+									.col-xs-6.col-sm-12.col-md-6.pad-vertical
+										.offering
+											.offering-details
+												h3.text-xxlarge= offering.name
+											.btn-group.btn-group-justified.env-links
 												each link in offering.links
-													a(href="#{link.url}", target="_blank").btn.btn-primary #{link.env}
+													a(href="#{link.url}", target="_blank").btn.btn-primary.text-xxlarge #{link.env}
