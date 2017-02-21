@@ -13,6 +13,8 @@ var filterListByCategories = function(list, category) {
 };
 
 var renderHomepage = function(req, res, responseBody) {
+	console.log("=============responseBody================");
+	console.log(responseBody);
 	console.assert(Array.isArray(responseBody), "responseBody is not an array");
 	var popular_features_list = filterListByCategories(responseBody, "popular"),
 		preprod_features_list = filterListByCategories(responseBody, "preprod"),
