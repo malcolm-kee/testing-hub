@@ -3,7 +3,7 @@ var apiOptions = {
 	server: "http://localhost:3000"
 };
 if (process.env.NODE_ENV === 'production') {
-	apiOptions.server = 'https://vast-journey-10806.herokuapp.com';
+	apiOptions.server = 'vast-journey-10806.herokuapp.com';
 }
 
 var filterListByCategories = function(list, category) {
