@@ -17,7 +17,7 @@ block content
 									.col-xs-6.col-sm-4.col-md-3.pad-vertical
 										.offering
 											.offering-details
-												h3.text-xxlarge #{offering.details}
+												h3.text-xxlarge= offering.name
 											.btn-group.btn-group-justified.env-links
 												each link in offering.links
 													a(href="#{link.url}", target="_blank").btn.btn-primary.text-xxlarge #{link.env}
