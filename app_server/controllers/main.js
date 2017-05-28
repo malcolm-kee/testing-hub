@@ -13,8 +13,6 @@ var filterListByCategories = function(list, category) {
 };
 
 var renderHomepage = function(req, res, responseBody) {
-	console.log("=============responseBody================");
-	console.log(responseBody);
 	var popular_features_list = filterListByCategories(responseBody, "popular"),
 		preprod_features_list = filterListByCategories(responseBody, "preprod"),
 		staging_features_list = filterListByCategories(responseBody, "staging");
