@@ -15,7 +15,7 @@ block content
 							.row
 								each offering in popular_offerings
 									.col-xs-6.col-sm-4.col-md-3.pad-vertical
-										.offering
+										.offering(id="#{offering._id}")
 											.offering-details
 												h3.text-xxlarge= offering.name
 											.btn-group.btn-group-justified.env-links
@@ -62,7 +62,7 @@ block content
 							.row
 								each offering in preprod_offerings
 									.col-xs-6.pad-vertical
-										.offering
+										.offering(id="#{offering._id}")
 											.offering-details
 												h3.text-xxlarge= offering.name
 											.btn-group.btn-group-justified.env-links
@@ -76,7 +76,7 @@ block content
 							.row
 								each offering in staging_offerings
 									.col-xs-6.col-sm-12.col-md-6.pad-vertical
-										.offering
+										.offering(id="#{offering._id}")
 											.offering-details
 												h3.text-xxlarge= offering.name
 											.btn-group.btn-group-justified.env-links
