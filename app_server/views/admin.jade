@@ -1,17 +1,40 @@
 extends layout
 
 block content
+	include _includes/edit-feature-modal
+	include _includes/create-feature-modal
+	include _includes/deactivate-feature-modal
 	.row
 		.col-lg-12
 			header.page-header
 				h1= title
 			.container
-				.row
+				.panel.panel-default
+					.panel-body
+						button(type="button" data-toggle="modal" data-target="#create-feature-modal").btn.btn-primary
+							span.glyphicon.glyphicon-plus.text-large
+							| &nbsp;Create New Link
+				h2.text-xxxlarge Testing Links
+				.row.list-group
 					each offering in offerings
-						.col-xs-6.col-sm-4.col-md-3.pad-vertical
-							.offering(id="#{offering._id}")
-								.offering-details
-									h3.text-xxlarge= offering.name
-								.btn-group.btn-group-justified.env-links
-									each link in offering.links
-										a(href="#{link.url}", target="_blank").btn.btn-primary.text-xxlarge #{link.env}
+						.list-group-item.col-xs-12.pad-vertical
+							.feature(id="#{offering._id}")
+								.row
+									.col-xs-6.col-md-8
+										.text-xxlarge= offering.name
+										.text-large
+											| Categories: #{offering.categories.join(' | ')} 
+										.text-large
+											| Links: 
+											each link in offering.links
+												|  #{link.env} |
+									.col-xs-6.col-md-4
+										.btn-group.btn-group-justified
+											.btn-group
+												button(type="button" data-id="#{offering._id}").js-edit-feature-btn.btn.btn-primary
+													span.glyphicon.glyphicon-pencil.text-large
+													span.hidden-xs.text-xlarge &nbsp;Edit
+											.btn-group
+												button(type="button" data-toggle="modal" data-target="#deactivate-feature-modal").btn.btn-default
+													span.glyphicon.glyphicon-eye-close.text-large
+													span.hidden-xs.text-xlarge &nbsp;Deactivate

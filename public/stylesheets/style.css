@@ -21,6 +21,12 @@
     background: #ffffff;
 }
 
+.feature {
+    text-align: left;
+    padding: 2px;
+    background: #ffffff;
+}
+
 .offering-details {
     min-height: 7.6rem;
 }

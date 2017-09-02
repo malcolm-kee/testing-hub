@@ -6,7 +6,7 @@ var sendJsonResponse = function(res, status, content) {
     res.json(content);
 };
 
-var validateCreateJson = function(featureJson) {
+var validateFeatureJson = function(featureJson) {
 	console.log(featureJson);
     if (typeof featureJson === "undefined" || featureJson === null) {
     	console.log("featureJson validation fails");
@@ -50,7 +50,7 @@ module.exports.featuresList = function(req, res) {
 
 module.exports.featureCreate = function(req, res) {
     var feature = req.body;
-    if (validateCreateJson(feature)) {
+    if (validateFeatureJson(feature)) {
     	Feature.create(feature, function(err, feature) {
     		if (err) {
     			console.log(err);
@@ -59,10 +59,10 @@ module.exports.featureCreate = function(req, res) {
             	});
             	return;
     		}
-    		sendJsonResponse(res, 200, { "status": "success featureCreateOne", "features": [feature] });
+    		sendJsonResponse(res, 200, { "status": "success", "features": [feature] });
     	});
     } else {
-    	sendJsonResponse(res, 400, { "status": "Invalid Json" });
+    	sendJsonResponse(res, 400, { "message": "Invalid Json" });
     }
 };
 
@@ -80,16 +80,19 @@ module.exports.featureReadOne = function(req, res) {
             });
             return;
         }
-        sendJsonResponse(res, 200, { "status": "success featureReadOne", "features": [feature] });
+        sendJsonResponse(res, 200, { "status": "success", "features": [feature] });
     });
 };
 
 module.exports.featureUpdateOne = function(req, res) {
-    var name = req.body.name,
-        categories = req.body.categories;
-    if (typeof name === "undefined" || name === null || typeof categories === "undefined" || categories === null) {
+    console.log('in featureUpdateOne');
+    var feature_input_data = req.body,
+        name = feature_input_data.name,
+        categories = feature_input_data.categories,
+        links = feature_input_data.links;
+    if (validateFeatureJson(feature_input_data) === false) {
         sendJsonResponse(res, 400, {
-            "message": "Missing name or categories."
+            "message": "Invalid Json."
         });
         return;
     }
@@ -109,11 +112,12 @@ module.exports.featureUpdateOne = function(req, res) {
         } else {
             feature.name = name;
             feature.categories = categories;
+            feature.links = links;
             feature.save(function(err, feature) {
                 if (err) {
                     sendJsonResponse(res, 404, err);
                 } else {
-                    sendJsonResponse(res, 200, { "status": "success featureUpdateOne", "features": [feature] });
+                    sendJsonResponse(res, 200, { "status": "success", "features": [feature] });
                 }
             });
         }
@@ -134,11 +138,11 @@ module.exports.featureDeleteOne = function(req, res) {
             });
             return;
         }
-        sendJsonResponse(res, 200, { "status": "success featureDeleteOne", "features": [feature] });
+        sendJsonResponse(res, 200, { "status": "success", "features": [feature] });
     });
 };
 
-module.exports.featuresListPilot = function(req, res) {
+/*module.exports.featuresListPilot = function(req, res) {
     console.log("in featuresListPilot");
     Feature
         .find({}, '_id name categories links', function(err, features) {
@@ -159,4 +163,4 @@ module.exports.featuresListPilot = function(req, res) {
             console.log('==========');
             sendJsonResponse(res, 200, features);
         });
-};
+};*/

@@ -1,0 +1,62 @@
+#edit-feature-modal.modal.fade
+	.modal-dialog.modal-lg
+		.modal-content
+			form(name="edit-feature-form").edit-feature-form
+				.modal-header
+					button(type="button", data-dismiss="modal", aria-label="Close").close
+						span(aria-hidden="true")
+							| &times;
+					h5.modal-title
+						| Edit Test Link
+				.modal-body
+					table.table
+						thead
+							tr
+								th.col-xs-3 Field
+								th.col-xs-9 Value
+						tbody
+							tr
+								td Id
+								td
+									input(name="id" type="text" readonly).form-control
+							tr
+								td Name
+								td
+									input(name="desc" type="text" required).form-control
+							tr
+								td Status
+								td Active
+							tr
+								td Category
+								td
+									input(name="category" type="checkbox" id="category-popular" value="popular")
+									label(for="category-popular") Popular
+									br
+									input(name="category" type="checkbox" id="category-preprod" value="preprod")
+									label(for="category-preprod") PreProd
+									br
+									input(name="category" type="checkbox" id="category-staging" value="staging")
+									label(for="category-staging") Staging
+							tr
+								td 
+									| Links
+									br
+									small.text-xsmall
+										| (Note: If you wish to remove a link, just remove the value in ENV)
+								td
+									table.table.table-bordered.table-condensed
+										thead
+											tr
+												th.col-xs-4 Env
+												th.col-xs-8 URL
+										tbody.links-placeholder
+											tr.add-link-tr
+												td
+													input(name="env" type="text" placeholder="(New Env)")
+												td
+													input(name="url" type="url" placeholder="(New URL)")
+													button(type="button").btn.btn-info.js-add-link-btn.pull-right Add new link
+				.modal-footer
+					input(type="submit" value="Save changes").btn.btn-primary
+					button(type="button", data-dismiss="modal").btn.btn-secondary
+						| Close
