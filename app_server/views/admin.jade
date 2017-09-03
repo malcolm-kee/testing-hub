@@ -3,7 +3,7 @@ extends layout
 block content
 	include _includes/edit-feature-modal
 	include _includes/create-feature-modal
-	include _includes/deactivate-feature-modal
+	include _includes/service-unavailable-modal
 	.row
 		.col-lg-12
 			header.page-header
@@ -20,7 +20,7 @@ block content
 						.list-group-item.col-xs-12.pad-vertical
 							.feature(id="#{offering._id}")
 								.row
-									.col-xs-6.col-md-8
+									.col-xs-9.col-md-10
 										.text-xxlarge= offering.name
 										.text-large
 											| Categories: #{offering.categories.join(' | ')} 
@@ -28,13 +28,9 @@ block content
 											| Links: 
 											each link in offering.links
 												|  #{link.env} |
-									.col-xs-6.col-md-4
+									.col-xs-3.col-md-2
 										.btn-group.btn-group-justified
 											.btn-group
 												button(type="button" data-id="#{offering._id}").js-edit-feature-btn.btn.btn-primary
 													span.glyphicon.glyphicon-pencil.text-large
 													span.hidden-xs.text-xlarge &nbsp;Edit
-											.btn-group
-												button(type="button" data-toggle="modal" data-target="#deactivate-feature-modal").btn.btn-default
-													span.glyphicon.glyphicon-eye-close.text-large
-													span.hidden-xs.text-xlarge &nbsp;Deactivate

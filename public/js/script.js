@@ -4,7 +4,6 @@
 	$(function() {
 		$('.create-feature-form').on('submit', invokeCreateFeature);
 		$('.js-edit-feature-btn').on('click', invokeEditFeature);
-		$('.js-deactivate-feature-btn').on('click', invokeDeactivateFeature);
 		$('.edit-feature-form').on('submit', invokeSaveEditFeature);
 		$('.js-add-link-btn').on('click', invokeAddLink);
 	});
@@ -48,16 +47,6 @@
 		var feature_id = $(this).data('id');
 		
 		editFeature(feature_id);
-
-		return false;
-	}
-
-	function invokeDeactivateFeature(ev) {
-		ev.preventDefault();
-
-		var feature_id = $(this).data('id');
-
-		console.log('deactivate link btn clicked with id:' + feature_id);
 
 		return false;
 	}
@@ -153,8 +142,8 @@
 
 	function addLink($add_link_tr, env, url) {
 		var links_markup = '<tr class="feature-link">' +
-							'<td><input type="text" name="env" value="' + env + '" /></td>' +
-							'<td><input type="url" name="url" value="' + url + '" /></td>' +
+							'<td><div class="form-group"><input type="text" class="form-control" name="env" value="' + env + '" /></div></td>' +
+							'<td><div class="form-group"><input type="url" class="form-control" name="url" value="' + url + '" /></div></td>' +
 							'</tr>';
 
 		$add_link_tr.before(links_markup);
@@ -189,8 +178,8 @@
 		$('.links-placeholder .feature-link').remove();
 		$.each(links, function(index, link) {
 			links_markup += '<tr class="feature-link">' +
-							'<td><input type="text" name="env" value="' + link.env + '" /></td>' +
-							'<td><input type="url" name="url" value="' + link.url + '" /></td>' +
+							'<td><div class="form-group"><input type="text" class="form-control" name="env" value="' + link.env + '" /></div></td>' +
+							'<td><div class="form-group"><input type="url" class="form-control" name="url" value="' + link.url + '" /></div></td>' +
 							'</tr>';
 		});
 		$('.links-placeholder').prepend(links_markup);

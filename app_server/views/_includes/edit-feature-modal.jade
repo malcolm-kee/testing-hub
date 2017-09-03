@@ -9,54 +9,51 @@
 					h5.modal-title
 						| Edit Test Link
 				.modal-body
-					table.table
-						thead
-							tr
-								th.col-xs-3 Field
-								th.col-xs-9 Value
-						tbody
-							tr
-								td Id
-								td
-									input(name="id" type="text" readonly).form-control
-							tr
-								td Name
-								td
-									input(name="desc" type="text" required).form-control
-							tr
-								td Status
-								td Active
-							tr
-								td Category
-								td
-									input(name="category" type="checkbox" id="category-popular" value="popular")
-									label(for="category-popular") Popular
-									br
-									input(name="category" type="checkbox" id="category-preprod" value="preprod")
-									label(for="category-preprod") PreProd
-									br
-									input(name="category" type="checkbox" id="category-staging" value="staging")
-									label(for="category-staging") Staging
-							tr
-								td 
-									| Links
-									br
-									small.text-xsmall
-										| (Note: If you wish to remove a link, just remove the value in ENV)
-								td
-									table.table.table-bordered.table-condensed
-										thead
-											tr
-												th.col-xs-4 Env
-												th.col-xs-8 URL
-										tbody.links-placeholder
-											tr.add-link-tr
-												td
-													input(name="env" type="text" placeholder="(New Env)")
-												td
-													input(name="url" type="url" placeholder="(New URL)")
-													button(type="button").btn.btn-info.js-add-link-btn.pull-right Add new link
+					.form-group.row
+						label(for="feature-id").col-sm-2.col-form-label.text-xxlarge Id
+						.col-sm-10
+							input(name="id" type="text" readonly).form-control#feature-id
+							small(id="feature-id-help").form-text This is a system generated value.
+					.form-group.row
+						label(for="feature-name").col-sm-2.col-form-label.text-xxlarge Name
+						.col-sm-10
+							input(name="desc" type="text" required).form-control#feature-name
+					.form-group.row
+						label(for="feature-active-flag").col-sm-2.col-form-label.text-xxlarge Active
+						.col-sm-10
+							input(name="active-flag" type="checkbox" value="true" disabled checked).form-check#feature-active-flag
+					.form-group.row
+						label.col-sm-2.col-form-label.text-xxlarge Category
+						.col-sm-10
+							.form-group
+								input(name="category" type="checkbox" value="popular")#category-popular.form-check
+								label(for="category-popular").text-xxlarge Popular
+							.form-group
+								input(name="category" type="checkbox" value="preprod")#category-preprod.form-check
+								label(for="category-preprod").text-xxlarge PreProd
+							.form-group
+								input(name="category" type="checkbox" value="staging")#category-staging.form-check
+								label(for="category-staging").text-xxlarge Staging
+					.form-group.row
+						label.col-sm-2.col-form-label.text-xxlarge Link
+						.col-sm-10
+							table.table.table-bordered.table-condensed
+								thead
+									tr
+										th.col-xs-4 Env
+										th.col-xs-8 URL
+								tbody.links-placeholder
+									tr.add-link-tr
+										td
+											.form-group
+												input(name="env" type="text" placeholder="(New Env)").form-control
+										td
+											.input-group
+												input(name="url" type="url" placeholder="(New URL)").form-control
+												span.input-group-btn
+													button(type="button").btn.btn-info.js-add-link-btn.pull-right 
+														span.glyphicon.glyphicon-plus.text-large 
+														span.hidden-xs.text-xlarge &nbsp;Add link
 				.modal-footer
 					input(type="submit" value="Save changes").btn.btn-primary
-					button(type="button", data-dismiss="modal").btn.btn-secondary
-						| Close
+					button(type="button", data-dismiss="modal").btn.btn-secondary Close
