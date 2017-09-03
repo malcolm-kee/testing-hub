@@ -9,43 +9,45 @@
 					h5.modal-title
 						| Create Test Link
 				.modal-body
-					table.table
-						thead
-							tr
-								th.col-xs-3 Field
-								th.col-xs-9 Value
-						tbody
-							tr
-								td Name
-								td
-									input(name="desc" type="text" required).form-control
-							tr
-								td Category
-								td
-									input(name="category" type="checkbox" id="category-popular-new" value="popular")
-									label(for="category-popular-new") Popular
-									br
-									input(name="category" type="checkbox" id="category-preprod-new" value="preprod")
-									label(for="category-preprod-new") PreProd
-									br
-									input(name="category" type="checkbox" id="category-staging-new" value="staging")
-									label(for="category-staging-new") Staging
-							tr
-								td Links
-								td
-									table.table.table-bordered.table-condensed
-										thead
-											tr
-												th.col-xs-4 Env
-												th.col-xs-8 URL
-										tbody.links-placeholder
-											tr.add-link-tr
-												td
-													input(name="env" type="text" placeholder="(New Env)")
-												td
-													input(name="url" type="url" placeholder="(New URL)")
-													button(type="button").btn.btn-info.js-add-link-btn.pull-right Add new link
+					.form-group.row
+						label(for="new-feature-name").col-sm-2.col-form-label.text-xxlarge Name
+						.col-sm-10
+							input(name="desc" type="text" required).form-control#new-feature-name
+					.form-group.row
+						label(for="new-feature-active-flag").col-sm-2.col-form-label.text-xxlarge Active
+						.col-sm-10
+							input(name="active-flag" type="checkbox" value="true" disabled checked).form-check#new-feature-active-flag
+					.form-group.row
+						label.col-sm-2.col-form-label.text-xxlarge Category
+						.col-sm-10
+							.form-group
+								input(name="category" type="checkbox" value="popular")#new-category-popular.form-check
+								label(for="new-category-popular").text-xxlarge Popular
+							.form-group
+								input(name="category" type="checkbox" value="preprod")#new-category-preprod.form-check
+								label(for="new-category-preprod").text-xxlarge PreProd
+							.form-group
+								input(name="category" type="checkbox" value="staging")#new-category-staging.form-check
+								label(for="new-category-staging").text-xxlarge Staging
+					.form-group.row
+						label.col-sm-2.col-form-label.text-xxlarge Link
+						.col-sm-10
+							table.table.table-bordered.table-condensed
+								thead
+									tr
+										th.col-xs-4 Env
+										th.col-xs-8 URL
+								tbody.links-placeholder
+									tr.feature-link
+										td
+											.form-group
+												input(type="text" name="env" required).form-control
+										td
+											.form-group
+												input(type="url" name="url" required).form-control
+							button(type="button").btn.btn-info.js-add-link-btn
+								span.glyphicon.glyphicon-plus.text-large 
+								span.hidden-xs.text-xlarge &nbsp;Add another link
 				.modal-footer
-					input(type="submit" value="Create link").btn.btn-primary
-					button(type="button", data-dismiss="modal").btn.btn-secondary
-						| Close
+					input(type="submit" value="Create link").btn.btn-primary#create-feature-btn
+					button(type="button", data-dismiss="modal").btn.btn-secondary Close

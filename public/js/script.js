@@ -44,9 +44,10 @@
 	function invokeEditFeature(ev) {
 		ev.preventDefault();
 
-		var feature_id = $(this).data('id');
+		var $this_btn = $(this),
+			feature_id = $(this).data('id');
 		
-		editFeature(feature_id);
+		editFeature(feature_id, $this_btn);
 
 		return false;
 	}
@@ -88,34 +89,33 @@
 	function invokeAddLink(ev) {
 		ev.preventDefault();
 
-		var $this_btn = $(this),
-			$this_add_link_tr = $this_btn.closest('.add-link-tr'),
-			$env = $this_add_link_tr.find('input[name="env"]'),
-			$url = $this_add_link_tr.find('input[name="url"]'),
-			env = $env.val(),
-			url = $url.val();
+		var $this_modal = $(this).closest('.modal');
 
-		addLink($this_add_link_tr, env, url);
-
-		$env.val('');
-		$url.val('');
+		addLink($this_modal);
 
 		return false;
 	}
 
 	function createFeature(feature_details) {
+		$('#create-feature-btn').addClass('loading');
 		postFeatureData(feature_details)
 			.done(function(data) {
 				console.log('Feature created', data);
-				$('.create-feature-modal').modal('hide');
+				$('#create-feature-modal').modal('hide');
 				window.location.reload();
 			})
 			.fail(function(error) {
 				console.log('Error for feature creation', error);
+				$('#create-feature-modal').modal('hide');
+				showServiceUnavailableError();
+			})
+			.always(function() {
+				$('#create-feature-btn').removeClass('loading');
 			});
 	}
 
-	function editFeature(id) {
+	function editFeature(id, $btn) {
+		$btn.addClass('loading');
 		retrieveFeatureData(id)
 			.done(function(data) {
 				console.log('data retrieved for ' + id);
@@ -125,10 +125,15 @@
 			.fail(function(error) {
 				console.log('ajax fail for ' + id);
 				console.log(error);
+				showServiceUnavailableError();
+			})
+			.always(function() {
+				$btn.removeClass('loading');
 			});
 	}
 
 	function saveEditFeature(id, feature_data) {
+		$('#edit-feature-btn').addClass('loading');
 		updateFeatureData(id, feature_data)
 			.done(function(data) {
 				console.log('done updating with data', data);
@@ -137,16 +142,25 @@
 			})
 			.fail(function(error) {
 				console.log('fail to save edit link with error', error);
+				hideEditFeatureModal();
+				showServiceUnavailableError();
+			})
+			.always(function() {
+				$('#edit-feature-btn').removeClass('loading');
 			});
 	}
 
-	function addLink($add_link_tr, env, url) {
+	function addLink($modal) {
 		var links_markup = '<tr class="feature-link">' +
-							'<td><div class="form-group"><input type="text" class="form-control" name="env" value="' + env + '" /></div></td>' +
-							'<td><div class="form-group"><input type="url" class="form-control" name="url" value="' + url + '" /></div></td>' +
+							'<td><div class="form-group"><input type="text" class="form-control" name="env" value="" required /></div></td>' +
+							'<td><div class="form-group"><input type="url" class="form-control" name="url" value="" required /></div></td>' +
 							'</tr>';
 
-		$add_link_tr.before(links_markup);
+		$modal.find('.links-placeholder').append(links_markup);
+	}
+
+	function showServiceUnavailableError() {
+		$('#service-unavailable-modal').modal('show');
 	}
 
 	function showEditFeatureModal(data) {
@@ -175,14 +189,14 @@
 			$('.edit-feature-form [name="category"]#category-' + category).prop('checked', true);
 		});
 
-		$('.links-placeholder .feature-link').remove();
+		$('.edit-feature-form .links-placeholder .feature-link').remove();
 		$.each(links, function(index, link) {
 			links_markup += '<tr class="feature-link">' +
-							'<td><div class="form-group"><input type="text" class="form-control" name="env" value="' + link.env + '" /></div></td>' +
-							'<td><div class="form-group"><input type="url" class="form-control" name="url" value="' + link.url + '" /></div></td>' +
+							'<td><div class="form-group"><input type="text" class="form-control" name="env" value="' + link.env + '" required /></div></td>' +
+							'<td><div class="form-group"><input type="url" class="form-control" name="url" value="' + link.url + '" required /></div></td>' +
 							'</tr>';
 		});
-		$('.links-placeholder').prepend(links_markup);
+		$('.edit-feature-form .links-placeholder').append(links_markup);
 	}
 
 	/*

@@ -82,6 +82,11 @@ nav a:hover {
 	min-width: 50px;
 }
 
+.btn.loading {
+    background: url('/images/loading-blocks.gif') center center no-repeat;
+    color: transparent;
+}
+
 table, p, span {
 	font-size: 2rem;
 }

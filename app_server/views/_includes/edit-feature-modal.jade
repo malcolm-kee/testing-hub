@@ -43,17 +43,9 @@
 										th.col-xs-4 Env
 										th.col-xs-8 URL
 								tbody.links-placeholder
-									tr.add-link-tr
-										td
-											.form-group
-												input(name="env" type="text" placeholder="(New Env)").form-control
-										td
-											.input-group
-												input(name="url" type="url" placeholder="(New URL)").form-control
-												span.input-group-btn
-													button(type="button").btn.btn-info.js-add-link-btn.pull-right 
-														span.glyphicon.glyphicon-plus.text-large 
-														span.hidden-xs.text-xlarge &nbsp;Add link
+							button(type="button").btn.btn-info.js-add-link-btn
+								span.glyphicon.glyphicon-plus.text-large 
+								span.hidden-xs.text-xlarge &nbsp;Add another link
 				.modal-footer
-					input(type="submit" value="Save changes").btn.btn-primary
+					input(type="submit" value="Save changes").btn.btn-primary#edit-feature-btn
 					button(type="button", data-dismiss="modal").btn.btn-secondary Close
