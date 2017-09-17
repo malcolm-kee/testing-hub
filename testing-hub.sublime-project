@@ -4,5 +4,27 @@
 		{
 			"path": "."
 		}
-	]
+	],
+	"settings": {
+		"js_prettier": {
+		    "debug": false,
+		    "prettier_cli_path": "/Users/wee.siong.kee/AppData/Roaming/npm/node_modules/prettier/bin/prettier",
+		    "node_path": "/Program Files/nodejs/node",
+		    "auto_format_on_save": true,
+		    "auto_format_on_save_excludes": ["*/node_modules/*", "*/.git/*"],
+		    "allow_inline_formatting": false,
+		    "custom_file_extensions": [],
+		    "max_file_size_limit": -1,
+		    "additional_cli_args": {},
+		    "prettier_options": {
+			    "printWidth": 120,
+			    "singleQuote": true,
+			    "trailingComma": "none",
+			    "bracketSpacing": true,
+			    "jsxBracketSameLine": false,
+			    "parser": "flow",
+			    "semi": true
+			}
+		}
+	}
 }

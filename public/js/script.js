@@ -1,5 +1,5 @@
-(function(){
-	"use strict";
+(function() {
+	'use strict';
 
 	$(function() {
 		$('.create-feature-form').on('submit', invokeCreateFeature);
@@ -15,20 +15,26 @@
 			feature_categories = [],
 			feature_links = [];
 
-		$('.create-feature-form [name="category"]').filter(':checked').each(function(index, elem) {
-			var category = $(elem).val();
-			feature_categories.push(category);
-		});
+		$('.create-feature-form [name="category"]')
+			.filter(':checked')
+			.each(function(index, elem) {
+				var category = $(elem).val();
+				feature_categories.push(category);
+			});
 
 		$('.create-feature-form .feature-link').each(function(index, elem) {
-			var env = $(elem).find('input[name="env"]').val(),
-				url = $(elem).find('input[name="url"]').val();
+			var env = $(elem)
+					.find('input[name="env"]')
+					.val(),
+				url = $(elem)
+					.find('input[name="url"]')
+					.val();
 
 			if (env.length > 0 && url.length > 0) {
 				feature_links.push({
 					env: env,
 					url: url
-				});	
+				});
 			}
 		});
 
@@ -46,7 +52,7 @@
 
 		var $this_btn = $(this),
 			feature_id = $(this).data('id');
-		
+
 		editFeature(feature_id, $this_btn);
 
 		return false;
@@ -60,20 +66,26 @@
 			feature_categories = [],
 			feature_links = [];
 
-		$('.edit-feature-form [name="category"]').filter(':checked').each(function(index, elem) {
-			var category = $(elem).val();
-			feature_categories.push(category);
-		});
+		$('.edit-feature-form [name="category"]')
+			.filter(':checked')
+			.each(function(index, elem) {
+				var category = $(elem).val();
+				feature_categories.push(category);
+			});
 
 		$('.edit-feature-form .feature-link').each(function(index, elem) {
-			var env = $(elem).find('input[name="env"]').val(),
-				url = $(elem).find('input[name="url"]').val();
+			var env = $(elem)
+					.find('input[name="env"]')
+					.val(),
+				url = $(elem)
+					.find('input[name="url"]')
+					.val();
 
 			if (env.length > 0 && url.length > 0) {
 				feature_links.push({
 					env: env,
 					url: url
-				});	
+				});
 			}
 		});
 
@@ -151,10 +163,11 @@
 	}
 
 	function addLink($modal) {
-		var links_markup = '<tr class="feature-link">' +
-							'<td><div class="form-group"><input type="text" class="form-control" name="env" value="" required /></div></td>' +
-							'<td><div class="form-group"><input type="url" class="form-control" name="url" value="" required /></div></td>' +
-							'</tr>';
+		var links_markup =
+			'<tr class="feature-link">' +
+			'<td><div class="form-group"><input type="text" class="form-control" name="env" value="" required /></div></td>' +
+			'<td><div class="form-group"><input type="url" class="form-control" name="url" value="" required /></div></td>' +
+			'</tr>';
 
 		$modal.find('.links-placeholder').append(links_markup);
 	}
@@ -168,7 +181,7 @@
 			feature_data = data.features[0];
 
 		populateEditLinkForm(feature_data);
-		
+
 		$edit_link_modal.modal('show');
 	}
 
@@ -191,10 +204,15 @@
 
 		$('.edit-feature-form .links-placeholder .feature-link').remove();
 		$.each(links, function(index, link) {
-			links_markup += '<tr class="feature-link">' +
-							'<td><div class="form-group"><input type="text" class="form-control" name="env" value="' + link.env + '" required /></div></td>' +
-							'<td><div class="form-group"><input type="url" class="form-control" name="url" value="' + link.url + '" required /></div></td>' +
-							'</tr>';
+			links_markup +=
+				'<tr class="feature-link">' +
+				'<td><div class="form-group"><input type="text" class="form-control" name="env" value="' +
+				link.env +
+				'" required /></div></td>' +
+				'<td><div class="form-group"><input type="url" class="form-control" name="url" value="' +
+				link.url +
+				'" required /></div></td>' +
+				'</tr>';
 		});
 		$('.edit-feature-form .links-placeholder').append(links_markup);
 	}

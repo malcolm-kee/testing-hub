@@ -1,9 +1,7 @@
 {
-  "name": "testing-hub",
-  "version": "0.0.0",
-  "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "format": "prettier --write --single-quote --print-width=120 --parser=flow \"src/js/**/*.{js,jsx}\""
   },
   "engines": {
     "node": "~6.9.1",
@@ -19,5 +17,11 @@
     "morgan": "~1.7.0",
     "request": "^2.79.0",
     "serve-favicon": "~2.3.0"
+  },
+  "name": "testing-hub",
+  "version": "0.0.1",
+  "private": true,
+  "devDependencies": {
+    "prettier": "^1.7.0"
   }
 }
