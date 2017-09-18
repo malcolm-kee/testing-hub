@@ -2,144 +2,147 @@ var mongoose = require('mongoose');
 var Feature = mongoose.model('Feature');
 
 var sendJsonResponse = function(res, status, content) {
-    res.status(status);
-    res.json(content);
+  res.status(status);
+  res.json(content);
 };
 
 var validateFeatureJson = function(featureJson) {
-	console.log(featureJson);
-    if (typeof featureJson === "undefined" || featureJson === null) {
-    	console.log("featureJson validation fails");
-        return false;
-    } else if (typeof featureJson.name !== "string" || featureJson.length === 0) {
-    	console.log("featureJson.name validation fails");
-        return false;
-    } else if (Array.isArray(featureJson.categories) === false) {
-    	console.log("featureJson.categories validation fails");
-        return false;
-    } else if (Array.isArray(featureJson.links) === false || featureJson.links.every(validateLinkJson) === false) {
-    	console.log("featureJson.links validation fails");
-        return false;
-    } else {
-    	return true;
-    }
+  console.log(featureJson);
+  if (typeof featureJson === 'undefined' || featureJson === null) {
+    console.log('featureJson validation fails');
+    return false;
+  } else if (typeof featureJson.name !== 'string' || featureJson.length === 0) {
+    console.log('featureJson.name validation fails');
+    return false;
+  } else if (Array.isArray(featureJson.categories) === false) {
+    console.log('featureJson.categories validation fails');
+    return false;
+  } else if (Array.isArray(featureJson.links) === false || featureJson.links.every(validateLinkJson) === false) {
+    console.log('featureJson.links validation fails');
+    return false;
+  } else {
+    return true;
+  }
 
-    function validateLinkJson(element, index, array) {
-        return (typeof element.env === "string" && element.env.length > 0 &&
-            typeof element.url === "string" && element.url.length > 0
-        );
-    }
+  function validateLinkJson(element, index, array) {
+    return (
+      typeof element.env === 'string' &&
+      element.env.length > 0 &&
+      typeof element.url === 'string' &&
+      element.url.length > 0
+    );
+  }
 };
 
 module.exports.featuresList = function(req, res) {
-    Feature.find({}, 'name categories links', function(err, features) {
-        if (err) {
-            sendJsonResponse(res, 404, {
-                "message": "error thrown by DB."
-            });
-            return;
-        } else if (features.length === 0) {
-            sendJsonResponse(res, 404, {
-                "message": "no feature is retrieved."
-            });
-            return;
-        }
-        sendJsonResponse(res, 200, features);
-    });
+  Feature.find({}, 'name categories links', function(err, features) {
+    if (err) {
+      sendJsonResponse(res, 404, {
+        message: 'error thrown by DB.'
+      });
+      return;
+    } else if (features.length === 0) {
+      sendJsonResponse(res, 404, {
+        message: 'no feature is retrieved.'
+      });
+      return;
+    }
+    sendJsonResponse(res, 200, features);
+  });
 };
 
 module.exports.featureCreate = function(req, res) {
-    var feature = req.body;
-    if (validateFeatureJson(feature)) {
-    	Feature.create(feature, function(err, feature) {
-    		if (err) {
-    			console.log(err);
-    			sendJsonResponse(res, 404, {
-                	"message": "error thrown by DB."
-            	});
-            	return;
-    		}
-    		sendJsonResponse(res, 200, { "status": "success", "features": [feature] });
-    	});
-    } else {
-    	sendJsonResponse(res, 400, { "message": "Invalid Json" });
-    }
+  var feature = req.body;
+  if (validateFeatureJson(feature)) {
+    Feature.create(feature, function(err, feature) {
+      if (err) {
+        console.log(err);
+        sendJsonResponse(res, 404, {
+          message: 'error thrown by DB.'
+        });
+        return;
+      }
+      sendJsonResponse(res, 200, { status: 'success', features: [feature] });
+    });
+  } else {
+    sendJsonResponse(res, 400, { message: 'Invalid Json' });
+  }
 };
 
 module.exports.featureReadOne = function(req, res) {
-    Feature.findById(req.params.featureid, 'name categories links', function(err, feature) {
-        if (err) {
-            console.log(err);
-            sendJsonResponse(res, 404, {
-                "message": "error thrown by DB."
-            });
-            return;
-        } else if (feature === null) {
-            sendJsonResponse(res, 404, {
-                "message": "no feature is retrieved."
-            });
-            return;
-        }
-        sendJsonResponse(res, 200, { "status": "success", "features": [feature] });
-    });
+  Feature.findById(req.params.featureid, 'name categories links', function(err, feature) {
+    if (err) {
+      console.log(err);
+      sendJsonResponse(res, 404, {
+        message: 'error thrown by DB.'
+      });
+      return;
+    } else if (feature === null) {
+      sendJsonResponse(res, 404, {
+        message: 'no feature is retrieved.'
+      });
+      return;
+    }
+    sendJsonResponse(res, 200, { status: 'success', features: [feature] });
+  });
 };
 
 module.exports.featureUpdateOne = function(req, res) {
-    console.log('in featureUpdateOne');
-    var feature_input_data = req.body,
-        name = feature_input_data.name,
-        categories = feature_input_data.categories,
-        links = feature_input_data.links;
-    if (validateFeatureJson(feature_input_data) === false) {
-        sendJsonResponse(res, 400, {
-            "message": "Invalid Json."
-        });
-        return;
-    }
-
-    Feature.findById(req.params.featureid, function(err, feature) {
-        if (err) {
-            console.log(err);
-            sendJsonResponse(res, 404, {
-                "message": "error thrown by DB."
-            });
-            return;
-        } else if (feature === null) {
-            sendJsonResponse(res, 404, {
-                "message": "no feature is found."
-            });
-            return;
-        } else {
-            feature.name = name;
-            feature.categories = categories;
-            feature.links = links;
-            feature.save(function(err, feature) {
-                if (err) {
-                    sendJsonResponse(res, 404, err);
-                } else {
-                    sendJsonResponse(res, 200, { "status": "success", "features": [feature] });
-                }
-            });
-        }
+  console.log('in featureUpdateOne');
+  var feature_input_data = req.body,
+    name = feature_input_data.name,
+    categories = feature_input_data.categories,
+    links = feature_input_data.links;
+  if (validateFeatureJson(feature_input_data) === false) {
+    sendJsonResponse(res, 400, {
+      message: 'Invalid Json.'
     });
+    return;
+  }
+
+  Feature.findById(req.params.featureid, function(err, feature) {
+    if (err) {
+      console.log(err);
+      sendJsonResponse(res, 404, {
+        message: 'error thrown by DB.'
+      });
+      return;
+    } else if (feature === null) {
+      sendJsonResponse(res, 404, {
+        message: 'no feature is found.'
+      });
+      return;
+    } else {
+      feature.name = name;
+      feature.categories = categories;
+      feature.links = links;
+      feature.save(function(err, feature) {
+        if (err) {
+          sendJsonResponse(res, 404, err);
+        } else {
+          sendJsonResponse(res, 200, { status: 'success', features: [feature] });
+        }
+      });
+    }
+  });
 };
 
 module.exports.featureDeleteOne = function(req, res) {
-    Feature.findByIdAndRemove(req.params.featureid, function(err, feature) {
-        if (err) {
-            console.log(err);
-            sendJsonResponse(res, 404, {
-                "message": "error thrown by DB."
-            });
-            return;
-        } else if (feature === null) {
-            sendJsonResponse(res, 404, {
-                "message": "no feature is removed."
-            });
-            return;
-        }
-        sendJsonResponse(res, 200, { "status": "success", "features": [feature] });
-    });
+  Feature.findByIdAndRemove(req.params.featureid, function(err, feature) {
+    if (err) {
+      console.log(err);
+      sendJsonResponse(res, 404, {
+        message: 'error thrown by DB.'
+      });
+      return;
+    } else if (feature === null) {
+      sendJsonResponse(res, 404, {
+        message: 'no feature is removed.'
+      });
+      return;
+    }
+    sendJsonResponse(res, 200, { status: 'success', features: [feature] });
+  });
 };
 
 /*module.exports.featuresListPilot = function(req, res) {

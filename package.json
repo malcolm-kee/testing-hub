@@ -1,7 +1,10 @@
 {
   "scripts": {
-    "start": "node ./bin/www",
-    "format": "prettier --write --single-quote --print-width=120 --parser=flow \"src/js/**/*.{js,jsx}\""
+    "start": "npm run build && npm run start-web",
+    "start-web": "node ./bin/www",
+    "build": "webpack",
+    "format":
+      "prettier --write --single-quote --print-width=120 --parser=flow \"{src/js,app_api,app_server}/**/*.{js,jsx}\""
   },
   "engines": {
     "node": "~6.9.1",
@@ -9,14 +12,17 @@
   },
   "dependencies": {
     "body-parser": "~1.15.2",
+    "bootstrap": "3",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
     "express": "~4.14.0",
     "jade": "~1.11.0",
+    "jquery": "^3.2.1",
     "mongoose": "^4.8.3",
     "morgan": "~1.7.0",
     "request": "^2.79.0",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "webpack": "^3.6.0"
   },
   "name": "testing-hub",
   "version": "0.0.1",
