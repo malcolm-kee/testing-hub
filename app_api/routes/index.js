@@ -1,6 +1,6 @@
-var express = require('express');
-var router = express.Router();
-var ctrlFeature = require('../controllers/features');
+const express = require('express');
+const router = express.Router();
+const ctrlFeature = require('../controllers/features');
 
 router.get('/feature', ctrlFeature.featuresList);
 router.post('/feature', ctrlFeature.featureCreate);

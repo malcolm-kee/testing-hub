@@ -3,13 +3,6 @@ import 'bootstrap';
 
 ('use strict');
 
-$(function() {
-  $('.create-feature-form').on('submit', invokeCreateFeature);
-  $('.js-edit-feature-btn').on('click', invokeEditFeature);
-  $('.edit-feature-form').on('submit', invokeSaveEditFeature);
-  $('.js-add-link-btn').on('click', invokeAddLink);
-});
-
 function invokeCreateFeature(ev) {
   ev.preventDefault();
 
@@ -277,3 +270,10 @@ function updateFeatureData(feature_id, feature_details) {
 
   return defer.promise();
 }
+
+$(function() {
+  $('.create-feature-form').on('submit', invokeCreateFeature);
+  $('.js-edit-feature-btn').on('click', invokeEditFeature);
+  $('.edit-feature-form').on('submit', invokeSaveEditFeature);
+  $('.js-add-link-btn').on('click', invokeAddLink);
+});

@@ -5,7 +5,9 @@
     "build": "webpack -p",
     "build:dev": "webpack",
     "format":
-      "prettier --write --single-quote --print-width=120 --parser=flow \"{src/js,app_api,app_server}/**/*.{js,jsx}\""
+      "prettier --write --single-quote --print-width=120 --parser=flow \"{src/js,app_api,app_server}/**/*.{js,jsx}\"",
+    "lint": "eslint **/*.{js,jsx} --quiet",
+    "watch": "webpack --watch"
   },
   "engines": {
     "node": "~6.9.1",
@@ -29,6 +31,15 @@
   "version": "0.0.1",
   "private": true,
   "devDependencies": {
+    "babel-eslint": "^8.0.0",
+    "eslint": "^4.7.1",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-config-prettier": "^2.5.0",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-prettier": "^2.3.1",
+    "eslint-plugin-react": "^7.3.0",
     "prettier": "^1.7.0"
   }
 }
