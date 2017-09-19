@@ -2,7 +2,8 @@
   "scripts": {
     "start": "npm run build && npm run start-web",
     "start-web": "node ./bin/www",
-    "build": "webpack",
+    "build": "webpack -p",
+    "build:dev": "webpack",
     "format":
       "prettier --write --single-quote --print-width=120 --parser=flow \"{src/js,app_api,app_server}/**/*.{js,jsx}\""
   },
