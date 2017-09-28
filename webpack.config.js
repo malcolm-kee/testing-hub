@@ -1,13 +1,12 @@
 const path = require('path');
-const webpack = require('webpack');
 
 module.exports = {
 	context: __dirname,
-	entry: './src/js/App_FE.js',
+	entry: './src/js/ClientApp.jsx',
 	devtool: 'source-map',
 	output: {
 		path: path.join(__dirname, 'public', 'js'),
-		filename: 'bundle.js'
+		filename: 'app.js'
 	},
 	resolve: {
 		extensions: ['.js', '.jsx', '.json']
@@ -17,11 +16,18 @@ module.exports = {
 		reasons: true,
 		chunks: false
 	},
-	plugins: [
-		new webpack.ProvidePlugin({
-			jQuery: 'jquery',
-			$: 'jquery',
-			jquery: 'jquery'
-		})
-	]
+	module: {
+		rules: [
+			{
+				enforce: 'pre',
+				test: /\.jsx?$/,
+				loader: 'eslint-loader',
+				exclude: /node_modules/
+			},
+			{
+				test: /\.jsx?$/,
+				loader: 'babel-loader'
+			}
+		]
+	}
 };

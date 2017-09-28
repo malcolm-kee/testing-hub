@@ -52,7 +52,6 @@ module.exports.admin = (req, res) => {
 
   request(requestOptions, (err, response, body) => {
     if (err) {
-      console.log(err);
       return;
     }
     renderAdminPage(req, res, body);
