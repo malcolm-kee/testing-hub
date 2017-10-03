@@ -21,8 +21,6 @@ const validateFeatureJson = function validateFeatureJson(featureJson) {
     return false;
   } else if (typeof featureJson.name !== 'string' || featureJson.length === 0) {
     return false;
-  } else if (Array.isArray(featureJson.categories) === false) {
-    return false;
   } else if (Array.isArray(featureJson.links) === false || featureJson.links.every(validateLinkJson) === false) {
     return false;
   }

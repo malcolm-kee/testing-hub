@@ -1,15 +1,19 @@
 /* CUSTOM CLASS */
 .page-header {
-    font-family: "Brush Script MT"
+    font-family: 'Brush Script MT';
 }
 
-.popular-links, .preprod-links, .staging-links {
+.popular-links,
+.preprod-links,
+.staging-links {
     background: #eeeeee;
     background: linear-gradient(#eeeeee, rgb(245, 245, 245));
     border-radius: 20px;
 }
 
-.popular-links h2, .preprod-links h2, .staging-links h2 {
+.popular-links h2,
+.preprod-links h2,
+.staging-links h2 {
     padding-top: 10px;
     text-align: center;
 }
@@ -17,7 +21,7 @@
 .offering {
     text-align: center;
     padding: 2px;
-    box-shadow: 0 2px 6px 2px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.2);
     background: #ffffff;
 }
 
@@ -51,21 +55,21 @@
 
 /****
 **
-**	CUSTOM ADJUSTMENT
+**  CUSTOM ADJUSTMENT
 **
 **/
 
 body {
-  padding: 2em;
-  font: 10px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 64px 2em 2em 2em;
+    font: 10px 'Lucida Grande', Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+    color: #00b7ff;
 }
 
 nav {
-    background: #9c27b0
+    background: #9c27b0;
 }
 
 nav a {
@@ -78,8 +82,8 @@ nav a:hover {
 }
 
 .btn {
-	margin: 2px;
-	min-width: 50px;
+    margin: 2px;
+    min-width: 50px;
 }
 
 .btn.loading {
@@ -87,59 +91,94 @@ nav a:hover {
     color: transparent;
 }
 
-table, p, span {
-	font-size: 2rem;
+table,
+p,
+span {
+    font-size: 2rem;
 }
 
 .table.table-shrink {
-	width: auto;
+    width: auto;
 }
 
-.glyphicon-pushpin, .glyphicon-wrench, .glyphicon-cog {
-	font-size: 80%;
-	-webkit-border-radius: 2px;
+.glyphicon-pushpin,
+.glyphicon-wrench,
+.glyphicon-cog {
+    font-size: 80%;
+    -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 4px;
-    padding: 4px
+    padding: 4px;
 }
 
 .row.no-gutters {
-  margin-right: 0;
-  margin-left: 0;
+    margin-right: 0;
+    margin-left: 0;
 }
-.row.no-gutters > [class^="col-"],
-.row.no-gutters > [class*=" col-"] {
-  padding-right: 0;
-  padding-left: 0;
+.row.no-gutters > [class^='col-'],
+.row.no-gutters > [class*=' col-'] {
+    padding-right: 0;
+    padding-left: 0;
 }
 
 .btn-group-justified {
-   border-collapse:separate;
-   border-spacing:5px;
+    border-collapse: separate;
+    border-spacing: 5px;
 }
 
 @media screen and (max-width: 550px) {
-	.page-header h1 {
-		display: none;
-	}
-
-    .page-header {
-        margin: 10px 0 10px;
-    }
-
-/*	table, p, span {
-		font-size: 1.8rem;
-	}
-
-	h2 {
-		font-size: 3rem;
-	}*/
-
-    .col-xs-1,.col-sm-1,.col-md-1,.col-lg-1,.col-xs-2,.col-sm-2,.col-md-2,.col-lg-2,.col-xs-3,.col-sm-3,.col-md-3,.col-lg-3,.col-xs-4,.col-sm-4,.col-md-4,.col-lg-4,.col-xs-5,.col-sm-5,.col-md-5,.col-lg-5,.col-xs-6,.col-sm-6,.col-md-6,.col-lg-6,.col-xs-7,.col-sm-7,.col-md-7,.col-lg-7,.col-xs-8,.col-sm-8,.col-md-8,.col-lg-8,.col-xs-9,.col-sm-9,.col-md-9,.col-lg-9,.col-xs-10,.col-sm-10,.col-md-10,.col-lg-10,.col-xs-11,.col-sm-11,.col-md-11,.col-lg-11,.col-xs-12,.col-sm-12,.col-md-12,.col-lg-12 {
-    position: relative;
-    min-height: 1px;
-    padding-left: 5px;
-    padding-right: 5px
+    .col-xs-1,
+    .col-sm-1,
+    .col-md-1,
+    .col-lg-1,
+    .col-xs-2,
+    .col-sm-2,
+    .col-md-2,
+    .col-lg-2,
+    .col-xs-3,
+    .col-sm-3,
+    .col-md-3,
+    .col-lg-3,
+    .col-xs-4,
+    .col-sm-4,
+    .col-md-4,
+    .col-lg-4,
+    .col-xs-5,
+    .col-sm-5,
+    .col-md-5,
+    .col-lg-5,
+    .col-xs-6,
+    .col-sm-6,
+    .col-md-6,
+    .col-lg-6,
+    .col-xs-7,
+    .col-sm-7,
+    .col-md-7,
+    .col-lg-7,
+    .col-xs-8,
+    .col-sm-8,
+    .col-md-8,
+    .col-lg-8,
+    .col-xs-9,
+    .col-sm-9,
+    .col-md-9,
+    .col-lg-9,
+    .col-xs-10,
+    .col-sm-10,
+    .col-md-10,
+    .col-lg-10,
+    .col-xs-11,
+    .col-sm-11,
+    .col-md-11,
+    .col-lg-11,
+    .col-xs-12,
+    .col-sm-12,
+    .col-md-12,
+    .col-lg-12 {
+        position: relative;
+        min-height: 1px;
+        padding-left: 5px;
+        padding-right: 5px;
     }
 
     .row {
@@ -154,119 +193,119 @@ table, p, span {
 }
 
 @media screen and (max-width: 435px) {
-	h2 {
-		font-size: 2rem;
-	}
+    h2 {
+        font-size: 2rem;
+    }
 }
 
 /*******
-*	
-*	HELPER
+*   
+*   HELPER
 *
-*	
+*   
 */
 
 /* Font Size */
 .text-xxxhuge {
-    font-size: 5.250rem
+    font-size: 5.25rem;
 }
 
 .text-xxhuge {
-    font-size: 4rem
+    font-size: 4rem;
 }
 
 .text-xhuge {
-    font-size: 3.250rem
+    font-size: 3.25rem;
 }
 
 .text-huge {
-    font-size: 2.750rem
+    font-size: 2.75rem;
 }
 
 .text-xxxlarge {
-    font-size: 2.250rem
+    font-size: 2.25rem;
 }
 
 .text-xxlarge {
-    font-size: 1.875rem
+    font-size: 1.875rem;
 }
 
 .text-xlarge {
-    font-size: 1.500rem
+    font-size: 1.5rem;
 }
 
 .text-large {
-    font-size: 1.188rem
+    font-size: 1.188rem;
 }
 
 .text-medium {
-    font-size: 1rem
+    font-size: 1rem;
 }
 
 .text-regular {
-    font-size: 0.875rem
+    font-size: 0.875rem;
 }
 
 .text-small {
-    font-size: 0.813em
+    font-size: 0.813em;
 }
 
 .text-xsmall {
-    font-size: 0.688em
+    font-size: 0.688em;
 }
 
 .text-xxsmall {
-    font-size: 0.500rem
+    font-size: 0.5rem;
 }
 
 @media only screen and (max-width: 550px) {
     .text-xxhuge {
-        font-size:4rem
+        font-size: 4rem;
     }
 
     .text-xxhuge {
-        font-size: 2.750rem
+        font-size: 2.75rem;
     }
 
     .text-xhuge {
-        font-size: 2.2rem
+        font-size: 2.2rem;
     }
 
     .text-huge {
-        font-size: 1.875rem
+        font-size: 1.875rem;
     }
 
     .text-xxxlarge {
-        font-size: 1.688rem
+        font-size: 1.688rem;
     }
 
     .text-xxlarge {
-        font-size: 1.500rem
+        font-size: 1.5rem;
     }
 
     .text-xlarge {
-        font-size: 1.250rem
+        font-size: 1.25rem;
     }
 
     .text-large {
-        font-size: 1rem
+        font-size: 1rem;
     }
 
     .text-medium {
-        font-size: 0.938rem
+        font-size: 0.938rem;
     }
 }
 
 /* COLOR */
 
 .yellow {
-	background-color: #fd0;
-	color: #404040;
+    background-color: #fd0;
+    color: #404040;
 }
 
 .dark {
-	background-color: #222222;
-	color: #ffffff;
+    background-color: #222222;
+    color: #ffffff;
 }
 
 /* POSITIONING */

@@ -22,7 +22,7 @@ class SearchBar extends Component {
 						value={this.props.searchTerm}
 						type="text"
 						className="form-control input-lg"
-						placeholder="What do you want to test?"
+						placeholder="Search here"
 					/>
 				</div>
 			</div>

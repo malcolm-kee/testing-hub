@@ -59,4 +59,6 @@ Catalog.propTypes = {
 	location: PropTypes.shape({ pathname: PropTypes.string.isRequired }).isRequired
 };
 
-export default withRouter(Catalog);
+const CatalogWithRouter = withRouter(Catalog);
+
+export default CatalogWithRouter;
