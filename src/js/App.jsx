@@ -6,17 +6,20 @@ import Catalog from './Catalog';
 import Admin from './Admin';
 import FeatureCreate from './FeatureCreate';
 import FeatureConfig from './FeatureConfig';
+import Sprint from './Sprint';
 // import ErrorMessage from './ErrorMessage';
 import PageNotFoundMessage from './PageNotFoundMessage';
 
 class App extends Component {
 	state = {
 		features: [],
+		sprints: [],
 		error: false,
 		errorMessage: null
 	};
 
 	componentDidMount() {
+		this.refreshSprints();
 		this.refreshFeatures();
 	}
 
@@ -25,6 +28,18 @@ class App extends Component {
 			.get('/api/feature')
 			.then(response => {
 				this.setState({ features: response.data });
+			})
+			.catch(error => {
+				this.setState({ error: true });
+				this.setState({ errorMessage: JSON.stringify(error) });
+			});
+	};
+
+	refreshSprints = () => {
+		axios
+			.get('/api/sprint')
+			.then(response => {
+				this.setState({ sprints: response.data });
 			})
 			.catch(error => {
 				this.setState({ error: true });
@@ -54,6 +69,16 @@ class App extends Component {
 									<FeatureConfig feature={selectedFeature} refreshFeatures={this.refreshFeatures} />
 								);
 							}}
+						/>
+						<Route
+							path="/sprint/:url"
+							component={props => (
+								<Sprint
+									url={props.match.params.url}
+									features={this.state.features}
+									refreshSprints={this.refreshSprints}
+								/>
+							)}
 						/>
 						<Route component={PageNotFoundMessage} />
 					</Switch>

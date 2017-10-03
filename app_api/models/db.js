@@ -43,4 +43,4 @@ process.on('SIGTERM', () => {
   });
 });
 
-require('./dso_schema');
+require('./testhub_schema');

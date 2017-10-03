@@ -19,7 +19,7 @@ const validateFeatureJson = function validateFeatureJson(featureJson) {
 
   if (typeof featureJson === 'undefined' || featureJson === null) {
     return false;
-  } else if (typeof featureJson.name !== 'string' || featureJson.length === 0) {
+  } else if (typeof featureJson.name !== 'string' || featureJson.name.length === 0) {
     return false;
   } else if (Array.isArray(featureJson.links) === false || featureJson.links.every(validateLinkJson) === false) {
     return false;
