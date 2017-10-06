@@ -20,6 +20,8 @@ const featureSchema = new mongoose.Schema({
 const sprintFeatureSchema = new mongoose.Schema({
 	featureId: { type: String, required: true },
 	desc: String
+}).set('toJSON', {
+	virtuals: true
 });
 
 const sprintSchema = new mongoose.Schema({

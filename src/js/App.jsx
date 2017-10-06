@@ -7,6 +7,8 @@ import Admin from './Admin';
 import FeatureCreate from './FeatureCreate';
 import FeatureConfig from './FeatureConfig';
 import Sprint from './Sprint';
+import SprintCreate from './SprintCreate';
+import SprintConfig from './SprintConfig';
 // import ErrorMessage from './ErrorMessage';
 import PageNotFoundMessage from './PageNotFoundMessage';
 
@@ -53,7 +55,11 @@ class App extends Component {
 				<div className="app">
 					<Switch>
 						<Route exact path="/" component={() => <Catalog features={this.state.features} />} />
-						<Route exact path="/admin" component={() => <Admin features={this.state.features} />} />
+						<Route
+							exact
+							path="/admin"
+							component={() => <Admin features={this.state.features} sprints={this.state.sprints} />}
+						/>
 						<Route
 							exact
 							path="/feature-create"
@@ -79,6 +85,26 @@ class App extends Component {
 									refreshSprints={this.refreshSprints}
 								/>
 							)}
+						/>
+						<Route
+							exact
+							path="/sprint-create"
+							component={() => <SprintCreate features={this.state.features} />}
+						/>
+						<Route
+							path="/sprint-config/:id"
+							component={props => {
+								const selectedSprint = this.state.sprints.find(
+									sprint => props.match.params.id === sprint.id
+								);
+								return (
+									<SprintConfig
+										sprint={selectedSprint}
+										refreshSprints={this.refreshSprints}
+										features={this.state.features}
+									/>
+								);
+							}}
 						/>
 						<Route component={PageNotFoundMessage} />
 					</Switch>

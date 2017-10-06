@@ -24,26 +24,39 @@ class FeatureConfig extends Component {
 		});
 	};
 
+	validateForm = () => {
+		this.setState({ error: '' });
+		if (this.state.featureName.length === 0) {
+			this.setState({ error: 'Please populate Name field' });
+			return false;
+		} else if (this.state.featureLinks.length === 0) {
+			this.setState({ error: 'Please add at least a link' });
+			return false;
+		}
+		return true;
+	};
+
 	handleSubmit = event => {
 		event.preventDefault();
-		this.setState({ error: '' });
-		axios
-			.put(`/api/feature/id/${this.state.featureId}`, {
-				id: this.state.featureId,
-				name: this.state.featureName,
-				links: this.state.featureLinks
-			})
-			.then(response => {
-				if (response.status === 200) {
-					this.props.history.goBack();
-					this.props.refreshFeatures();
-				}
-			})
-			.catch(() => {
-				this.setState({
-					error: 'Sorry, we have problem saving your changes. Please try again.'
+		if (this.validateForm()) {
+			axios
+				.put(`/api/feature/id/${this.state.featureId}`, {
+					id: this.state.featureId,
+					name: this.state.featureName,
+					links: this.state.featureLinks
+				})
+				.then(response => {
+					if (response.status === 200) {
+						this.props.history.goBack();
+						this.props.refreshFeatures();
+					}
+				})
+				.catch(() => {
+					this.setState({
+						error: 'Sorry, we have problem saving your changes. Please try again.'
+					});
 				});
-			});
+		}
 	};
 
 	handleDelete = event => {
@@ -74,9 +87,9 @@ class FeatureConfig extends Component {
 		});
 	};
 
-	removeLink = env => {
+	removeLink = id => {
 		this.setState(prevState => {
-			const latestFeatureLinks = prevState.featureLinks.filter(link => link.env !== env);
+			const latestFeatureLinks = prevState.featureLinks.filter(link => link.id !== id);
 
 			return {
 				featureLinks: latestFeatureLinks
@@ -92,12 +105,10 @@ class FeatureConfig extends Component {
 			testLinks = (
 				<div>
 					{this.state.featureLinks.map(featureLink => (
-						<FeatureConfigLink removeLink={this.removeLink} {...featureLink} />
+						<FeatureConfigLink key={featureLink.id} removeLink={this.removeLink} {...featureLink} />
 					))}
 				</div>
 			);
-		} else {
-			testLinks = <pre>No links!</pre>;
 		}
 
 		if (this.state.error.length > 0) {
@@ -121,22 +132,6 @@ class FeatureConfig extends Component {
 								{errorMessage}
 								<fieldset>
 									<legend>Details</legend>
-									<div className="form-group">
-										<label htmlFor="feature-id" className="col-sm-2 col-form-label text-xxlarge">
-											Id
-										</label>
-										<div className="col-sm-10">
-											<input
-												type="text"
-												id="feature-id"
-												name="featureId"
-												className="form-control"
-												readOnly
-												value={this.state.featureId}
-											/>
-											<small className="form-text">This is a system generated value.</small>
-										</div>
-									</div>
 									<div className="form-group">
 										<label htmlFor="feature-name" className="col-sm-2 col-form-label text-xxlarge">
 											Name
@@ -172,7 +167,7 @@ class FeatureConfig extends Component {
 										<span className="glyphicon glyphicon-ok text-large" />
 									</button>
 									<button
-										type="submit"
+										type="button"
 										className="btn btn-danger pull-right"
 										onClick={this.handleDelete}
 									>

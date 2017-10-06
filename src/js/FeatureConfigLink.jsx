@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ulid from 'ulid';
+import { isURL } from 'validator';
 
 class FeatureConfigLink extends Component {
 	state = {
 		id: this.props.id,
 		url: this.props.url,
-		env: this.props.env
+		env: this.props.env,
+		error: ''
 	};
 
 	handleInputChange = event => {
@@ -19,24 +21,38 @@ class FeatureConfigLink extends Component {
 		});
 	};
 
+	validateLink = () => {
+		if (this.state.env.length === 0) {
+			this.setState({ error: 'Env is required' });
+			return false;
+		} else if (isURL(this.state.url) === false) {
+			this.setState({ error: 'Please enter a valid URL' });
+			return false;
+		}
+		return true;
+	};
+
 	handleAddLink = event => {
 		event.preventDefault();
-		this.props.addLink(this.state);
-		this.setState({
-			id: ulid(),
-			url: '',
-			env: ''
-		});
+		if (this.validateLink()) {
+			this.props.addLink({ id: this.state.id, env: this.state.env, url: this.state.url });
+			this.setState({
+				id: ulid(),
+				url: '',
+				env: ''
+			});
+		}
 	};
 
 	handleRemoveLink = event => {
 		event.preventDefault();
-		this.props.removeLink(this.state.env);
+		this.props.removeLink(this.state.id);
 	};
 
 	render() {
 		let actionBtn;
 		let wrapperClass;
+		let errorMessage;
 
 		if (this.props.new) {
 			actionBtn = (
@@ -55,12 +71,16 @@ class FeatureConfigLink extends Component {
 			wrapperClass = 'panel panel-success';
 		}
 
+		if (this.state.error) {
+			errorMessage = <div className="alert alert-danger text-large">{this.state.error}</div>;
+		}
+
 		return (
 			<div className={wrapperClass}>
 				<div className="panel-body">
 					<div className="form form-horizontal">
 						<div className="form-group row">
-							<div className="col-sm-3">
+							<div className="col-xs-12 col-sm-3">
 								<label htmlFor={`link-env-${this.props.id}`} className="text-xlarge control-label">
 									Env
 								</label>
@@ -73,7 +93,7 @@ class FeatureConfigLink extends Component {
 									onChange={this.handleInputChange}
 								/>
 							</div>
-							<div className="col-sm-6">
+							<div className="col-xs-12 col-sm-5">
 								<label htmlFor={`link-url-${this.props.id}`} className="text-xlarge control-label">
 									URL
 								</label>
@@ -86,7 +106,8 @@ class FeatureConfigLink extends Component {
 									onChange={this.handleInputChange}
 								/>
 							</div>
-							<div className="col-sm-3">{actionBtn}</div>
+							<div className="col-xs-8 col-sm-2">{errorMessage}</div>
+							<div className="col-xs-4 col-sm-2">{actionBtn}</div>
 						</div>
 					</div>
 				</div>

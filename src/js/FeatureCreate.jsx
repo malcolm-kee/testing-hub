@@ -23,25 +23,38 @@ class FeatureCreate extends Component {
 		});
 	};
 
+	validateForm = () => {
+		if (this.state.name.length === 0) {
+			this.setState({ error: 'Please populate Name field' });
+			return false;
+		} else if (this.state.links.length === 0) {
+			this.setState({ error: 'Please add at least a link' });
+			return false;
+		}
+		return true;
+	};
+
 	handleSubmit = event => {
 		event.preventDefault();
 		this.setState({ error: '' });
-		axios
-			.post('/api/feature', {
-				name: this.state.name,
-				links: this.state.links
-			})
-			.then(response => {
-				if (response.status === 200) {
-					this.props.refreshFeatures();
-					this.props.history.goBack();
-				}
-			})
-			.catch(() => {
-				this.setState({
-					error: 'Sorry, we have problem add your test link. Please try again.'
+		if (this.validateForm()) {
+			axios
+				.post('/api/feature', {
+					name: this.state.name,
+					links: this.state.links
+				})
+				.then(response => {
+					if (response.status === 200) {
+						this.props.refreshFeatures();
+						this.props.history.goBack();
+					}
+				})
+				.catch(() => {
+					this.setState({
+						error: 'Sorry, we have problem add your test link. Please try again.'
+					});
 				});
-			});
+		}
 	};
 
 	addLink = link => {
@@ -66,15 +79,18 @@ class FeatureCreate extends Component {
 
 	render() {
 		let testLinks;
+		let errorMessage;
 
 		if (this.state.links.length > 0) {
 			testLinks = (
 				<div>{this.state.links.map(link => <FeatureConfigLink removeLink={this.removeLink} {...link} />)}</div>
 			);
-		} else {
-			testLinks = (
+		}
+
+		if (this.state.error) {
+			errorMessage = (
 				<div className="alert alert-danger">
-					<p className="text-xlarge">No link has been added!</p>
+					<p className="text-xlarge">{this.state.error}</p>
 				</div>
 			);
 		}
@@ -89,6 +105,7 @@ class FeatureCreate extends Component {
 						</header>
 						<div className="container">
 							<form className="form-horizontal">
+								{errorMessage}
 								<fieldset>
 									<legend>Details</legend>
 									<div className="form-group">

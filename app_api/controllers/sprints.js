@@ -25,7 +25,7 @@ const validateSprintJson = function validateSprintJson(sprintJson) {
 };
 
 module.exports.sprintsList = function exportSprintList(req, res) {
-  Sprint.find({}, 'name url desc features', (err, sprints) => {
+  Sprint.find({}, 'name url', (err, sprints) => {
     if (err) {
       sendJsonResponse(res, 404, {
         message: 'error thrown by DB.'
@@ -124,26 +124,26 @@ module.exports.sprintUpdateOne = function exportSprintUpdateOne(req, res) {
         if (saveErr) {
           sendJsonResponse(res, 404, saveErr);
         } else {
-          sendJsonResponse(res, 200, { status: 'success', features: [savedSprint] });
+          sendJsonResponse(res, 200, { status: 'success', sprints: [savedSprint] });
         }
       });
     }
   });
 };
 
-module.exports.sprintDeleteOne = function exportFeatureDeleteOne(req, res) {
-  Sprint.findByIdAndRemove(req.params.featureid, (err, feature) => {
+module.exports.sprintDeleteOne = function exportSprintDeleteOne(req, res) {
+  Sprint.findByIdAndRemove(req.params.sprintid, (err, sprint) => {
     if (err) {
       sendJsonResponse(res, 404, {
         message: 'error thrown by DB.'
       });
       return;
-    } else if (feature === null) {
+    } else if (sprint === null) {
       sendJsonResponse(res, 404, {
-        message: 'no feature is removed.'
+        message: 'no sprint is removed.'
       });
       return;
     }
-    sendJsonResponse(res, 200, { status: 'success', features: [feature] });
+    sendJsonResponse(res, 200, { status: 'success', sprints: [sprint] });
   });
 };

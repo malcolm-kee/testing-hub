@@ -54,6 +54,7 @@
         "serve-favicon": "~2.3.0",
         "styled-components": "^2.2.0",
         "ulid": "^1.0.0",
+        "validator": "^9.0.0",
         "webpack": "^3.6.0"
     },
     "name": "testing-hub",

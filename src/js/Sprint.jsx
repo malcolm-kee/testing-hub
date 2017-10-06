@@ -13,7 +13,8 @@ class Sprint extends Component {
 		url: '',
 		desc: '',
 		features: [],
-		searchTerm: ''
+		searchTerm: '',
+		error: ''
 	};
 
 	componentWillMount() {
@@ -22,8 +23,10 @@ class Sprint extends Component {
 			.then(response => {
 				this.setState(response.data.sprints[0]);
 			})
-			.catch(error => {
-				console.log(error);
+			.catch(() => {
+				this.setState({
+					error: 'Sorry, we have problem getting your sprint page.'
+				});
 			});
 	}
 
@@ -33,7 +36,13 @@ class Sprint extends Component {
 
 	render() {
 		let content;
-		if (this.props.features.length > 0) {
+		if (this.state.error) {
+			content = (
+				<div className="alert alert-danger">
+					<p className="text-xlarge">{this.state.error}</p>
+				</div>
+			);
+		} else if (this.props.features.length > 0) {
 			content = this.props.features
 				.filter(feature => this.state.features.some(sprintFeature => sprintFeature.featureId === feature.id))
 				.filter(feature => feature.name.toUpperCase().indexOf(this.state.searchTerm.toUpperCase()) >= 0)
@@ -53,6 +62,7 @@ class Sprint extends Component {
 					<div className="row">
 						<header className="page-header">
 							<h1>{this.state.name}</h1>
+							<p>{this.state.desc}</p>
 						</header>
 						<div className="container">
 							<SearchBar
