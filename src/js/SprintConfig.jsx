@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import axios from 'axios';
+import copy from 'copy-to-clipboard';
 
 import Header from './Header';
 import Spinner from './Spinner';
@@ -97,6 +98,13 @@ class SprintConfig extends Component {
 					error: 'Sorry, we have problem delete this test sprint. Please try again.'
 				});
 			});
+	};
+
+	handleCopyUrl = event => {
+		event.preventDefault();
+		copy(`${window.location.origin}/sprint/${this.state.url}`, {
+			message: 'URL copied!'
+		});
 	};
 
 	handleSearchTermChange = event => {
@@ -199,6 +207,11 @@ class SprintConfig extends Component {
 													value={this.state.url}
 													onChange={this.handleInputChange}
 												/>
+												<span className="input-group-btn">
+													<button className="btn btn-default" onClick={this.handleCopyUrl}>
+														<span className="glyphicon glyphicon-copy text-large" />
+													</button>
+												</span>
 											</div>
 										</div>
 									</div>
