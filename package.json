@@ -2,8 +2,8 @@
     "scripts": {
         "start": "node ./bin/www",
         "build": "webpack -p",
-        "build:dev": "webpack",
-        "dev": "webpack-dev-server",
+        "build:dev": "webpack --config webpack.dev.config.js",
+        "dev": "webpack-dev-server --config webpack.dev.config.js",
         "format":
             "prettier --write --single-quote --print-width=120 --parser=flow \"{src/js,app_api,app_server}/**/*.{js,jsx}\"",
         "lint": "eslint **/*.{js,jsx} --quiet",
@@ -59,7 +59,8 @@
         "styled-components": "^2.2.0",
         "ulid": "^1.0.0",
         "validator": "^9.0.0",
-        "webpack": "^3.6.0"
+        "webpack": "^3.6.0",
+        "webpack-merge": "^4.1.0"
     },
     "name": "testing-hub",
     "version": "0.0.1",
