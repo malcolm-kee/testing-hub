@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
-import axios from 'axios';
 
 import Header from './Header';
 import Spinner from './Spinner';
 import SearchBar from './SearchBar';
 import SprintFeature from './SprintFeature';
+
+import sprintData from './data/sprintData';
 
 class SprintCreate extends Component {
 	state = {
@@ -47,17 +48,16 @@ class SprintCreate extends Component {
 		event.preventDefault();
 
 		if (this.validateForm()) {
-			axios
-				.post('/api/sprint', {
+			sprintData
+				.create({
 					name: this.state.name,
 					url: this.state.url,
 					desc: this.state.desc,
 					features: this.state.features
 				})
-				.then(response => {
-					if (response.status === 200) {
-						this.props.history.goBack();
-					}
+				.then(() => {
+					this.props.refreshSprints();
+					this.props.history.goBack();
 				})
 				.catch(() => {
 					this.setState({
@@ -247,6 +247,7 @@ class SprintCreate extends Component {
 
 SprintCreate.propTypes = {
 	history: PropTypes.shape({ goBack: PropTypes.func.isRequired }).isRequired,
+	refreshSprints: PropTypes.func.isRequired,
 	features: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string.isRequired, name: PropTypes.string.isRequired }))
 		.isRequired
 };

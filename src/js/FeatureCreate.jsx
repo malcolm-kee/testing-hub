@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
-import axios from 'axios';
 
 import Header from './Header';
 import FeatureConfigLink from './FeatureConfigLink';
+import featureData from './data/featureData';
 
 class FeatureCreate extends Component {
 	state = {
@@ -38,16 +38,14 @@ class FeatureCreate extends Component {
 		event.preventDefault();
 		this.setState({ error: '' });
 		if (this.validateForm()) {
-			axios
-				.post('/api/feature', {
+			featureData
+				.create({
 					name: this.state.name,
 					links: this.state.links
 				})
-				.then(response => {
-					if (response.status === 200) {
-						this.props.refreshFeatures();
-						this.props.history.goBack();
-					}
+				.then(() => {
+					this.props.refreshFeatures();
+					this.props.history.goBack();
 				})
 				.catch(() => {
 					this.setState({
@@ -83,7 +81,11 @@ class FeatureCreate extends Component {
 
 		if (this.state.links.length > 0) {
 			testLinks = (
-				<div>{this.state.links.map(link => <FeatureConfigLink removeLink={this.removeLink} {...link} />)}</div>
+				<div>
+					{this.state.links.map(link => (
+						<FeatureConfigLink key={link.id} removeLink={this.removeLink} {...link} />
+					))}
+				</div>
 			);
 		}
 

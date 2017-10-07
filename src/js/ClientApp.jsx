@@ -6,3 +6,9 @@ const renderApp = () => {
 	render(<App />, document.getElementById('app'));
 };
 renderApp();
+
+if (module.hot) {
+	module.hot.accept('./App', () => {
+		renderApp();
+	});
+}

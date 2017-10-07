@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
-import axios from 'axios';
 import copy from 'copy-to-clipboard';
 
 import Header from './Header';
 import Spinner from './Spinner';
 import SearchBar from './SearchBar';
 import SprintFeature from './SprintFeature';
+
+import sprintData from './data/sprintData';
 
 class SprintConfig extends Component {
 	state = {
@@ -21,10 +22,10 @@ class SprintConfig extends Component {
 	};
 
 	componentDidMount() {
-		axios
-			.get(`/api/sprint/id/${this.props.sprint.id}`)
-			.then(response => {
-				this.setState(response.data.sprints[0]);
+		sprintData
+			.getOne({ id: this.props.sprint.id })
+			.then(sprint => {
+				this.setState(sprint);
 			})
 			.catch(() => {
 				this.setState({
@@ -61,18 +62,17 @@ class SprintConfig extends Component {
 	handleSubmit = event => {
 		event.preventDefault();
 		if (this.validateForm()) {
-			axios
-				.put(`/api/sprint/id/${this.state.id}`, {
+			sprintData
+				.update({
+					id: this.state.id,
 					name: this.state.name,
 					url: this.state.url,
 					desc: this.state.desc,
 					features: this.state.features
 				})
-				.then(response => {
-					if (response.status === 200) {
-						this.props.refreshSprints();
-						this.props.history.goBack();
-					}
+				.then(() => {
+					this.props.refreshSprints();
+					this.props.history.goBack();
 				})
 				.catch(() => {
 					this.setState({
@@ -85,13 +85,11 @@ class SprintConfig extends Component {
 	handleDelete = event => {
 		event.preventDefault();
 		this.setState({ error: '' });
-		axios
-			.delete(`/api/sprint/id/${this.state.id}`)
-			.then(response => {
-				if (response.status === 200) {
-					this.props.refreshSprints();
-					this.props.history.goBack();
-				}
+		sprintData
+			.remove({ id: this.state.id })
+			.then(() => {
+				this.props.refreshSprints();
+				this.props.history.goBack();
 			})
 			.catch(() => {
 				this.setState({

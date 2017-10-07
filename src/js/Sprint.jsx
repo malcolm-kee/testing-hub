@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 
 import Feature from './Feature';
 import Header from './Header';
 import SearchBar from './SearchBar';
 import Spinner from './Spinner';
+
+import sprintData from './data/sprintData';
 
 class Sprint extends Component {
 	state = {
@@ -18,10 +19,10 @@ class Sprint extends Component {
 	};
 
 	componentWillMount() {
-		axios
-			.get(`/api/sprint/url/${this.props.url}`)
-			.then(response => {
-				this.setState(response.data.sprints[0]);
+		sprintData
+			.getOne({ url: this.props.url })
+			.then(sprint => {
+				this.setState(sprint);
 			})
 			.catch(() => {
 				this.setState({

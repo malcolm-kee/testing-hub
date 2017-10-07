@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import axios from 'axios';
 // import preload from './data.json';
 import Catalog from './Catalog';
 import Admin from './Admin';
@@ -11,6 +10,9 @@ import SprintCreate from './SprintCreate';
 import SprintConfig from './SprintConfig';
 // import ErrorMessage from './ErrorMessage';
 import PageNotFoundMessage from './PageNotFoundMessage';
+
+import featureData from './data/featureData';
+import sprintData from './data/sprintData';
 
 class App extends Component {
 	state = {
@@ -26,26 +28,26 @@ class App extends Component {
 	}
 
 	refreshFeatures = () => {
-		axios
-			.get('/api/feature')
-			.then(response => {
-				this.setState({ features: response.data });
+		featureData
+			.getAll()
+			.then(features => {
+				this.setState({ features });
 			})
-			.catch(error => {
+			.catch(() => {
 				this.setState({ error: true });
-				this.setState({ errorMessage: JSON.stringify(error) });
+				this.setState({ errorMessage: 'Error while getting features data' });
 			});
 	};
 
 	refreshSprints = () => {
-		axios
-			.get('/api/sprint')
-			.then(response => {
-				this.setState({ sprints: response.data });
+		sprintData
+			.getAll()
+			.then(sprints => {
+				this.setState({ sprints });
 			})
-			.catch(error => {
+			.catch(() => {
 				this.setState({ error: true });
-				this.setState({ errorMessage: JSON.stringify(error) });
+				this.setState({ errorMessage: 'Error while getting sprints data' });
 			});
 	};
 
@@ -89,7 +91,9 @@ class App extends Component {
 						<Route
 							exact
 							path="/sprint-create"
-							component={() => <SprintCreate features={this.state.features} />}
+							component={() => (
+								<SprintCreate refreshSprints={this.refreshSprints} features={this.state.features} />
+							)}
 						/>
 						<Route
 							path="/sprint-config/:id"

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
-import axios from 'axios';
 
 import Header from './Header';
 import FeatureConfigLink from './FeatureConfigLink';
+
+import featureData from './data/featureData';
 
 class FeatureConfig extends Component {
 	state = {
@@ -39,17 +40,15 @@ class FeatureConfig extends Component {
 	handleSubmit = event => {
 		event.preventDefault();
 		if (this.validateForm()) {
-			axios
-				.put(`/api/feature/id/${this.state.featureId}`, {
+			featureData
+				.update({
 					id: this.state.featureId,
 					name: this.state.featureName,
 					links: this.state.featureLinks
 				})
-				.then(response => {
-					if (response.status === 200) {
-						this.props.history.goBack();
-						this.props.refreshFeatures();
-					}
+				.then(() => {
+					this.props.history.goBack();
+					this.props.refreshFeatures();
 				})
 				.catch(() => {
 					this.setState({
@@ -62,13 +61,11 @@ class FeatureConfig extends Component {
 	handleDelete = event => {
 		event.preventDefault();
 		this.setState({ error: '' });
-		axios
-			.delete(`/api/feature/id/${this.state.featureId}`)
-			.then(response => {
-				if (response.status === 200) {
-					this.props.history.goBack();
-					this.props.refreshFeatures();
-				}
+		featureData
+			.remove({ id: this.state.featureId })
+			.then(() => {
+				this.props.history.goBack();
+				this.props.refreshFeatures();
 			})
 			.catch(() => {
 				this.setState({
