@@ -4,8 +4,7 @@
         "build": "webpack -p",
         "build:dev": "webpack --config webpack.dev.config.js",
         "dev": "webpack-dev-server --config webpack.dev.config.js",
-        "format":
-            "prettier --write --single-quote --print-width=120 --parser=flow \"{src/js,app_api,app_server}/**/*.{js,jsx}\"",
+        "format": "prettier --write --single-quote --print-width=120 --parser=flow \"{src/js,app_api,app_server}/**/*.{js,jsx}\"",
         "lint": "eslint **/*.{js,jsx} --quiet",
         "watch": "webpack --watch",
         "heroku-postbuild": "npm run build"
@@ -43,8 +42,6 @@
         "eslint-plugin-prettier": "^2.3.1",
         "eslint-plugin-react": "^7.3.0",
         "express": "~4.14.0",
-        "jade": "~1.11.0",
-        "jquery": "^3.2.1",
         "mongoose": "^4.8.3",
         "mongoose-unique-validator": "^1.0.6",
         "morgan": "~1.7.0",

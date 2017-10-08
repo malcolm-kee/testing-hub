@@ -118,7 +118,7 @@ class FeatureConfig extends Component {
 
 		return (
 			<div>
-				<Header />
+				<Header back next nextAction={this.handleSubmit} backAction={this.props.history.goBack} />
 				<div className="container">
 					<div className="row">
 						<header className="page-header">
