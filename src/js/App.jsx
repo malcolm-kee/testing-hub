@@ -56,7 +56,11 @@ class App extends Component {
 			<BrowserRouter>
 				<div className="app">
 					<Switch>
-						<Route exact path="/" component={() => <Catalog features={this.state.features} />} />
+						<Route
+							exact
+							path="/"
+							component={() => <Catalog features={this.state.features} sprints={this.state.sprints} />}
+						/>
 						<Route
 							exact
 							path="/admin"

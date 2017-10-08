@@ -39,9 +39,11 @@ const Header = props => {
 	return (
 		<nav className="navbar navbar-fixed-top">
 			<div className="container">
-				<Link to="/" className="navbar-brand">
-					Testing Hub
-				</Link>
+				<div className="navbar-header">
+					<Link to="/" className="navbar-brand">
+						Testing Hub
+					</Link>
+				</div>
 				{navigator}
 			</div>
 		</nav>

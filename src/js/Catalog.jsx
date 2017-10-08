@@ -1,32 +1,74 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import Feature from './Feature';
 import Header from './Header';
 import SearchBar from './SearchBar';
 import Spinner from './Spinner';
 
+import preferenceData from './data/preferenceData';
+
 class Catalog extends Component {
 	state = {
-		searchTerm: ''
+		searchTerm: '',
+		fav: preferenceData.getFavFeatures()
 	};
 
 	handleSearchTermChange = event => {
 		this.setState({ searchTerm: event.target.value });
 	};
 
-	render() {
-		let content;
-		if (this.props.features.length > 0) {
-			content = this.props.features
-				.filter(feature => feature.name.toUpperCase().indexOf(this.state.searchTerm.toUpperCase()) >= 0)
-				.map(feature => (
-					<div key={feature.id} className="col-xs-6 col-sm-4 col-md-3 pad-vertical">
-						<Feature {...feature} />
-					</div>
-				));
+	toggleFav = id => {
+		if (this.state.fav.includes(id) === true) {
+			const updatedFav = preferenceData.removeFavFeature(id);
+			this.setState({ fav: updatedFav });
 		} else {
-			content = <Spinner />;
+			const updatedFav = preferenceData.addFavFeature(id);
+			this.setState({ fav: updatedFav });
+		}
+	};
+
+	render() {
+		let sprintContent;
+		let featureContent;
+
+		if (this.props.sprints.length > 0) {
+			sprintContent = this.props.sprints.map(sprint => {
+				const urlTarget = `/sprint/${sprint.url}`;
+				return (
+					<li key={sprint.id}>
+						<Link to={urlTarget} className="text-xlarge">
+							{sprint.name}
+						</Link>
+					</li>
+				);
+			});
+		} else {
+			sprintContent = <Spinner />;
+		}
+
+		if (this.props.features.length > 0) {
+			featureContent = this.props.features
+				.filter(feature => feature.name.toUpperCase().indexOf(this.state.searchTerm.toUpperCase()) >= 0)
+				.sort((a, b) => {
+					if (this.state.fav.includes(a.id) && !this.state.fav.includes(b.id)) {
+						return -1;
+					} else if (!this.state.fav.includes(a.id) && this.state.fav.includes(b.id)) {
+						return 1;
+					}
+					return 0;
+				})
+				.map(feature => {
+					const pinned = this.state.fav.includes(feature.id);
+					return (
+						<div key={feature.id} className="col-xs-6 col-sm-4 col-md-3 pad-vertical">
+							<Feature toggleFav={this.toggleFav} pinned={pinned} {...feature} />
+						</div>
+					);
+				});
+		} else {
+			featureContent = <Spinner />;
 		}
 
 		return (
@@ -38,12 +80,27 @@ class Catalog extends Component {
 							<h1>Testing Links</h1>
 						</header>
 						<div className="container">
+							<nav className="navbar navbar-inverse">
+								<div className="container-fluid">
+									<div className="navbar-header">
+										<span className="navbar-brand">
+											Sprint&nbsp;
+											<span className="glyphicon glyphicon-file text-xxlarge" />
+										</span>
+									</div>
+									<div className="collapse navbar-collapse">
+										<ul className="nav navbar-nav">{sprintContent}</ul>
+									</div>
+								</div>
+							</nav>
+						</div>
+						<div className="container">
 							<SearchBar
 								handleSearchTermChange={this.handleSearchTermChange}
 								searchTerm={this.state.searchTerm}
 							/>
 							<div className="row">
-								<div className="col-sm-12 col-xs-12">{content}</div>
+								<div className="col-sm-12 col-xs-12">{featureContent}</div>
 							</div>
 						</div>
 					</div>
@@ -54,7 +111,14 @@ class Catalog extends Component {
 }
 
 Catalog.propTypes = {
-	features: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string.isRequired })).isRequired
+	features: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string.isRequired })).isRequired,
+	sprints: PropTypes.arrayOf(
+		PropTypes.shape({
+			id: PropTypes.string.isRequired,
+			url: PropTypes.string.isRequired,
+			name: PropTypes.string.isRequired
+		})
+	).isRequired
 };
 
 export default Catalog;

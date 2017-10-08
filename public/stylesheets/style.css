@@ -1,4 +1,19 @@
 /* CUSTOM CLASS */
+.fav-icon {
+    position: absolute;
+    top: 3px;
+    right: 10px;
+    font-weight: 200;
+    color: yellow;
+}
+
+.fav-icon button,
+.fav-icon button:active,
+.fav-icon button:focus {
+    background-color: transparent;
+    border: none;
+    outline: 0;
+}
 
 .popular-links,
 .preprod-links,
