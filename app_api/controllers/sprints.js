@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const merge = require('merge');
 
 const Sprint = mongoose.model('Sprint');
 
@@ -8,8 +9,8 @@ const sendJsonResponse = function sendJsonResponse(res, status, content) {
 };
 
 const validateSprintJson = function validateSprintJson(sprintJson) {
-  function validateFeatureJson(element) {
-    return typeof element.featureId === 'string' && element.featureId.length > 0;
+  function validateSprintItem(element) {
+    return typeof element.name === 'string' && element.name.length > 0;
   }
 
   if (typeof sprintJson === 'undefined' || sprintJson === null) {
@@ -18,7 +19,10 @@ const validateSprintJson = function validateSprintJson(sprintJson) {
     return false;
   } else if (typeof sprintJson.url !== 'string' || sprintJson.url.length === 0) {
     return false;
-  } else if (Array.isArray(sprintJson.features) === false || sprintJson.features.every(validateFeatureJson) === false) {
+  } else if (
+    Array.isArray(sprintJson.sprintItems) === false ||
+    sprintJson.sprintItems.every(validateSprintItem) === false
+  ) {
     return false;
   }
   return true;
@@ -41,7 +45,7 @@ module.exports.sprintsList = function exportSprintList(req, res) {
   });
 };
 
-module.exports.sprintCreate = function exportFeatureCreate(req, res) {
+module.exports.sprintCreate = function exportSprintCreate(req, res) {
   const sprint = req.body;
   if (validateSprintJson(sprint)) {
     Sprint.create(sprint, (err, createdSprints) => {
@@ -59,7 +63,7 @@ module.exports.sprintCreate = function exportFeatureCreate(req, res) {
 };
 
 module.exports.sprintReadOne = function exportSprintReadOne(req, res) {
-  Sprint.findById(req.params.sprintid, 'name url desc features', (err, sprint) => {
+  Sprint.findById(req.params.sprintid, 'name url desc sprintItems', (err, sprint) => {
     if (err) {
       sendJsonResponse(res, 404, {
         message: 'error thrown by DB.'
@@ -76,7 +80,7 @@ module.exports.sprintReadOne = function exportSprintReadOne(req, res) {
 };
 
 module.exports.sprintReadOneByUrl = function exportSprintReadOneByUrl(req, res) {
-  Sprint.findOne({ url: req.params.sprinturl }, 'name url desc features', (err, sprint) => {
+  Sprint.findOne({ url: req.params.sprinturl }, 'name url desc sprintItems', (err, sprint) => {
     if (err) {
       sendJsonResponse(res, 404, {
         message: 'error thrown by DB.'
@@ -97,7 +101,7 @@ module.exports.sprintUpdateOne = function exportSprintUpdateOne(req, res) {
   const name = sprintInputData.name;
   const url = sprintInputData.url;
   const desc = sprintInputData.desc;
-  const features = sprintInputData.features;
+  const sprintItems = sprintInputData.sprintItems;
 
   if (validateSprintJson(sprintInputData) === false) {
     sendJsonResponse(res, 400, {
@@ -119,7 +123,50 @@ module.exports.sprintUpdateOne = function exportSprintUpdateOne(req, res) {
       sprint.name = name;
       sprint.url = url;
       sprint.desc = desc;
-      sprint.features = features;
+      sprint.sprintItems = sprintItems;
+      sprint.save((saveErr, savedSprint) => {
+        if (saveErr) {
+          sendJsonResponse(res, 404, saveErr);
+        } else {
+          sendJsonResponse(res, 200, { status: 'success', sprints: [savedSprint] });
+        }
+      });
+    }
+  });
+};
+
+module.exports.sprintItemUpdateOne = function exportSprintItemUpdateOne(req, res) {
+  const sprintInputData = req.body;
+  const newStatus = sprintInputData.status;
+
+  if (
+    typeof newStatus === 'undefined' ||
+    newStatus === null ||
+    ['Not Started', 'In Progress', 'Passed', 'Blocked'].includes(newStatus) === false
+  ) {
+    sendJsonResponse(res, 400, {
+      message: 'Invalid Json.'
+    });
+    return;
+  }
+
+  Sprint.findById(req.params.sprintid, (err, sprint) => {
+    if (err) {
+      sendJsonResponse(res, 404, {
+        message: 'error thrown by DB.'
+      });
+    } else if (sprint === null) {
+      sendJsonResponse(res, 404, {
+        message: 'no sprint is found.'
+      });
+    } else {
+      const currentSprintItems = sprint.sprintItems;
+      sprint.sprintItems = currentSprintItems.map(sprintItem => {
+        if (sprintItem.id === req.params.itemid) {
+          return merge(sprintItem, { status: newStatus });
+        }
+        return sprintItem;
+      });
       sprint.save((saveErr, savedSprint) => {
         if (saveErr) {
           sendJsonResponse(res, 404, saveErr);

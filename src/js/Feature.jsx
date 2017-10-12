@@ -31,22 +31,30 @@ class Feature extends Component {
 					))}
 				</div>
 			);
-		}
 
-		if (this.props.pinned === true) {
-			favIcon = <span className="glyphicon glyphicon-heart text-xxxlarge" />;
-		} else {
-			favIcon = <span className="glyphicon glyphicon-heart-empty text-xxxlarge" />;
+			if (this.props.pinned === true) {
+				favIcon = (
+					<div className="fav-icon">
+						<button type="button" onClick={this.handleToggleFav}>
+							<span className="glyphicon glyphicon-heart text-xxxlarge" />
+						</button>
+					</div>
+				);
+			} else {
+				favIcon = (
+					<div className="fav-icon">
+						<button type="button" onClick={this.handleToggleFav}>
+							<span className="glyphicon glyphicon-heart-empty text-xxxlarge" />
+						</button>
+					</div>
+				);
+			}
 		}
 
 		return (
 			<div className="panel panel-default" id={this.props.id}>
 				<div className="panel-body">
-					<div className="fav-icon">
-						<button type="button" onClick={this.handleToggleFav}>
-							{favIcon}
-						</button>
-					</div>
+					{favIcon}
 					<h3 className="text-xxlarge">{this.props.name}</h3>
 				</div>
 				<div className="panel-footer">{actionBar}</div>

@@ -17,8 +17,19 @@ const featureSchema = new mongoose.Schema({
 	virtuals: true
 });
 
-const sprintFeatureSchema = new mongoose.Schema({
+/* const sprintFeatureSchema = new mongoose.Schema({
 	featureId: { type: String, required: true },
+	desc: String,
+	status: String
+}).set('toJSON', {
+	virtuals: true
+});
+*/
+
+const sprintItem = new mongoose.Schema({
+	name: { type: String, required: true },
+	featureId: String,
+	status: String,
 	desc: String
 }).set('toJSON', {
 	virtuals: true
@@ -28,7 +39,7 @@ const sprintSchema = new mongoose.Schema({
 	name: { type: String, required: true },
 	url: { type: String, required: true, unique: true },
 	desc: String,
-	features: [sprintFeatureSchema]
+	sprintItems: [sprintItem]
 })
 	.set('toJSON', {
 		virtuals: true

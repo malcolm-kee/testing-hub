@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { Navbar, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
 
 import Feature from './Feature';
 import Header from './Header';
@@ -37,11 +38,11 @@ class Catalog extends Component {
 			sprintContent = this.props.sprints.map(sprint => {
 				const urlTarget = `/sprint/${sprint.url}`;
 				return (
-					<li key={sprint.id}>
+					<MenuItem key={sprint.id}>
 						<Link to={urlTarget} className="text-xlarge">
 							{sprint.name}
 						</Link>
-					</li>
+					</MenuItem>
 				);
 			});
 		} else {
@@ -80,19 +81,11 @@ class Catalog extends Component {
 							<h1>Testing Links</h1>
 						</header>
 						<div className="container">
-							<nav className="navbar navbar-inverse">
-								<div className="container-fluid">
-									<div className="navbar-header">
-										<span className="navbar-brand">
-											Sprint&nbsp;
-											<span className="glyphicon glyphicon-file text-xxlarge" />
-										</span>
-									</div>
-									<div className="collapse navbar-collapse">
-										<ul className="nav navbar-nav">{sprintContent}</ul>
-									</div>
-								</div>
-							</nav>
+							<Navbar inverse>
+								<Nav className="text-xxlarge">
+									<NavDropdown title="Sprint">{sprintContent}</NavDropdown>
+								</Nav>
+							</Navbar>
 						</div>
 						<div className="container">
 							<SearchBar

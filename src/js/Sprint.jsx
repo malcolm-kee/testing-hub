@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Feature from './Feature';
+import SprintItem from './SprintItem';
 import Header from './Header';
 import SearchBar from './SearchBar';
 import Spinner from './Spinner';
@@ -10,10 +10,11 @@ import sprintData from './data/sprintData';
 
 class Sprint extends Component {
 	state = {
+		id: '',
 		name: '',
 		url: '',
 		desc: '',
-		features: [],
+		sprintItems: [],
 		searchTerm: '',
 		error: ''
 	};
@@ -35,6 +36,19 @@ class Sprint extends Component {
 		this.setState({ searchTerm: event.target.value });
 	};
 
+	updateSprintItemStatus = (itemId, status) => {
+		sprintData
+			.updateItemStatus({ id: this.state.id, itemId, status })
+			.then(sprint => {
+				this.setState(sprint);
+			})
+			.catch(() => {
+				this.setState({
+					error: 'Sorry, we have problem updating status.'
+				});
+			});
+	};
+
 	render() {
 		let content;
 		if (this.state.error) {
@@ -44,14 +58,28 @@ class Sprint extends Component {
 				</div>
 			);
 		} else if (this.props.features.length > 0) {
-			content = this.props.features
-				.filter(feature => this.state.features.some(sprintFeature => sprintFeature.featureId === feature.id))
-				.filter(feature => feature.name.toUpperCase().indexOf(this.state.searchTerm.toUpperCase()) >= 0)
-				.map(feature => (
-					<div key={feature.id} className="col-xs-6 col-sm-4 col-md-3 pad-vertical">
-						<Feature {...feature} />
-					</div>
-				));
+			content = this.state.sprintItems
+				.filter(sprintItem => {
+					const itemFeature = this.props.features.find(feature => feature.id === sprintItem.featureId);
+
+					return (
+						`${sprintItem.name} ${sprintItem.desc} ${itemFeature.name}`
+							.toUpperCase()
+							.indexOf(this.state.searchTerm.toUpperCase()) >= 0
+					);
+				})
+				.map(sprintItem => {
+					const itemFeature = this.props.features.find(feature => feature.id === sprintItem.featureId);
+					return (
+						<div key={sprintItem.id} className="col-xs-6 col-sm-4 col-md-3 pad-vertical">
+							<SprintItem
+								feature={itemFeature}
+								updateSprintItemStatus={this.updateSprintItemStatus}
+								{...sprintItem}
+							/>
+						</div>
+					);
+				});
 		} else {
 			content = <Spinner />;
 		}

@@ -35,14 +35,14 @@ function getOne({ id, url }) {
 	});
 }
 
-function create({ name, url, desc, features }) {
+function create({ name, url, desc, sprintItems }) {
 	return new Promise((resolve, reject) => {
 		axios
 			.post('/api/sprint', {
 				name,
 				url,
 				desc,
-				features
+				sprintItems
 			})
 			.then(response => {
 				if (response.status === 200) {
@@ -57,18 +57,37 @@ function create({ name, url, desc, features }) {
 	});
 }
 
-function update({ id, name, url, desc, features }) {
+function update({ id, name, url, desc, sprintItems }) {
 	return new Promise((resolve, reject) => {
 		axios
 			.put(`/api/sprint/id/${id}`, {
 				name,
 				url,
 				desc,
-				features
+				sprintItems
 			})
 			.then(response => {
 				if (response.status === 200) {
 					resolve();
+				} else {
+					reject();
+				}
+			})
+			.catch(() => {
+				reject();
+			});
+	});
+}
+
+function updateItemStatus({ id, itemId, status }) {
+	return new Promise((resolve, reject) => {
+		axios
+			.put(`/api/sprint/id/${id}/item/${itemId}`, {
+				status
+			})
+			.then(response => {
+				if (response.status === 200) {
+					resolve(response.data.sprints[0]);
 				} else {
 					reject();
 				}
@@ -96,4 +115,4 @@ function remove({ id }) {
 	});
 }
 
-export default { getAll, getOne, create, update, remove };
+export default { getAll, getOne, create, update, updateItemStatus, remove };

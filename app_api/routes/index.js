@@ -14,6 +14,7 @@ router.post('/sprint', ctrlSprint.sprintCreate);
 router.get('/sprint/id/:sprintid', ctrlSprint.sprintReadOne);
 router.get('/sprint/url/:sprinturl', ctrlSprint.sprintReadOneByUrl);
 router.put('/sprint/id/:sprintid', ctrlSprint.sprintUpdateOne);
+router.put('/sprint/id/:sprintid/item/:itemid', ctrlSprint.sprintItemUpdateOne);
 router.delete('/sprint/id/:sprintid', ctrlSprint.sprintDeleteOne);
 
 module.exports = router;

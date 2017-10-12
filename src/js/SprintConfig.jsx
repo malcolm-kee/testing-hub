@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
+import { PanelGroup } from 'react-bootstrap';
 import copy from 'copy-to-clipboard';
 
 import Header from './Header';
-import Spinner from './Spinner';
-import SearchBar from './SearchBar';
-import SprintFeature from './SprintFeature';
+import SprintItemConfig from './SprintItemConfig';
 
 import sprintData from './data/sprintData';
 
@@ -16,7 +15,7 @@ class SprintConfig extends Component {
 		name: '',
 		url: '',
 		desc: '',
-		features: [],
+		sprintItems: [],
 		searchTerm: '',
 		error: ''
 	};
@@ -52,7 +51,7 @@ class SprintConfig extends Component {
 		} else if (/^\w+$/.test(this.state.url) === false) {
 			this.setState({ error: 'Url must consists of letters, numbers and underscore (_) only.' });
 			return false;
-		} else if (this.state.features.length === 0) {
+		} else if (this.state.sprintItems.length === 0) {
 			this.setState({ error: 'Please add at least a test link' });
 			return false;
 		}
@@ -68,7 +67,7 @@ class SprintConfig extends Component {
 					name: this.state.name,
 					url: this.state.url,
 					desc: this.state.desc,
-					features: this.state.features
+					sprintItems: this.state.sprintItems
 				})
 				.then(() => {
 					this.props.refreshSprints();
@@ -109,48 +108,45 @@ class SprintConfig extends Component {
 		this.setState({ searchTerm: event.target.value });
 	};
 
-	addSprintFeature = sprintFeature => {
+	addSprintItem = sprintItem => {
 		this.setState(prevState => {
-			const latestFeatures = prevState.features.concat(sprintFeature);
+			const latestItems = prevState.sprintItems.concat(sprintItem);
 
 			return {
-				features: latestFeatures
+				sprintItems: latestItems
 			};
 		});
 	};
 
-	removeSprintFeature = id => {
+	removeSprintItem = id => {
 		this.setState(prevState => {
-			const latestFeatures = prevState.features.filter(sprintFeature => sprintFeature.featureId !== id);
+			const latestItems = prevState.sprintItems.filter(sprintItem => sprintItem.id !== id);
 
 			return {
-				features: latestFeatures
+				sprintItems: latestItems
 			};
 		});
 	};
 
 	render() {
-		let linkSection;
-		let addedLinkSection;
+		let sprintItemsSection;
 		let errorMessage;
 
-		if (Array.isArray(this.props.features) && this.props.features.length > 0) {
-			linkSection = this.props.features
-				.filter(feature => this.state.features.every(sprintFeature => sprintFeature.featureId !== feature.id))
-				.filter(feature => feature.name.toUpperCase().indexOf(this.state.searchTerm.toUpperCase()) >= 0)
-				.map(feature => (
-					<SprintFeature key={feature.id} addSprintFeature={this.addSprintFeature} {...feature} />
-				));
-
-			addedLinkSection = this.props.features
-				.filter(feature => this.state.features.some(sprintFeature => sprintFeature.featureId === feature.id))
-				.filter(feature => feature.name.toUpperCase().indexOf(this.state.searchTerm.toUpperCase()) >= 0)
-				.map(feature => (
-					<SprintFeature added key={feature.id} removeSprintFeature={this.removeSprintFeature} {...feature} />
-				));
+		if (this.state.sprintItems.length > 0) {
+			sprintItemsSection = this.state.sprintItems.map(sprintItem => (
+				<SprintItemConfig
+					key={sprintItem.id}
+					features={this.props.features}
+					removeSprintItem={this.removeSprintItem}
+					{...sprintItem}
+				/>
+			));
 		} else {
-			linkSection = <Spinner />;
-			addedLinkSection = <Spinner />;
+			sprintItemsSection = (
+				<div className="alert alert-danger">
+					<p className="text-xlarge">No sprint item has been added.</p>
+				</div>
+			);
 		}
 
 		if (this.state.error.length > 0) {
@@ -230,40 +226,15 @@ class SprintConfig extends Component {
 									</div>
 								</fieldset>
 								<fieldset>
-									<legend>Links</legend>
-									<SearchBar
-										handleSearchTermChange={this.handleSearchTermChange}
-										searchTerm={this.state.searchTerm}
-									/>
-									<div className="row">
-										<div className="col-xs-12 col-sm-6">
-											<div className="panel panel-primary">
-												<div className="panel-heading">
-													<h3 className="panel-title">Available links</h3>
-												</div>
-												<div className="panel-body">
-													<div className="list-group">{linkSection}</div>
-												</div>
-											</div>
-										</div>
-										<div className="col-xs-12 col-sm-6">
-											<div className="panel panel-success">
-												<div className="panel-heading">
-													<div className="row panel-title">
-														<div className="col-xs-12 col-sm-8">
-															<h3 className="panel-title">Added links</h3>
-														</div>
-														<div className="col-xs-12 col-sm-4 text-xlarge text-right">
-															{this.state.features.length} link(s) added
-														</div>
-													</div>
-												</div>
-												<div className="panel-body">
-													<div className="list-group">{addedLinkSection}</div>
-												</div>
-											</div>
-										</div>
-									</div>
+									<legend>Sprint Items</legend>
+									<PanelGroup>
+										{sprintItemsSection}
+										<SprintItemConfig
+											new
+											addSprintItem={this.addSprintItem}
+											features={this.props.features}
+										/>
+									</PanelGroup>
 								</fieldset>
 								<div className="form-group">
 									<button
