@@ -1,15 +1,42 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 
 import Feature from './Feature';
+import User from './User';
 import Header from './Header';
 import SearchBar from './SearchBar';
 import Spinner from './Spinner';
 
+import userService from './service/userService';
+
 class Admin extends Component {
 	state = {
-		searchTerm: ''
+		searchTerm: '',
+		users: []
+	};
+
+	componentWillMount() {
+		if (this.props.loggedIn === false) {
+			this.props.history.push('/login');
+		}
+	}
+
+	componentDidMount() {
+		this.refreshUsers();
+	}
+
+	refreshUsers = () => {
+		userService
+			.getAll()
+			.then(users => {
+				this.setState({ users });
+			})
+			.catch(() => {
+				this.setState({ error: true });
+				this.setState({ errorMessage: 'Error while getting users list' });
+			});
 	};
 
 	handleSearchTermChange = event => {
@@ -19,6 +46,9 @@ class Admin extends Component {
 	render() {
 		let sprintList;
 		let featureList;
+		let userList;
+		let addUserBtn;
+		let userMgmtPanel;
 
 		if (this.props.sprints.length > 0) {
 			sprintList = this.props.sprints
@@ -65,9 +95,41 @@ class Admin extends Component {
 			featureList = <Spinner />;
 		}
 
+		if (this.state.users.length > 0) {
+			userList = this.state.users.map(user => <User key={user.id} {...user} />);
+		} else {
+			userList = <Spinner />;
+		}
+
+		if (this.props.isAdmin) {
+			addUserBtn = (
+				<Link to="/user-create" className="btn btn-warning">
+					<span className="glyphicon glyphicon-plus text-large" />
+					&nbsp;<span className="text-xxlarge">
+						<span className="hidden-xs">Add a new</span> user
+					</span>
+				</Link>
+			);
+			userMgmtPanel = (
+				<div className="panel panel-warning">
+					<div className="panel-heading">
+						<h3 className="panel-title">Users</h3>
+					</div>
+					<div className="panel-body">
+						<div className="list-group">{userList}</div>
+					</div>
+				</div>
+			);
+		}
+
 		return (
 			<div>
-				<Header />
+				<Header
+					showLogin
+					loggedIn={this.props.loggedIn}
+					userName={this.props.userName}
+					refreshLoginStatus={this.props.refreshLoginStatus}
+				/>
 				<div className="container-fluid">
 					<div className="row">
 						<header className="page-header">
@@ -95,6 +157,7 @@ class Admin extends Component {
 														<span className="hidden-xs">Add a new</span> sprint
 													</span>
 												</Link>
+												{addUserBtn}
 											</div>
 										</div>
 									</div>
@@ -120,6 +183,7 @@ class Admin extends Component {
 											<div className="list-group">{sprintList}</div>
 										</div>
 									</div>
+									{userMgmtPanel}
 								</div>
 							</div>
 						</div>
@@ -138,7 +202,12 @@ Admin.propTypes = {
 			url: PropTypes.string.isRequired,
 			name: PropTypes.string.isRequired
 		})
-	).isRequired
+	).isRequired,
+	loggedIn: PropTypes.bool.isRequired,
+	isAdmin: PropTypes.bool.isRequired,
+	userName: PropTypes.string.isRequired,
+	refreshLoginStatus: PropTypes.func.isRequired,
+	history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired
 };
 
-export default Admin;
+export default withRouter(Admin);

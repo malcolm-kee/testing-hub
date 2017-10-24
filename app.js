@@ -1,10 +1,14 @@
+require('dotenv').load();
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const passport = require('passport');
+
 require('./app_api/models/db');
+require('./app_api/config/passport');
 
 const routesApi = require('./app_api/routes/index');
 
@@ -18,7 +22,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(passport.initialize());
+
 app.use('/api', routesApi);
+
+app.use((err, req, res) => {
+	if (err.name === 'UnauthorizedError') {
+		res.status(401);
+		res.json({ message: `${err.name}: ${err.message}` });
+	}
+});
 
 // fallback to index.json
 app.get('*', (req, res) => {

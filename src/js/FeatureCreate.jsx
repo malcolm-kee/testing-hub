@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 
 import Header from './Header';
 import FeatureConfigLink from './FeatureConfigLink';
-import featureData from './data/featureData';
+import featureService from './service/featureService';
 
 class FeatureCreate extends Component {
 	state = {
@@ -38,7 +38,7 @@ class FeatureCreate extends Component {
 		event.preventDefault();
 		this.setState({ error: '' });
 		if (this.validateForm()) {
-			featureData
+			featureService
 				.create({
 					name: this.state.name,
 					links: this.state.links

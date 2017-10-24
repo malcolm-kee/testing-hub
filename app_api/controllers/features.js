@@ -1,10 +1,33 @@
 const mongoose = require('mongoose');
+const merge = require('merge');
 
 const Feature = mongoose.model('Feature');
+const User = mongoose.model('User');
 
 const sendJsonResponse = function sendJsonResponse(res, status, content) {
   res.status(status);
   res.json(content);
+};
+
+const getAuthor = function getAuthor(req, res, callback) {
+  if (req.payload && req.payload.email) {
+    User.findOne({ email: req.payload.email }, (err, user) => {
+      if (!user) {
+        sendJsonResponse(res, 404, {
+          message: 'User not found.'
+        });
+        return;
+      } else if (err) {
+        sendJsonResponse(res, 404, err);
+        return;
+      }
+      callback(req, res, user.name);
+    });
+  } else {
+    sendJsonResponse(res, 404, {
+      message: 'User not found.'
+    });
+  }
 };
 
 const validateFeatureJson = function validateFeatureJson(featureJson) {
@@ -44,21 +67,23 @@ module.exports.featuresList = function exportFeaturesList(req, res) {
   });
 };
 
-module.exports.featureCreate = function exportFeatureCreate(req, res) {
-  const feature = req.body;
-  if (validateFeatureJson(feature)) {
-    Feature.create(feature, (err, createdFeature) => {
-      if (err) {
-        sendJsonResponse(res, 404, {
-          message: 'error thrown by DB.'
-        });
-        return;
-      }
-      sendJsonResponse(res, 200, { status: 'success', features: [createdFeature] });
-    });
-  } else {
-    sendJsonResponse(res, 400, { message: 'Invalid Json' });
-  }
+module.exports.featureCreate = function exportFeatureCreate(request, response) {
+  getAuthor(request, response, (req, res, userName) => {
+    const feature = merge({}, req.body, { createdBy: userName });
+    if (validateFeatureJson(feature)) {
+      Feature.create(feature, (err, createdFeature) => {
+        if (err) {
+          sendJsonResponse(res, 404, {
+            message: 'error thrown by DB.'
+          });
+          return;
+        }
+        sendJsonResponse(res, 200, { status: 'success', features: [createdFeature] });
+      });
+    } else {
+      sendJsonResponse(res, 400, { message: 'Invalid Json' });
+    }
+  });
 };
 
 module.exports.featureReadOne = function exportFeatureReadOne(req, res) {
@@ -78,56 +103,61 @@ module.exports.featureReadOne = function exportFeatureReadOne(req, res) {
   });
 };
 
-module.exports.featureUpdateOne = function exportFeatureUpdateOne(req, res) {
-  const featureInputData = req.body;
-  const name = featureInputData.name;
-  const categories = featureInputData.categories;
-  const links = featureInputData.links;
+module.exports.featureUpdateOne = function exportFeatureUpdateOne(request, response) {
+  getAuthor(request, response, (req, res, userName) => {
+    const featureInputData = req.body;
+    const name = featureInputData.name;
+    const categories = featureInputData.categories;
+    const links = featureInputData.links;
 
-  if (validateFeatureJson(featureInputData) === false) {
-    sendJsonResponse(res, 400, {
-      message: 'Invalid Json.'
-    });
-    return;
-  }
-
-  Feature.findById(req.params.featureid, (err, feature) => {
-    if (err) {
-      sendJsonResponse(res, 404, {
-        message: 'error thrown by DB.'
+    if (validateFeatureJson(featureInputData) === false) {
+      sendJsonResponse(res, 400, {
+        message: 'Invalid Json.'
       });
-    } else if (feature === null) {
-      sendJsonResponse(res, 404, {
-        message: 'no feature is found.'
-      });
-    } else {
-      feature.name = name;
-      feature.categories = categories;
-      feature.links = links;
-      feature.save((saveErr, savedFeature) => {
-        if (saveErr) {
-          sendJsonResponse(res, 404, saveErr);
-        } else {
-          sendJsonResponse(res, 200, { status: 'success', features: [savedFeature] });
-        }
-      });
+      return;
     }
+
+    Feature.findById(req.params.featureid, (err, feature) => {
+      if (err) {
+        sendJsonResponse(res, 404, {
+          message: 'error thrown by DB.'
+        });
+      } else if (feature === null) {
+        sendJsonResponse(res, 404, {
+          message: 'no feature is found.'
+        });
+      } else {
+        feature.name = name;
+        feature.categories = categories;
+        feature.links = links;
+        feature.lastUpdatedBy = userName;
+        feature.save((saveErr, savedFeature) => {
+          if (saveErr) {
+            sendJsonResponse(res, 404, saveErr);
+          } else {
+            sendJsonResponse(res, 200, { status: 'success', features: [savedFeature] });
+          }
+        });
+      }
+    });
   });
 };
 
-module.exports.featureDeleteOne = function exportFeatureDeleteOne(req, res) {
-  Feature.findByIdAndRemove(req.params.featureid, (err, feature) => {
-    if (err) {
-      sendJsonResponse(res, 404, {
-        message: 'error thrown by DB.'
-      });
-      return;
-    } else if (feature === null) {
-      sendJsonResponse(res, 404, {
-        message: 'no feature is removed.'
-      });
-      return;
-    }
-    sendJsonResponse(res, 200, { status: 'success', features: [feature] });
+module.exports.featureDeleteOne = function exportFeatureDeleteOne(request, response) {
+  getAuthor(request, response, (req, res) => {
+    Feature.findByIdAndRemove(req.params.featureid, (err, feature) => {
+      if (err) {
+        sendJsonResponse(res, 404, {
+          message: 'error thrown by DB.'
+        });
+        return;
+      } else if (feature === null) {
+        sendJsonResponse(res, 404, {
+          message: 'no feature is removed.'
+        });
+        return;
+      }
+      sendJsonResponse(res, 200, { status: 'success', features: [feature] });
+    });
   });
 };

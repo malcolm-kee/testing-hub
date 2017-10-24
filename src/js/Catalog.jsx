@@ -8,12 +8,12 @@ import Header from './Header';
 import SearchBar from './SearchBar';
 import Spinner from './Spinner';
 
-import preferenceData from './data/preferenceData';
+import preferenceService from './service/preferenceService';
 
 class Catalog extends Component {
 	state = {
 		searchTerm: '',
-		fav: preferenceData.getFavFeatures()
+		fav: preferenceService.getFavFeatures()
 	};
 
 	handleSearchTermChange = event => {
@@ -22,31 +22,50 @@ class Catalog extends Component {
 
 	toggleFav = id => {
 		if (this.state.fav.includes(id) === true) {
-			const updatedFav = preferenceData.removeFavFeature(id);
+			const updatedFav = preferenceService.removeFavFeature(id);
 			this.setState({ fav: updatedFav });
 		} else {
-			const updatedFav = preferenceData.addFavFeature(id);
+			const updatedFav = preferenceService.addFavFeature(id);
 			this.setState({ fav: updatedFav });
 		}
 	};
 
 	render() {
-		let sprintContent;
+		let sprintPageNav;
 		let featureContent;
 
-		if (this.props.sprints.length > 0) {
-			sprintContent = this.props.sprints.map(sprint => {
-				const urlTarget = `/sprint/${sprint.url}`;
-				return (
-					<MenuItem key={sprint.id}>
-						<Link to={urlTarget} className="text-xlarge">
-							{sprint.name}
-						</Link>
-					</MenuItem>
+		if (this.props.loggedIn === true) {
+			if (this.props.sprints.length > 0) {
+				const sprintNavItems = this.props.sprints.map(sprint => {
+					const urlTarget = `/sprint/${sprint.url}`;
+					return (
+						<MenuItem key={sprint.id}>
+							<Link to={urlTarget} className="text-xlarge">
+								{sprint.name}
+							</Link>
+						</MenuItem>
+					);
+				});
+				sprintPageNav = (
+					<div className="container">
+						<Navbar inverse>
+							<Nav className="text-xxlarge">
+								<NavDropdown title="Sprint">{sprintNavItems}</NavDropdown>
+							</Nav>
+						</Navbar>
+					</div>
 				);
-			});
-		} else {
-			sprintContent = <Spinner />;
+			} else {
+				sprintPageNav = (
+					<div className="container">
+						<Navbar inverse>
+							<Nav className="text-xxlarge">
+								<Spinner />
+							</Nav>
+						</Navbar>
+					</div>
+				);
+			}
 		}
 
 		if (this.props.features.length > 0) {
@@ -74,19 +93,18 @@ class Catalog extends Component {
 
 		return (
 			<div>
-				<Header />
+				<Header
+					showLogin
+					loggedIn={this.props.loggedIn}
+					userName={this.props.userName}
+					refreshLoginStatus={this.props.refreshLoginStatus}
+				/>
 				<div className="container-fluid">
 					<div className="row">
 						<header className="page-header">
 							<h1>Testing Links</h1>
 						</header>
-						<div className="container">
-							<Navbar inverse>
-								<Nav className="text-xxlarge">
-									<NavDropdown title="Sprint">{sprintContent}</NavDropdown>
-								</Nav>
-							</Navbar>
-						</div>
+						{sprintPageNav}
 						<div className="container">
 							<SearchBar
 								handleSearchTermChange={this.handleSearchTermChange}
@@ -111,7 +129,10 @@ Catalog.propTypes = {
 			url: PropTypes.string.isRequired,
 			name: PropTypes.string.isRequired
 		})
-	).isRequired
+	).isRequired,
+	loggedIn: PropTypes.bool.isRequired,
+	userName: PropTypes.string.isRequired,
+	refreshLoginStatus: PropTypes.func.isRequired
 };
 
 export default Catalog;

@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 import Header from './Header';
 import FeatureConfigLink from './FeatureConfigLink';
 
-import featureData from './data/featureData';
+import featureService from './service/featureService';
 
 class FeatureConfig extends Component {
 	state = {
@@ -40,7 +40,7 @@ class FeatureConfig extends Component {
 	handleSubmit = event => {
 		event.preventDefault();
 		if (this.validateForm()) {
-			featureData
+			featureService
 				.update({
 					id: this.state.featureId,
 					name: this.state.featureName,
@@ -61,7 +61,7 @@ class FeatureConfig extends Component {
 	handleDelete = event => {
 		event.preventDefault();
 		this.setState({ error: '' });
-		featureData
+		featureService
 			.remove({ id: this.state.featureId })
 			.then(() => {
 				this.props.history.goBack();

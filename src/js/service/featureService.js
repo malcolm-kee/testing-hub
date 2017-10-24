@@ -1,4 +1,5 @@
 import axios from 'axios';
+import authenticationService from './authenticationService';
 
 function getAll() {
 	return new Promise((resolve, reject) => {
@@ -37,10 +38,18 @@ function getOne({ id }) {
 function create({ name, links }) {
 	return new Promise((resolve, reject) => {
 		axios
-			.post('/api/feature', {
-				name,
-				links
-			})
+			.post(
+				'/api/feature',
+				{
+					name,
+					links
+				},
+				{
+					headers: {
+						Authorization: `Bearer ${authenticationService.getToken()}`
+					}
+				}
+			)
 			.then(response => {
 				if (response.status === 200) {
 					resolve(response.data);
@@ -57,10 +66,18 @@ function create({ name, links }) {
 function update({ id, name, links }) {
 	return new Promise((resolve, reject) => {
 		axios
-			.put(`/api/feature/id/${id}`, {
-				name,
-				links
-			})
+			.put(
+				`/api/feature/id/${id}`,
+				{
+					name,
+					links
+				},
+				{
+					headers: {
+						Authorization: `Bearer ${authenticationService.getToken()}`
+					}
+				}
+			)
 			.then(response => {
 				if (response.status === 200) {
 					resolve();
@@ -77,7 +94,11 @@ function update({ id, name, links }) {
 function remove({ id }) {
 	return new Promise((resolve, reject) => {
 		axios
-			.delete(`/api/feature/id/${id}`)
+			.delete(`/api/feature/id/${id}`, {
+				headers: {
+					Authorization: `Bearer ${authenticationService.getToken()}`
+				}
+			})
 			.then(response => {
 				if (response.status === 200) {
 					resolve();

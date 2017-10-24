@@ -6,7 +6,7 @@ import { PanelGroup } from 'react-bootstrap';
 import Header from './Header';
 import SprintItemConfig from './SprintItemConfig';
 
-import sprintData from './data/sprintData';
+import sprintService from './service/sprintService';
 
 class SprintCreate extends Component {
 	state = {
@@ -47,7 +47,7 @@ class SprintCreate extends Component {
 		event.preventDefault();
 
 		if (this.validateForm()) {
-			sprintData
+			sprintService
 				.create({
 					name: this.state.name,
 					url: this.state.url,

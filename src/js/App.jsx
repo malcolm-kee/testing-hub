@@ -8,16 +8,23 @@ import FeatureConfig from './FeatureConfig';
 import Sprint from './Sprint';
 import SprintCreate from './SprintCreate';
 import SprintConfig from './SprintConfig';
+import Login from './Login';
+import UserCreate from './UserCreate';
+import UserConfig from './UserConfig';
 // import ErrorMessage from './ErrorMessage';
 import PageNotFoundMessage from './PageNotFoundMessage';
 
-import featureData from './data/featureData';
-import sprintData from './data/sprintData';
+import featureService from './service/featureService';
+import sprintService from './service/sprintService';
+import authenticationService from './service/authenticationService';
 
 class App extends Component {
 	state = {
 		features: [],
 		sprints: [],
+		loggedIn: false,
+		isAdmin: false,
+		userName: '',
 		error: false,
 		errorMessage: null
 	};
@@ -25,10 +32,11 @@ class App extends Component {
 	componentDidMount() {
 		this.refreshSprints();
 		this.refreshFeatures();
+		this.refreshLoginStatus();
 	}
 
 	refreshFeatures = () => {
-		featureData
+		featureService
 			.getAll()
 			.then(features => {
 				this.setState({ features });
@@ -40,7 +48,7 @@ class App extends Component {
 	};
 
 	refreshSprints = () => {
-		sprintData
+		sprintService
 			.getAll()
 			.then(sprints => {
 				this.setState({ sprints });
@@ -51,6 +59,13 @@ class App extends Component {
 			});
 	};
 
+	refreshLoginStatus = () => {
+		const currentUser = authenticationService.getCurrentUser();
+		this.setState({ loggedIn: authenticationService.isLoggedIn() });
+		this.setState({ userName: currentUser.name });
+		this.setState({ isAdmin: currentUser.isAdmin });
+	};
+
 	render() {
 		return (
 			<BrowserRouter>
@@ -59,17 +74,54 @@ class App extends Component {
 						<Route
 							exact
 							path="/"
-							component={() => <Catalog features={this.state.features} sprints={this.state.sprints} />}
+							component={() => (
+								<Catalog
+									features={this.state.features}
+									sprints={this.state.sprints}
+									loggedIn={this.state.loggedIn}
+									userName={this.state.userName}
+									refreshLoginStatus={this.refreshLoginStatus}
+								/>
+							)}
 						/>
 						<Route
 							exact
+							path="/login"
+							component={() => (
+								<Login loggedIn={this.state.loggedIn} refreshLoginStatus={this.refreshLoginStatus} />
+							)}
+						/>
+						<Route
+							exact
+							path="/user-create"
+							component={() => <UserCreate loggedIn={this.state.loggedIn} />}
+						/>
+						<Route path="/user-config/:id" component={props => <UserConfig id={props.match.params.id} />} />
+						<Route
+							exact
 							path="/admin"
-							component={() => <Admin features={this.state.features} sprints={this.state.sprints} />}
+							component={() => (
+								<Admin
+									features={this.state.features}
+									sprints={this.state.sprints}
+									loggedIn={this.state.loggedIn}
+									isAdmin={this.state.isAdmin}
+									userName={this.state.userName}
+									refreshLoginStatus={this.refreshLoginStatus}
+								/>
+							)}
 						/>
 						<Route
 							exact
 							path="/feature-create"
-							component={() => <FeatureCreate refreshFeatures={this.refreshFeatures} />}
+							component={() => (
+								<FeatureCreate
+									refreshFeatures={this.refreshFeatures}
+									loggedIn={this.state.loggedIn}
+									userName={this.state.userName}
+									refreshLoginStatus={this.refreshLoginStatus}
+								/>
+							)}
 						/>
 						<Route
 							path="/feature-config/:id"
@@ -78,7 +130,13 @@ class App extends Component {
 									feature => props.match.params.id === feature.id
 								);
 								return (
-									<FeatureConfig feature={selectedFeature} refreshFeatures={this.refreshFeatures} />
+									<FeatureConfig
+										feature={selectedFeature}
+										refreshFeatures={this.refreshFeatures}
+										loggedIn={this.state.loggedIn}
+										userName={this.state.userName}
+										refreshLoginStatus={this.refreshLoginStatus}
+									/>
 								);
 							}}
 						/>
@@ -89,6 +147,9 @@ class App extends Component {
 									url={props.match.params.url}
 									features={this.state.features}
 									refreshSprints={this.refreshSprints}
+									loggedIn={this.state.loggedIn}
+									userName={this.state.userName}
+									refreshLoginStatus={this.refreshLoginStatus}
 								/>
 							)}
 						/>
@@ -96,7 +157,13 @@ class App extends Component {
 							exact
 							path="/sprint-create"
 							component={() => (
-								<SprintCreate refreshSprints={this.refreshSprints} features={this.state.features} />
+								<SprintCreate
+									refreshSprints={this.refreshSprints}
+									features={this.state.features}
+									loggedIn={this.state.loggedIn}
+									userName={this.state.userName}
+									refreshLoginStatus={this.refreshLoginStatus}
+								/>
 							)}
 						/>
 						<Route
@@ -110,6 +177,9 @@ class App extends Component {
 										sprint={selectedSprint}
 										refreshSprints={this.refreshSprints}
 										features={this.state.features}
+										loggedIn={this.state.loggedIn}
+										userName={this.state.userName}
+										refreshLoginStatus={this.refreshLoginStatus}
 									/>
 								);
 							}}

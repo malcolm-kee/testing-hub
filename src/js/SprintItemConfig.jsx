@@ -8,7 +8,7 @@ class SprintItemConfig extends Component {
 		id: this.props.id,
 		name: this.props.name,
 		status: this.props.status,
-		featureId: this.props.featureId,
+		featureId: this.props.new ? this.props.features[0].id : this.props.featureId,
 		desc: this.props.desc
 	};
 
@@ -34,6 +34,11 @@ class SprintItemConfig extends Component {
 		});
 	};
 
+	handleUpdateSprintItem = event => {
+		event.preventDefault();
+		this.props.updateSprintItem(this.state);
+	};
+
 	handleRemoveSprintItem = event => {
 		event.preventDefault();
 		this.props.removeSprintItem(this.state.id);
@@ -46,7 +51,7 @@ class SprintItemConfig extends Component {
 		let statusField;
 
 		if (this.props.new) {
-			headerText = 'Add sprint item';
+			headerText = <span className="text-xlarge">Add sprint item</span>;
 			buttons = (
 				<div className="btn-toolbar">
 					<div className="btn-group pull-right">
@@ -59,13 +64,19 @@ class SprintItemConfig extends Component {
 			);
 		} else {
 			bsStyle = 'info';
-			headerText = this.state.name;
+			headerText = <span className="text-xlarge">{this.state.name}</span>;
 			buttons = (
 				<div className="btn-toolbar">
-					<div className="btn-group pull-right">
+					<div className="btn-group">
 						<button type="button" className="btn btn-danger" onClick={this.handleRemoveSprintItem}>
 							Remove&nbsp;
 							<span className="glyphicon glyphicon-trash text-large" />
+						</button>
+					</div>
+					<div className="btn-group pull-right">
+						<button type="button" className="btn btn-primary" onClick={this.handleUpdateSprintItem}>
+							Update&nbsp;
+							<span className="glyphicon glyphicon-ok text-large" />
 						</button>
 					</div>
 				</div>
@@ -90,72 +101,74 @@ class SprintItemConfig extends Component {
 		}
 
 		return (
-			<Panel collapsible header={headerText} bsStyle={bsStyle}>
-				<div className="form-horizontal">
-					<fieldset>
-						<div className="form-group">
-							<label
-								htmlFor="sprint-item-name"
-								className="col-sm-2 col-form-label text-xlarge text-right"
-							>
-								Name
-							</label>
-							<div className="col-sm-10">
-								<input
-									type="text"
-									id="sprint-item-name"
-									name="name"
-									className="form-control"
-									value={this.state.name}
-									onChange={this.handleInputChange}
-								/>
-							</div>
-						</div>
-						<div className="form-group">
-							<label
-								htmlFor="sprint-item-feature"
-								className="col-sm-2 col-form-label text-xlarge text-right"
-							>
-								Feature
-							</label>
-							<div className="col-sm-10">
-								<select
-									name="featureId"
-									id="sprint-item-feature"
-									className="form-control"
-									value={this.state.featureId}
-									onChange={this.handleInputChange}
+			<div className="col-sm-6">
+				<Panel header={headerText} bsStyle={bsStyle}>
+					<div className="form-horizontal">
+						<fieldset>
+							<div className="form-group">
+								<label
+									htmlFor="sprint-item-name"
+									className="col-sm-2 col-form-label text-xlarge text-right"
 								>
-									{this.props.features.map(feature => (
-										<option key={feature.id} value={feature.id}>
-											{feature.name}
-										</option>
-									))}
-								</select>
+									Name
+								</label>
+								<div className="col-sm-10">
+									<input
+										type="text"
+										id="sprint-item-name"
+										name="name"
+										className="form-control"
+										value={this.state.name}
+										onChange={this.handleInputChange}
+									/>
+								</div>
 							</div>
-						</div>
-						{statusField}
-						<div className="form-group">
-							<label
-								htmlFor="sprint-item-desc"
-								className="col-sm-2 col-form-label text-xlarge text-right"
-							>
-								Description
-							</label>
-							<div className="col-sm-10">
-								<textarea
-									name="desc"
-									id="sprint-item-desc"
-									className="form-control"
-									value={this.state.desc}
-									onChange={this.handleInputChange}
-								/>
+							<div className="form-group">
+								<label
+									htmlFor="sprint-item-feature"
+									className="col-sm-2 col-form-label text-xlarge text-right"
+								>
+									Feature
+								</label>
+								<div className="col-sm-10">
+									<select
+										name="featureId"
+										id="sprint-item-feature"
+										className="form-control"
+										value={this.state.featureId}
+										onChange={this.handleInputChange}
+									>
+										{this.props.features.map(feature => (
+											<option key={feature.id} value={feature.id}>
+												{feature.name}
+											</option>
+										))}
+									</select>
+								</div>
 							</div>
-						</div>
-						{buttons}
-					</fieldset>
-				</div>
-			</Panel>
+							{statusField}
+							<div className="form-group">
+								<label
+									htmlFor="sprint-item-desc"
+									className="col-sm-2 col-form-label text-xlarge text-right"
+								>
+									Details
+								</label>
+								<div className="col-sm-10">
+									<textarea
+										name="desc"
+										id="sprint-item-desc"
+										className="form-control"
+										value={this.state.desc}
+										onChange={this.handleInputChange}
+									/>
+								</div>
+							</div>
+							{buttons}
+						</fieldset>
+					</div>
+				</Panel>
+			</div>
 		);
 	}
 }
@@ -170,6 +183,7 @@ SprintItemConfig.propTypes = {
 	desc: PropTypes.string,
 	new: PropTypes.bool,
 	addSprintItem: PropTypes.func,
+	updateSprintItem: PropTypes.func,
 	removeSprintItem: PropTypes.func
 };
 
@@ -181,6 +195,7 @@ SprintItemConfig.defaultProps = {
 	desc: '',
 	new: false,
 	addSprintItem: function noop() {},
+	updateSprintItem: function noop() {},
 	removeSprintItem: function noop() {}
 };
 

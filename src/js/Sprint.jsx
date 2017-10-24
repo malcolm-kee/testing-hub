@@ -6,7 +6,7 @@ import Header from './Header';
 import SearchBar from './SearchBar';
 import Spinner from './Spinner';
 
-import sprintData from './data/sprintData';
+import sprintService from './service/sprintService';
 
 class Sprint extends Component {
 	state = {
@@ -20,7 +20,7 @@ class Sprint extends Component {
 	};
 
 	componentWillMount() {
-		sprintData
+		sprintService
 			.getOne({ url: this.props.url })
 			.then(sprint => {
 				this.setState(sprint);
@@ -37,7 +37,7 @@ class Sprint extends Component {
 	};
 
 	updateSprintItemStatus = (itemId, status) => {
-		sprintData
+		sprintService
 			.updateItemStatus({ id: this.state.id, itemId, status })
 			.then(sprint => {
 				this.setState(sprint);

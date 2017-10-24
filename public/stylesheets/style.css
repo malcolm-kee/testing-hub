@@ -1,4 +1,14 @@
 /* CUSTOM CLASS */
+nav.navbar.navbar-fixed-top {
+    background-color: #3498db;
+}
+
+.user-auth-form {
+    max-width: 280px;
+    margin: 0 auto;
+    padding: 15px 30px;
+}
+
 .fav-icon {
     position: absolute;
     top: 3px;
@@ -76,21 +86,8 @@ body {
     font: 10px 'Lucida Grande', Helvetica, Arial, sans-serif;
 }
 
-a {
-    color: #00b7ff;
-}
-
-nav {
-    background: #9c27b0;
-}
-
-nav a {
-    color: #ffffff;
-}
-
-nav a:hover {
-    background: #581663;
-    color: #ffffff;
+.navbar .navbar-brand {
+    color: inherit;
 }
 
 .btn {

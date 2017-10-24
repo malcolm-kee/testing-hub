@@ -1,4 +1,5 @@
 import axios from 'axios';
+import authenticationService from './authenticationService';
 
 function getAll() {
 	return new Promise((resolve, reject) => {
@@ -38,12 +39,20 @@ function getOne({ id, url }) {
 function create({ name, url, desc, sprintItems }) {
 	return new Promise((resolve, reject) => {
 		axios
-			.post('/api/sprint', {
-				name,
-				url,
-				desc,
-				sprintItems
-			})
+			.post(
+				'/api/sprint',
+				{
+					name,
+					url,
+					desc,
+					sprintItems
+				},
+				{
+					headers: {
+						Authorization: `Bearer ${authenticationService.getToken()}`
+					}
+				}
+			)
 			.then(response => {
 				if (response.status === 200) {
 					resolve(response.data);
@@ -60,12 +69,20 @@ function create({ name, url, desc, sprintItems }) {
 function update({ id, name, url, desc, sprintItems }) {
 	return new Promise((resolve, reject) => {
 		axios
-			.put(`/api/sprint/id/${id}`, {
-				name,
-				url,
-				desc,
-				sprintItems
-			})
+			.put(
+				`/api/sprint/id/${id}`,
+				{
+					name,
+					url,
+					desc,
+					sprintItems
+				},
+				{
+					headers: {
+						Authorization: `Bearer ${authenticationService.getToken()}`
+					}
+				}
+			)
 			.then(response => {
 				if (response.status === 200) {
 					resolve();
@@ -82,9 +99,17 @@ function update({ id, name, url, desc, sprintItems }) {
 function updateItemStatus({ id, itemId, status }) {
 	return new Promise((resolve, reject) => {
 		axios
-			.put(`/api/sprint/id/${id}/item/${itemId}`, {
-				status
-			})
+			.put(
+				`/api/sprint/id/${id}/item/${itemId}`,
+				{
+					status
+				},
+				{
+					headers: {
+						Authorization: `Bearer ${authenticationService.getToken()}`
+					}
+				}
+			)
 			.then(response => {
 				if (response.status === 200) {
 					resolve(response.data.sprints[0]);
@@ -101,7 +126,11 @@ function updateItemStatus({ id, itemId, status }) {
 function remove({ id }) {
 	return new Promise((resolve, reject) => {
 		axios
-			.delete(`/api/sprint/id/${id}`)
+			.delete(`/api/sprint/id/${id}`, {
+				headers: {
+					Authorization: `Bearer ${authenticationService.getToken()}`
+				}
+			})
 			.then(response => {
 				if (response.status === 200) {
 					resolve();

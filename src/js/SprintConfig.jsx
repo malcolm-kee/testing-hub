@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
-import { PanelGroup } from 'react-bootstrap';
 import copy from 'copy-to-clipboard';
 
 import Header from './Header';
 import SprintItemConfig from './SprintItemConfig';
 
-import sprintData from './data/sprintData';
+import sprintService from './service/sprintService';
 
 class SprintConfig extends Component {
 	state = {
@@ -21,7 +20,7 @@ class SprintConfig extends Component {
 	};
 
 	componentDidMount() {
-		sprintData
+		sprintService
 			.getOne({ id: this.props.sprint.id })
 			.then(sprint => {
 				this.setState(sprint);
@@ -61,7 +60,7 @@ class SprintConfig extends Component {
 	handleSubmit = event => {
 		event.preventDefault();
 		if (this.validateForm()) {
-			sprintData
+			sprintService
 				.update({
 					id: this.state.id,
 					name: this.state.name,
@@ -84,7 +83,7 @@ class SprintConfig extends Component {
 	handleDelete = event => {
 		event.preventDefault();
 		this.setState({ error: '' });
-		sprintData
+		sprintService
 			.remove({ id: this.state.id })
 			.then(() => {
 				this.props.refreshSprints();
@@ -118,6 +117,21 @@ class SprintConfig extends Component {
 		});
 	};
 
+	updateSprintItem = sprintItem => {
+		this.setState(prevState => {
+			const latestItems = prevState.sprintItems.map(item => {
+				if (item.id === sprintItem.id) {
+					return sprintItem;
+				}
+				return item;
+			});
+
+			return {
+				sprintItems: latestItems
+			};
+		});
+	};
+
 	removeSprintItem = id => {
 		this.setState(prevState => {
 			const latestItems = prevState.sprintItems.filter(sprintItem => sprintItem.id !== id);
@@ -137,6 +151,7 @@ class SprintConfig extends Component {
 				<SprintItemConfig
 					key={sprintItem.id}
 					features={this.props.features}
+					updateSprintItem={this.updateSprintItem}
 					removeSprintItem={this.removeSprintItem}
 					{...sprintItem}
 				/>
@@ -227,14 +242,15 @@ class SprintConfig extends Component {
 								</fieldset>
 								<fieldset>
 									<legend>Sprint Items</legend>
-									<PanelGroup>
+									<div>
 										{sprintItemsSection}
 										<SprintItemConfig
 											new
+											eventKey="0"
 											addSprintItem={this.addSprintItem}
 											features={this.props.features}
 										/>
-									</PanelGroup>
+									</div>
 								</fieldset>
 								<div className="form-group">
 									<button
