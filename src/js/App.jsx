@@ -29,7 +29,7 @@ class App extends Component {
 		errorMessage: null
 	};
 
-	componentDidMount() {
+	componentWillMount() {
 		this.refreshSprints();
 		this.refreshFeatures();
 		this.refreshLoginStatus();
