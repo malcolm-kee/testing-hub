@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 
 const User = mongoose.model('User');
 
+const mailer = require('../config/mailer');
+
 function sendJSONresponse(res, status, content) {
 	res.status(status);
 	res.json(content);
@@ -26,9 +28,16 @@ module.exports.register = function exportRegister(req, res) {
 		if (err) {
 			sendJSONresponse(res, 404, err);
 		} else {
-			sendJSONresponse(res, 200, {
-				token: user.generateJwt()
-			});
+			mailer
+				.sendVerifyEmail({ to: req.body.email, name: req.body.name })
+				.then(() => {
+					sendJSONresponse(res, 200, {
+						token: user.generateJwt()
+					});
+				})
+				.catch(sendMailErr => {
+					sendJSONresponse(res, 404, sendMailErr);
+				});
 		}
 	});
 };

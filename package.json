@@ -15,6 +15,7 @@
         "yarn": "~1.0.1"
     },
     "dependencies": {
+        "@sendgrid/mail": "^6.1.4",
         "axios": "^0.16.2",
         "babel-core": "^6.26.0",
         "babel-eslint": "^8.0.0",
