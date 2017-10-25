@@ -82,7 +82,7 @@ class Catalog extends Component {
 				.map(feature => {
 					const pinned = this.state.fav.includes(feature.id);
 					return (
-						<div key={feature.id} className="col-xs-6 col-sm-4 col-md-3 pad-vertical">
+						<div key={feature.id} className="col-xs-12 col-sm-6 col-md-4 col-lg-3 pad-vertical">
 							<Feature toggleFav={this.toggleFav} pinned={pinned} {...feature} />
 						</div>
 					);
