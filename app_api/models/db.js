@@ -1,12 +1,16 @@
 const mongoose = require('mongoose');
 
+mongoose.Promise = require('bluebird');
+
 let dbURI = 'mongodb://localhost/DSOPortal';
 
 if (process.env.NODE_ENV === 'production') {
   dbURI = process.env.MONGOLAB_URI;
 }
 
-mongoose.connect(dbURI);
+mongoose.connect(dbURI, {
+  useMongoClient: true
+});
 
 mongoose.connection.on('connected', () => {
   console.log(`Mongoose connect to ${dbURI}`);
@@ -43,4 +47,6 @@ process.on('SIGTERM', () => {
   });
 });
 
-require('./testhub_schema');
+require('./featureSchema');
+require('./sprintSchema');
+require('./userSchema');
