@@ -11,6 +11,7 @@ import SprintConfig from './SprintConfig';
 import Login from './Login';
 import UserCreate from './UserCreate';
 import UserConfig from './UserConfig';
+import UserVerify from './UserVerify';
 // import ErrorMessage from './ErrorMessage';
 import PageNotFoundMessage from './PageNotFoundMessage';
 
@@ -89,6 +90,15 @@ class App extends Component {
 							path="/login"
 							component={() => (
 								<Login loggedIn={this.state.loggedIn} refreshLoginStatus={this.refreshLoginStatus} />
+							)}
+						/>
+						<Route
+							path="/verify-account/:code"
+							component={props => (
+								<UserVerify
+									code={props.match.params.code}
+									refreshLoginStatus={this.refreshLoginStatus}
+								/>
 							)}
 						/>
 						<Route

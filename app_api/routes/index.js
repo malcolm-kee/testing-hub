@@ -28,6 +28,7 @@ router.delete('/sprint/id/:sprintid', auth, ctrlSprint.sprintDeleteOne);
 
 router.post('/register', ctrlAuth.register);
 router.post('/login', ctrlAuth.login);
+router.post('/verify', ctrlAuth.verify);
 
 router.get('/user', auth, ctrlUser.userList);
 router.get('/user/id/:userid', auth, ctrlUser.userReadOne);

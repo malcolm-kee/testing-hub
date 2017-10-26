@@ -29,7 +29,7 @@ const getAuthor = function getAuthor(req, res, callback) {
 };
 
 module.exports.userList = function exportUserList(req, res) {
-	User.find({}, 'email name isAdmin', (err, users) => {
+	User.find({}, 'email name isAdmin verified', (err, users) => {
 		if (err) {
 			sendJsonResponse(res, 404, {
 				message: 'error thrown by DB.'

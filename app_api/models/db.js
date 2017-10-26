@@ -50,3 +50,4 @@ process.on('SIGTERM', () => {
 require('./featureSchema');
 require('./sprintSchema');
 require('./userSchema');
+require('./verifyCodeSchema');

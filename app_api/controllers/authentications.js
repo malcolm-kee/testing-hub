@@ -1,7 +1,9 @@
 const passport = require('passport');
 const mongoose = require('mongoose');
+const ulid = require('ulid');
 
 const User = mongoose.model('User');
+const VerifyCode = mongoose.model('VerifyCode');
 
 const mailer = require('../config/mailer');
 
@@ -24,20 +26,65 @@ module.exports.register = function exportRegister(req, res) {
 	user.isAdmin = req.body.isAdmin || false;
 	user.setPassword(req.body.password);
 
-	user.save(err => {
+	user.save((err, savedUser) => {
 		if (err) {
 			sendJSONresponse(res, 404, err);
 		} else {
-			mailer
-				.sendVerifyEmail({ to: req.body.email, name: req.body.name })
-				.then(() => {
-					sendJSONresponse(res, 200, {
-						token: user.generateJwt()
-					});
+			const expireDate = new Date();
+			expireDate.setDate(expireDate.getDate() + 1);
+			VerifyCode.create({ userId: savedUser.id, code: ulid(), expireAt: expireDate })
+				.then(verifyCode => {
+					mailer
+						.sendVerifyEmail({ to: req.body.email, name: req.body.name, code: verifyCode.code })
+						.then(() => {
+							sendJSONresponse(res, 200, {});
+						})
+						.catch(sendMailErr => {
+							sendJSONresponse(res, 404, sendMailErr);
+						});
 				})
-				.catch(sendMailErr => {
-					sendJSONresponse(res, 404, sendMailErr);
+				.catch(verifyCodeErr => {
+					sendJSONresponse(res, 404, verifyCodeErr);
 				});
+		}
+	});
+};
+
+module.exports.verify = function exportVerify(req, res) {
+	if (!req.body.code) {
+		sendJSONresponse(res, 400, {
+			message: 'Invalid verification code'
+		});
+		return;
+	}
+
+	VerifyCode.findOneAndRemove({ code: req.body.code }, (err, verifyCode) => {
+		if (!verifyCode) {
+			sendJSONresponse(res, 400, {
+				message: 'Invalid verification code'
+			});
+		} else if (err) {
+			sendJSONresponse(res, 404, err);
+		} else {
+			const userId = verifyCode.userId;
+			User.findById(userId, (error, user) => {
+				if (error) {
+					sendJSONresponse(res, 404, error);
+				} else if (user === null) {
+					sendJSONresponse(res, 404, {
+						message: 'User no longer exists.'
+					});
+				} else {
+					user.verified = true;
+					user.save((saveErr, savedUser) => {
+						if (saveErr) {
+							sendJSONresponse(res, 404, saveErr);
+						} else {
+							sendJSONresponse(res, 200, { status: 'success', token: savedUser.generateJwt() });
+						}
+					});
+				}
+			});
 		}
 	});
 };

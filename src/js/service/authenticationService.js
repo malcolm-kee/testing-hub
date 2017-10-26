@@ -29,6 +29,25 @@ function register({ name, email, isAdmin, password }) {
 	});
 }
 
+function verify({ code }) {
+	return new Promise((resolve, reject) => {
+		axios
+			.post('/api/verify', { code })
+			.then(response => {
+				if (response.status === 200) {
+					const token = response.data.token;
+					saveToken(token);
+					resolve();
+				} else {
+					reject();
+				}
+			})
+			.catch(() => {
+				reject();
+			});
+	});
+}
+
 function login({ email, password }) {
 	return new Promise((resolve, reject) => {
 		axios
@@ -76,4 +95,4 @@ function getCurrentUser() {
 	return false;
 }
 
-export default { getToken, register, login, logout, isLoggedIn, getCurrentUser };
+export default { getToken, register, verify, login, logout, isLoggedIn, getCurrentUser };
