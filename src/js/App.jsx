@@ -9,6 +9,7 @@ import Sprint from './Sprint';
 import SprintCreate from './SprintCreate';
 import SprintConfig from './SprintConfig';
 import Login from './Login';
+import Register from './Register';
 import UserCreate from './UserCreate';
 import UserConfig from './UserConfig';
 import UserVerify from './UserVerify';
@@ -92,6 +93,7 @@ class App extends Component {
 								<Login loggedIn={this.state.loggedIn} refreshLoginStatus={this.refreshLoginStatus} />
 							)}
 						/>
+						<Route exact path="/register" component={Register} />
 						<Route
 							path="/verify-account/:code"
 							component={props => (
@@ -144,6 +146,7 @@ class App extends Component {
 										feature={selectedFeature}
 										refreshFeatures={this.refreshFeatures}
 										loggedIn={this.state.loggedIn}
+										isAdmin={this.state.isAdmin}
 										userName={this.state.userName}
 										refreshLoginStatus={this.refreshLoginStatus}
 									/>
@@ -188,6 +191,7 @@ class App extends Component {
 										refreshSprints={this.refreshSprints}
 										features={this.state.features}
 										loggedIn={this.state.loggedIn}
+										isAdmin={this.state.isAdmin}
 										userName={this.state.userName}
 										refreshLoginStatus={this.refreshLoginStatus}
 									/>

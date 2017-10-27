@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 
 import Header from './Header';
 
-import authenticationService from './service/authenticationService';
+import userService from './service/userService';
 
 class UserCreate extends Component {
 	state = {
@@ -53,8 +53,8 @@ class UserCreate extends Component {
 		event.preventDefault();
 
 		if (this.validateForm()) {
-			authenticationService
-				.register({
+			userService
+				.create({
 					name: this.state.name,
 					email: this.state.email,
 					isAdmin: this.state.isAdmin,

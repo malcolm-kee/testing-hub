@@ -43,11 +43,11 @@ function getOne({ id }) {
 	});
 }
 
-function update({ id, name, email, isAdmin, password }) {
+function create({ name, email, isAdmin, password }) {
 	return new Promise((resolve, reject) => {
 		axios
-			.put(
-				`/api/user/id/${id}`,
+			.post(
+				'/api/user',
 				{
 					name,
 					email,
@@ -73,4 +73,35 @@ function update({ id, name, email, isAdmin, password }) {
 	});
 }
 
-export default { getAll, getOne, update };
+function update({ id, name, email, isAdmin, verified, password }) {
+	return new Promise((resolve, reject) => {
+		axios
+			.put(
+				`/api/user/id/${id}`,
+				{
+					name,
+					email,
+					isAdmin,
+					verified,
+					password
+				},
+				{
+					headers: {
+						Authorization: `Bearer ${authenticationService.getToken()}`
+					}
+				}
+			)
+			.then(response => {
+				if (response.status === 200) {
+					resolve();
+				} else {
+					reject();
+				}
+			})
+			.catch(() => {
+				reject();
+			});
+	});
+}
+
+export default { getAll, getOne, create, update };

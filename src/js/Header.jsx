@@ -51,25 +51,35 @@ class Header extends Component {
 			}
 
 			navigator = (
-				<form className="navbar-form navbar-right">
-					{backBtn}
-					{nextBtn}
-				</form>
+				<Nav pullRight>
+					<form className="navbar-form navbar-right">
+						{backBtn}
+						{nextBtn}
+					</form>
+				</Nav>
 			);
 		} else if (this.props.showLogin) {
 			if (this.props.loggedIn) {
 				const userNameNode = <span className="text-xlarge">{this.props.userName}</span>;
 				profileManager = (
-					<DropdownButton title={userNameNode} onSelect={this.handleSelectUserAction} bsStyle="info">
-						<MenuItem eventKey="Administer">Administer</MenuItem>
-						<MenuItem eventKey="Logout">Logout</MenuItem>
-					</DropdownButton>
+					<Nav pullRight>
+						<DropdownButton title={userNameNode} onSelect={this.handleSelectUserAction} bsStyle="info">
+							<MenuItem eventKey="Administer">Administer</MenuItem>
+							<MenuItem eventKey="Logout">Logout</MenuItem>
+						</DropdownButton>
+					</Nav>
 				);
 			} else {
 				profileManager = (
-					<LinkContainer to="/login">
-						<NavItem className="text-xlarge">Login</NavItem>
-					</LinkContainer>
+					<Nav pullRight>
+						<LinkContainer to="/login">
+							<NavItem className="text-xlarge">Login</NavItem>
+						</LinkContainer>
+						<Navbar.Text>/</Navbar.Text>
+						<LinkContainer to="/register">
+							<NavItem className="text-xlarge">Sign Up</NavItem>
+						</LinkContainer>
+					</Nav>
 				);
 			}
 		}
@@ -83,10 +93,8 @@ class Header extends Component {
 					<Navbar.Toggle />
 				</Navbar.Header>
 				<Navbar.Collapse>
-					<Nav pullRight>
-						{navigator}
-						{profileManager}
-					</Nav>
+					{navigator}
+					{profileManager}
 				</Navbar.Collapse>
 			</Navbar>
 		);

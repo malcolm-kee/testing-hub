@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 
 const User = mongoose.model('User');
 
+const mailer = require('../config/mailer');
+
 function sendJsonResponse(res, status, content) {
 	res.status(status);
 	res.json(content);
@@ -46,7 +48,7 @@ module.exports.userList = function exportUserList(req, res) {
 };
 
 module.exports.userReadOne = function exportUserReadOne(req, res) {
-	User.findById(req.params.userid, 'name email isAdmin', (err, user) => {
+	User.findById(req.params.userid, 'name email isAdmin verified', (err, user) => {
 		if (err) {
 			sendJsonResponse(res, 404, {
 				message: 'error thrown by DB.'
@@ -61,12 +63,52 @@ module.exports.userReadOne = function exportUserReadOne(req, res) {
 	});
 };
 
+module.exports.userCreate = function exportUserCreate(request, response) {
+	getAuthor(request, response, (req, res, userName) => {
+		const userInputData = req.body;
+		const name = userInputData.name;
+		const email = userInputData.email;
+		const isAdmin = userInputData.isAdmin || false;
+		const password = userInputData.password;
+
+		if (!name || !email || !password) {
+			sendJsonResponse(res, 400, {
+				message: 'All fields are required.'
+			});
+			return;
+		}
+
+		User.create({ name, email, isAdmin, verified: true, createdBy: userName })
+			.then(user => {
+				user.setPassword(password);
+				user.save(err => {
+					if (err) {
+						sendJsonResponse(res, 404, err);
+						return;
+					}
+					mailer
+						.sendAccountCreatedEmail({ to: email, name })
+						.then(() => {
+							sendJsonResponse(res, 200, {});
+						})
+						.catch(sendEmailErr => {
+							sendJsonResponse(res, 404, sendEmailErr);
+						});
+				});
+			})
+			.catch(createUserErr => {
+				sendJsonResponse(res, 404, createUserErr);
+			});
+	});
+};
+
 module.exports.userUpdateOne = function exportUserUpdateOne(request, response) {
 	getAuthor(request, response, (req, res, userName) => {
 		const userInputData = req.body;
 		const name = userInputData.name;
 		const email = userInputData.email;
 		const isAdmin = userInputData.isAdmin;
+		const verified = userInputData.verified;
 		const password = userInputData.password;
 
 		User.findById(req.params.userid, (err, user) => {
@@ -82,6 +124,7 @@ module.exports.userUpdateOne = function exportUserUpdateOne(request, response) {
 				user.name = name;
 				user.email = email;
 				user.isAdmin = isAdmin;
+				user.verified = verified;
 				user.lastUpdatedBy = userName;
 				if (password) {
 					user.setPassword(password);

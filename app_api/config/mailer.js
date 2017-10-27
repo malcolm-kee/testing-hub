@@ -29,3 +29,27 @@ module.exports.sendVerifyEmail = function sendVerifyEmail({ to, name, code }) {
 			});
 	});
 };
+
+module.exports.sendAccountCreatedEmail = function sendAccountCreatedEmail({ to, name }) {
+	return new Promise((resolve, reject) => {
+		const msg = {
+			to,
+			from: 'congrats@testinghub.com',
+			subject: 'Testing Hub - Account Created',
+			html: '<p></p>',
+			templateId: process.env.ACCOUNT_CREATED_TEMPLATE_ID,
+			substitutions: {
+				name,
+				targetUrl
+			}
+		};
+		sendgrid
+			.send(msg)
+			.then(() => {
+				resolve();
+			})
+			.catch(error => {
+				reject(error.toString());
+			});
+	});
+};

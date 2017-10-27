@@ -97,6 +97,7 @@ class FeatureConfig extends Component {
 	render() {
 		let testLinks;
 		let errorMessage;
+		let removeBtn;
 
 		if (this.state.featureLinks.length > 0) {
 			testLinks = (
@@ -113,6 +114,15 @@ class FeatureConfig extends Component {
 				<div className="alert alert-danger">
 					<p className="text-xlarge">{this.state.error}</p>
 				</div>
+			);
+		}
+
+		if (this.props.isAdmin === true) {
+			removeBtn = (
+				<button type="button" className="btn btn-danger pull-right" onClick={this.handleDelete}>
+					Delete&nbsp;
+					<span className="glyphicon glyphicon-trash text-large" />
+				</button>
 			);
 		}
 
@@ -163,14 +173,7 @@ class FeatureConfig extends Component {
 										Save changes&nbsp;
 										<span className="glyphicon glyphicon-ok text-large" />
 									</button>
-									<button
-										type="button"
-										className="btn btn-danger pull-right"
-										onClick={this.handleDelete}
-									>
-										Delete&nbsp;
-										<span className="glyphicon glyphicon-trash text-large" />
-									</button>
+									{removeBtn}
 								</div>
 							</form>
 						</div>
@@ -194,6 +197,8 @@ FeatureConfig.propTypes = {
 		).isRequired
 	}).isRequired,
 	history: PropTypes.shape({ goBack: PropTypes.func.isRequired }).isRequired,
+	loggedIn: PropTypes.bool.isRequired,
+	isAdmin: PropTypes.bool.isRequired,
 	refreshFeatures: PropTypes.func.isRequired
 };
 

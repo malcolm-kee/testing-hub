@@ -145,6 +145,7 @@ class SprintConfig extends Component {
 	render() {
 		let sprintItemsSection;
 		let errorMessage;
+		let removeBtn;
 
 		if (this.state.sprintItems.length > 0) {
 			sprintItemsSection = this.state.sprintItems.map(sprintItem => (
@@ -169,6 +170,15 @@ class SprintConfig extends Component {
 				<div className="alert alert-danger">
 					<p className="text-xlarge">{this.state.error}</p>
 				</div>
+			);
+		}
+
+		if (this.props.isAdmin === true) {
+			removeBtn = (
+				<button type="button" className="btn btn-danger pull-right" onClick={this.handleDelete}>
+					Delete&nbsp;
+					<span className="glyphicon glyphicon-trash text-large" />
+				</button>
 			);
 		}
 
@@ -265,14 +275,7 @@ class SprintConfig extends Component {
 										Save changes&nbsp;
 										<span className="glyphicon glyphicon-ok text-large" />
 									</button>
-									<button
-										type="button"
-										className="btn btn-danger pull-right"
-										onClick={this.handleDelete}
-									>
-										Delete&nbsp;
-										<span className="glyphicon glyphicon-trash text-large" />
-									</button>
+									{removeBtn}
 								</div>
 							</form>
 						</div>
@@ -289,6 +292,8 @@ SprintConfig.propTypes = {
 		id: PropTypes.string.isRequired
 	}).isRequired,
 	refreshSprints: PropTypes.func.isRequired,
+	loggedIn: PropTypes.bool.isRequired,
+	isAdmin: PropTypes.bool.isRequired,
 	features: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string.isRequired, name: PropTypes.string.isRequired }))
 		.isRequired
 };

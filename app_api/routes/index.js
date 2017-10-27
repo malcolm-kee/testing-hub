@@ -32,6 +32,7 @@ router.post('/verify', ctrlAuth.verify);
 
 router.get('/user', auth, ctrlUser.userList);
 router.get('/user/id/:userid', auth, ctrlUser.userReadOne);
+router.post('/user', auth, ctrlUser.userCreate);
 router.put('/user/id/:userid', auth, ctrlUser.userUpdateOne);
 
 module.exports = router;

@@ -18,6 +18,11 @@ module.exports.register = function exportRegister(req, res) {
 			message: 'All fields are required.'
 		});
 		return;
+	} else if (/^.+@accenture\.com$|^.+@digi\.com(\.my)?$/.test(req.body.email) === false) {
+		sendJSONresponse(res, 400, {
+			message: 'Sign up is only open for @accenture.com and @digi.com email.'
+		});
+		return;
 	}
 
 	const user = new User();
@@ -79,9 +84,16 @@ module.exports.verify = function exportVerify(req, res) {
 					user.save((saveErr, savedUser) => {
 						if (saveErr) {
 							sendJSONresponse(res, 404, saveErr);
-						} else {
-							sendJSONresponse(res, 200, { status: 'success', token: savedUser.generateJwt() });
+							return;
 						}
+						mailer
+							.sendAccountCreatedEmail({ to: user.email, name: user.name })
+							.then(() => {
+								sendJSONresponse(res, 200, { status: 'success', token: savedUser.generateJwt() });
+							})
+							.catch(emailErr => {
+								sendJSONresponse(res, 404, emailErr);
+							});
 					});
 				}
 			});
@@ -90,7 +102,7 @@ module.exports.verify = function exportVerify(req, res) {
 };
 
 module.exports.login = function exportLogin(req, res) {
-	if (!req.body.email || !req.body.email) {
+	if (!req.body.email || !req.body.password) {
 		sendJSONresponse(res, 400, {
 			message: 'All fields are required.'
 		});

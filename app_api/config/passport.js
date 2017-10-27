@@ -19,6 +19,11 @@ passport.use(
 						message: 'Incorrect username.'
 					});
 				}
+				if (!user.verified) {
+					return done(null, false, {
+						message: 'Email has not been verified.'
+					});
+				}
 				if (!user.validatePassword(password)) {
 					return done(null, false, {
 						message: 'Incorrect password.'

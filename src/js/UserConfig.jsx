@@ -13,6 +13,7 @@ class UserConfig extends Component {
 		email: '',
 		password: '',
 		isAdmin: false,
+		verified: false,
 		loaded: false,
 		error: ''
 	};
@@ -70,6 +71,7 @@ class UserConfig extends Component {
 					name: this.state.name,
 					email: this.state.email,
 					isAdmin: this.state.isAdmin,
+					verified: this.state.verified,
 					password: this.state.password
 				})
 				.then(() => {
@@ -147,6 +149,22 @@ class UserConfig extends Component {
 									name="isAdmin"
 									className="form-control"
 									checked={this.state.isAdmin}
+									onChange={this.handleCheckBoxChange}
+									disabled={this.state.isAdmin}
+								/>
+							</div>
+						</div>
+						<div className="form-group">
+							<label htmlFor="user-verified" className="col-sm-2 col-form-label text-xxlarge">
+								Email verified
+							</label>
+							<div className="col-sm-10">
+								<input
+									type="checkbox"
+									id="user-verified"
+									name="verified"
+									className="form-control"
+									checked={this.state.verified}
 									onChange={this.handleCheckBoxChange}
 								/>
 							</div>

@@ -18,10 +18,8 @@ class UserVerify extends Component {
 			.verify({ code })
 			.then(() => {
 				this.setState({ loaded: true, message: "You've successfully verified your account!" });
-				window.setTimeout(() => {
-					this.props.refreshLoginStatus();
-					this.props.history.push('/');
-				}, 1500);
+				this.props.refreshLoginStatus();
+				this.props.history.push('/');
 			})
 			.catch(() => {
 				this.setState({ loaded: true, message: 'Sorry, the verification is no longer valid.' });
