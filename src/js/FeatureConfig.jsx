@@ -11,6 +11,7 @@ class FeatureConfig extends Component {
 	state = {
 		featureId: this.props.feature.id,
 		featureName: this.props.feature.name,
+		featureRequireLogin: this.props.feature.requireLogin,
 		featureLinks: this.props.feature.links,
 		error: ''
 	};
@@ -22,6 +23,16 @@ class FeatureConfig extends Component {
 
 		this.setState({
 			[name]: value
+		});
+	};
+
+	handleCheckBoxChange = event => {
+		const target = event.target;
+		const name = target.name;
+		const checked = target.checked;
+
+		this.setState({
+			[name]: checked
 		});
 	};
 
@@ -44,6 +55,7 @@ class FeatureConfig extends Component {
 				.update({
 					id: this.state.featureId,
 					name: this.state.featureName,
+					requireLogin: this.state.featureRequireLogin,
 					links: this.state.featureLinks
 				})
 				.then(() => {
@@ -154,6 +166,24 @@ class FeatureConfig extends Component {
 											/>
 										</div>
 									</div>
+									<div className="form-group">
+										<label
+											htmlFor="feature-requireLogin"
+											className="col-sm-2 col-form-label text-xxlarge"
+										>
+											Require Login
+										</label>
+										<div className="col-sm-10">
+											<input
+												type="checkbox"
+												id="feature-requireLogin"
+												name="featureRequireLogin"
+												className="form-control"
+												checked={this.state.featureRequireLogin}
+												onChange={this.handleCheckBoxChange}
+											/>
+										</div>
+									</div>
 								</fieldset>
 								<fieldset>
 									<legend>Links</legend>
@@ -188,6 +218,7 @@ FeatureConfig.propTypes = {
 	feature: PropTypes.shape({
 		id: PropTypes.string.isRequired,
 		name: PropTypes.string.isRequired,
+		requireLogin: PropTypes.bool.isRequired,
 		links: PropTypes.arrayOf(
 			PropTypes.shape({
 				url: PropTypes.string.isRequired,

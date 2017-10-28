@@ -11,7 +11,7 @@ const featureSchema = new mongoose.Schema({
 	name: { type: String, required: true },
 	details: String,
 	links: [testLinkSchema],
-	categories: [String],
+	requireLogin: { type: Boolean, default: false },
 	createdBy: String,
 	lastUpdatedBy: String
 }).set('toJSON', {

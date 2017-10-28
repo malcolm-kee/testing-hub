@@ -11,6 +11,8 @@ class Feature extends Component {
 	render() {
 		let actionBar;
 		let favIcon;
+		let pTitle;
+		let bsClass;
 
 		if (this.props.editMode === true) {
 			actionBar = (
@@ -51,8 +53,19 @@ class Feature extends Component {
 			}
 		}
 
+		if (this.props.requireLogin) {
+			bsClass = 'panel panel-info';
+			pTitle = 'Private link';
+		} else {
+			bsClass = 'panel panel-default';
+			pTitle = 'Public link';
+		}
+
 		return (
-			<div className="panel panel-default" id={this.props.id}>
+			<div className={bsClass} id={this.props.id}>
+				<div className="panel-heading">
+					<h3 className="panel-title">{pTitle}</h3>
+				</div>
 				<div className="panel-body">
 					{favIcon}
 					<h3 className="text-xxlarge">{this.props.name}</h3>
@@ -67,6 +80,7 @@ Feature.propTypes = {
 	editMode: PropTypes.bool,
 	id: PropTypes.string.isRequired,
 	name: PropTypes.string.isRequired,
+	requireLogin: PropTypes.bool.isRequired,
 	links: PropTypes.arrayOf(
 		PropTypes.shape({
 			url: PropTypes.string.isRequired,

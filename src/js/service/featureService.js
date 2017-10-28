@@ -1,10 +1,31 @@
 import axios from 'axios';
 import authenticationService from './authenticationService';
 
-function getAll() {
+function getPublic() {
 	return new Promise((resolve, reject) => {
 		axios
 			.get('/api/feature')
+			.then(response => {
+				if (response.status === 200) {
+					resolve(response.data);
+				} else {
+					reject();
+				}
+			})
+			.catch(() => {
+				reject();
+			});
+	});
+}
+
+function getAll() {
+	return new Promise((resolve, reject) => {
+		axios
+			.get('/api/featureAll', {
+				headers: {
+					Authorization: `Bearer ${authenticationService.getToken()}`
+				}
+			})
 			.then(response => {
 				if (response.status === 200) {
 					resolve(response.data);
@@ -35,13 +56,14 @@ function getOne({ id }) {
 	});
 }
 
-function create({ name, links }) {
+function create({ name, requireLogin, links }) {
 	return new Promise((resolve, reject) => {
 		axios
 			.post(
 				'/api/feature',
 				{
 					name,
+					requireLogin,
 					links
 				},
 				{
@@ -63,13 +85,14 @@ function create({ name, links }) {
 	});
 }
 
-function update({ id, name, links }) {
+function update({ id, name, requireLogin, links }) {
 	return new Promise((resolve, reject) => {
 		axios
 			.put(
 				`/api/feature/id/${id}`,
 				{
 					name,
+					requireLogin,
 					links
 				},
 				{
@@ -112,4 +135,4 @@ function remove({ id }) {
 	});
 }
 
-export default { getAll, getOne, create, update, remove };
+export default { getPublic, getAll, getOne, create, update, remove };

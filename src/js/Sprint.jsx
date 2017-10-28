@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import SprintItem from './SprintItem';
+import SprintSummary from './SprintSummary';
 import Header from './Header';
 import SearchBar from './SearchBar';
 import Spinner from './Spinner';
@@ -94,6 +95,7 @@ class Sprint extends Component {
 							<p>{this.state.desc}</p>
 						</header>
 						<div className="container">
+							<SprintSummary sprintItems={this.state.sprintItems} />
 							<SearchBar
 								handleSearchTermChange={this.handleSearchTermChange}
 								searchTerm={this.state.searchTerm}

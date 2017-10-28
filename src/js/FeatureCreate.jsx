@@ -9,6 +9,7 @@ import featureService from './service/featureService';
 class FeatureCreate extends Component {
 	state = {
 		name: '',
+		requireLogin: false,
 		links: [],
 		error: ''
 	};
@@ -20,6 +21,16 @@ class FeatureCreate extends Component {
 
 		this.setState({
 			[name]: value
+		});
+	};
+
+	handleCheckBoxChange = event => {
+		const target = event.target;
+		const name = target.name;
+		const checked = target.checked;
+
+		this.setState({
+			[name]: checked
 		});
 	};
 
@@ -41,6 +52,7 @@ class FeatureCreate extends Component {
 			featureService
 				.create({
 					name: this.state.name,
+					requireLogin: this.state.requireLogin,
 					links: this.state.links
 				})
 				.then(() => {
@@ -122,6 +134,24 @@ class FeatureCreate extends Component {
 												className="form-control"
 												value={this.state.name}
 												onChange={this.handleInputChange}
+											/>
+										</div>
+									</div>
+									<div className="form-group">
+										<label
+											htmlFor="feature-requireLogin"
+											className="col-sm-2 col-form-label text-xxlarge"
+										>
+											Require Login
+										</label>
+										<div className="col-sm-10">
+											<input
+												type="checkbox"
+												id="feature-requireLogin"
+												name="requireLogin"
+												className="form-control"
+												checked={this.state.requireLogin}
+												onChange={this.handleCheckBoxChange}
 											/>
 										</div>
 									</div>

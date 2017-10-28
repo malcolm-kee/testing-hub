@@ -51,13 +51,31 @@ const validateFeatureJson = function validateFeatureJson(featureJson) {
 };
 
 module.exports.featuresList = function exportFeaturesList(req, res) {
-  Feature.find({}, 'name categories links', (err, features) => {
+  Feature.find({ requireLogin: false }, 'name links', (err, features) => {
     if (err) {
       sendJsonResponse(res, 404, {
         message: 'error thrown by DB.'
       });
       return;
     } else if (features.length === 0) {
+      sendJsonResponse(res, 404, {
+        message: 'no feature is retrieved.'
+      });
+      return;
+    }
+    sendJsonResponse(res, 200, features);
+  });
+};
+
+module.exports.featuresListAll = function exportFeatureListAll(req, res) {
+  Feature.find({}, 'name requireLogin links', (err, features) => {
+    if (err) {
+      sendJsonResponse(res, 404, {
+        message: 'error thrown by DB.'
+      });
+      return;
+    }
+    if (features.length === 0) {
       sendJsonResponse(res, 404, {
         message: 'no feature is retrieved.'
       });
@@ -87,7 +105,7 @@ module.exports.featureCreate = function exportFeatureCreate(request, response) {
 };
 
 module.exports.featureReadOne = function exportFeatureReadOne(req, res) {
-  Feature.findById(req.params.featureid, 'name categories links', (err, feature) => {
+  Feature.findById(req.params.featureid, 'name links requireLogin', (err, feature) => {
     if (err) {
       sendJsonResponse(res, 404, {
         message: 'error thrown by DB.'
@@ -107,7 +125,7 @@ module.exports.featureUpdateOne = function exportFeatureUpdateOne(request, respo
   getAuthor(request, response, (req, res, userName) => {
     const featureInputData = req.body;
     const name = featureInputData.name;
-    const categories = featureInputData.categories;
+    const requireLogin = featureInputData.requireLogin;
     const links = featureInputData.links;
 
     if (validateFeatureJson(featureInputData) === false) {
@@ -128,7 +146,7 @@ module.exports.featureUpdateOne = function exportFeatureUpdateOne(request, respo
         });
       } else {
         feature.name = name;
-        feature.categories = categories;
+        feature.requireLogin = requireLogin;
         feature.links = links;
         feature.lastUpdatedBy = userName;
         feature.save((saveErr, savedFeature) => {

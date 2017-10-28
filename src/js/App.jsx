@@ -32,21 +32,32 @@ class App extends Component {
 	};
 
 	componentWillMount() {
-		this.refreshSprints();
-		this.refreshFeatures();
 		this.refreshLoginStatus();
+		this.refreshSprints();
 	}
 
 	refreshFeatures = () => {
-		featureService
-			.getAll()
-			.then(features => {
-				this.setState({ features });
-			})
-			.catch(() => {
-				this.setState({ error: true });
-				this.setState({ errorMessage: 'Error while getting features data' });
-			});
+		if (this.state.loggedIn) {
+			featureService
+				.getAll()
+				.then(features => {
+					this.setState({ features });
+				})
+				.catch(() => {
+					this.setState({ error: true });
+					this.setState({ errorMessage: 'Error while getting features data' });
+				});
+		} else {
+			featureService
+				.getPublic()
+				.then(features => {
+					this.setState({ features });
+				})
+				.catch(() => {
+					this.setState({ error: true });
+					this.setState({ errorMessage: 'Error while getting features data' });
+				});
+		}
 	};
 
 	refreshSprints = () => {
@@ -63,7 +74,9 @@ class App extends Component {
 
 	refreshLoginStatus = () => {
 		const currentUser = authenticationService.getCurrentUser();
-		this.setState({ loggedIn: authenticationService.isLoggedIn() });
+		this.setState({ loggedIn: authenticationService.isLoggedIn() }, () => {
+			this.refreshFeatures();
+		});
 		this.setState({ userName: currentUser.name });
 		this.setState({ isAdmin: currentUser.isAdmin });
 	};

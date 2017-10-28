@@ -13,6 +13,7 @@ const auth = jwt({
 });
 
 router.get('/feature', ctrlFeature.featuresList);
+router.get('/featureAll', auth, ctrlFeature.featuresListAll);
 router.post('/feature', auth, ctrlFeature.featureCreate);
 router.get('/feature/id/:featureid', ctrlFeature.featureReadOne);
 router.put('/feature/id/:featureid', auth, ctrlFeature.featureUpdateOne);
