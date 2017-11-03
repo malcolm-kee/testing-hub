@@ -41,8 +41,6 @@ const validateUserJson = function validateUserJson(userJson) {
 		/^.+@.+\..+/.test(userJson.email) === false
 	) {
 		return false;
-	} else if (typeof userJson.password !== 'string' || userJson.password.length === 0) {
-		return false;
 	}
 	return true;
 };
@@ -83,7 +81,11 @@ module.exports.userReadOne = function exportUserReadOne(req, res) {
 module.exports.userCreate = function exportUserCreate(request, response) {
 	getAuthor(request, response, (req, res, userName) => {
 		const userJson = req.body;
-		if (validateUserJson(userJson) === false) {
+		if (
+			validateUserJson(userJson) === false ||
+			typeof userJson.password !== 'string' ||
+			userJson.password.length === 0
+		) {
 			sendJsonResponse(res, 400, {
 				message: 'Invalid request data.'
 			});
@@ -120,12 +122,18 @@ module.exports.userCreate = function exportUserCreate(request, response) {
 
 module.exports.userUpdateOne = function exportUserUpdateOne(request, response) {
 	getAuthor(request, response, (req, res, userName) => {
-		const userInputData = req.body;
-		const name = userInputData.name;
-		const email = userInputData.email;
-		const isAdmin = userInputData.isAdmin;
-		const verified = userInputData.verified;
-		const password = userInputData.password;
+		const userJson = req.body;
+		if (validateUserJson(userJson) === false) {
+			sendJsonResponse(res, 400, {
+				message: 'Invalid request data.'
+			});
+			return;
+		}
+		const name = userJson.name;
+		const email = userJson.email;
+		const isAdmin = userJson.isAdmin;
+		const verified = userJson.verified;
+		const password = userJson.password;
 
 		User.findById(req.params.userid, (err, user) => {
 			if (err) {

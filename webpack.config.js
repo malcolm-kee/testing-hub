@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
 	context: __dirname,
-	entry: ['./src/js/ClientApp.jsx'],
+	entry: ['./client/js/ClientApp.jsx'],
 	output: {
 		path: path.join(__dirname, 'public', 'js'),
 		filename: 'app.js',

@@ -1,0 +1,45 @@
+{
+	"features": [
+		{
+			"id": "58a9b155723cff54c6fa6a05",
+			"name": "Postpaid iPhone 7 Bundle",
+			"categories": ["popular"],
+			"links": [
+				{
+					"env": "QA",
+					"url": "https://storeqa.digi.com.my/storefront/mini-cart.ep?pID=IPHONE_7_DGPP#buy",
+					"id": "59abc14b2309720ac4a8efb7"
+				},
+				{
+					"env": "UAT",
+					"url": "https://storeuat.digi.com.my/storefront/mini-cart.ep?pID=IPHONE_7_DGPP#buy",
+					"id": "59abc14b2309720ac4a8efb6"
+				},
+				{
+					"env": "DEV",
+					"url": "http://storedev.digi.com.my/storefront/mini-cart.ep?pID=IPHONE_7_DGPP#buy",
+					"id": "59abc14b2309720ac4a8efb5"
+				}
+			]
+		},
+		{
+			"id": "58a9b359723cff54c6fa6a09",
+			"name": "Prepaid Home Broadband",
+			"categories": ["popular", "preprod"],
+			"links": [
+				{
+					"env": "QA",
+					"url":
+						"http://storeqa.digi.com.my/storefront/product-config.ep?pID=20017&isBundle=n&ppymttype=PREPAID&ptype=BB",
+					"id": "59abc14b2309720ac4a8efb2"
+				},
+				{
+					"env": "UAT",
+					"url":
+						"https://storeuat.digi.com.my/storefront/product-config.ep?pID=20017&isBundle=n&ppymttype=PREPAID&ptype=BB",
+					"id": "59abc14b2309720ac4a8efb1"
+				}
+			]
+		}
+	]
+}

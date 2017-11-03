@@ -3,14 +3,9 @@ import PropTypes from 'prop-types';
 import { Button, ButtonGroup, ButtonToolbar, DropdownButton, MenuItem, OverlayTrigger, Popover } from 'react-bootstrap';
 
 class SprintItem extends Component {
-	state = {
-		status: this.props.status
-	};
-
 	handleSelectStatus = (eventKey, event) => {
 		event.preventDefault();
 		const status = eventKey;
-		this.setState({ status });
 		this.props.updateSprintItemStatus(this.props.id, status);
 	};
 
@@ -21,7 +16,7 @@ class SprintItem extends Component {
 			Passed: 'success',
 			Blocked: 'danger'
 		};
-		const btnStyle = btnStyleMap[this.state.status];
+		const btnStyle = btnStyleMap[this.props.status];
 		const detailsPopover = (
 			<Popover title="Details" id={`popOver-${this.props.id}`}>
 				<ButtonToolbar>
@@ -48,7 +43,7 @@ class SprintItem extends Component {
 					<ButtonToolbar>
 						<ButtonGroup>
 							<DropdownButton
-								title={this.state.status}
+								title={this.props.status}
 								bsStyle={btnStyle}
 								onSelect={this.handleSelectStatus}
 								disabled={!this.props.editable}

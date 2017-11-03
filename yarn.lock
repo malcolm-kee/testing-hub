@@ -262,7 +262,7 @@ async@^1.5.0, async@^1.5.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
 
-async@^2.1.2:
+async@^2.1.2, async@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/async/-/async-2.5.0.tgz#843190fd6b7357a0b9e1c956edddd5ec8462b54d"
   dependencies:
@@ -3440,6 +3440,13 @@ mongodb@2.2.31:
     es6-promise "3.2.1"
     mongodb-core "2.1.15"
     readable-stream "2.2.7"
+
+mongoose-sequence@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/mongoose-sequence/-/mongoose-sequence-4.0.1.tgz#831ddd66ef96abf008a89413ea6d25837dfacc55"
+  dependencies:
+    async "^2.5.0"
+    lodash "^4.6.1"
 
 mongoose-unique-validator@^1.0.6:
   version "1.0.6"

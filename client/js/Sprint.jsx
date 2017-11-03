@@ -6,6 +6,7 @@ import SprintSummary from './SprintSummary';
 import Header from './Header';
 import SearchBar from './SearchBar';
 import Spinner from './Spinner';
+import DotsLoader from './DotsLoader';
 
 import sprintService from './service/sprintService';
 
@@ -52,13 +53,27 @@ class Sprint extends Component {
 
 	render() {
 		let content;
+		let header;
+
 		if (this.state.error) {
+			header = (
+				<header className="page-header">
+					<h1>Error</h1>
+				</header>
+			);
 			content = (
 				<div className="alert alert-danger">
 					<p className="text-xlarge">{this.state.error}</p>
 				</div>
 			);
-		} else if (this.props.features.length > 0) {
+		} else if (this.props.features.length > 0 && this.state.sprintItems.length > 0) {
+			header = (
+				<header className="page-header">
+					<h1>{this.state.name}</h1>
+					<p>{this.state.desc}</p>
+				</header>
+			);
+
 			content = this.state.sprintItems
 				.filter(sprintItem => {
 					const itemFeature = this.props.features.find(feature => feature.id === sprintItem.featureId);
@@ -72,7 +87,7 @@ class Sprint extends Component {
 				.map(sprintItem => {
 					const itemFeature = this.props.features.find(feature => feature.id === sprintItem.featureId);
 					return (
-						<div key={sprintItem.id} className="col-xs-6 col-sm-4 col-md-3 pad-vertical">
+						<div key={sprintItem.id} className="col-xs-12 col-sm-6 col-md-4 col-lg-3 pad-vertical">
 							<SprintItem
 								feature={itemFeature}
 								updateSprintItemStatus={this.updateSprintItemStatus}
@@ -83,6 +98,14 @@ class Sprint extends Component {
 					);
 				});
 		} else {
+			header = (
+				<header className="page-header">
+					<h1>Loading Sprint...</h1>
+					<p>
+						<DotsLoader />
+					</p>
+				</header>
+			);
 			content = <Spinner />;
 		}
 
@@ -96,10 +119,7 @@ class Sprint extends Component {
 				/>
 				<div className="container-fluid">
 					<div className="row">
-						<header className="page-header">
-							<h1>{this.state.name}</h1>
-							<p>{this.state.desc}</p>
-						</header>
+						{header}
 						<div className="container">
 							<SprintSummary sprintItems={this.state.sprintItems} />
 							<SearchBar

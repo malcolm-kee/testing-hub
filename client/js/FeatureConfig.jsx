@@ -9,10 +9,10 @@ import featureService from './service/featureService';
 
 class FeatureConfig extends Component {
 	state = {
-		featureId: this.props.feature.id,
-		featureName: this.props.feature.name,
-		featureRequireLogin: this.props.feature.requireLogin,
-		featureLinks: this.props.feature.links,
+		id: this.props.id,
+		name: this.props.name,
+		requireLogin: this.props.requireLogin,
+		links: this.props.links,
 		error: ''
 	};
 
@@ -38,10 +38,10 @@ class FeatureConfig extends Component {
 
 	validateForm = () => {
 		this.setState({ error: '' });
-		if (this.state.featureName.length === 0) {
+		if (this.state.name.length === 0) {
 			this.setState({ error: 'Please populate Name field' });
 			return false;
-		} else if (this.state.featureLinks.length === 0) {
+		} else if (this.state.links.length === 0) {
 			this.setState({ error: 'Please add at least a link' });
 			return false;
 		}
@@ -53,10 +53,10 @@ class FeatureConfig extends Component {
 		if (this.validateForm()) {
 			featureService
 				.update({
-					id: this.state.featureId,
-					name: this.state.featureName,
-					requireLogin: this.state.featureRequireLogin,
-					links: this.state.featureLinks
+					id: this.state.id,
+					name: this.state.name,
+					requireLogin: this.state.requireLogin,
+					links: this.state.links
 				})
 				.then(() => {
 					this.props.history.goBack();
@@ -74,7 +74,7 @@ class FeatureConfig extends Component {
 		event.preventDefault();
 		this.setState({ error: '' });
 		featureService
-			.remove({ id: this.state.featureId })
+			.remove({ id: this.state.id })
 			.then(() => {
 				this.props.history.goBack();
 				this.props.refreshFeatures();
@@ -88,20 +88,20 @@ class FeatureConfig extends Component {
 
 	addLink = link => {
 		this.setState(prevState => {
-			const latestFeatureLinks = prevState.featureLinks.concat(link);
+			const latestLinks = prevState.links.concat(link);
 
 			return {
-				featureLinks: latestFeatureLinks
+				links: latestLinks
 			};
 		});
 	};
 
 	removeLink = id => {
 		this.setState(prevState => {
-			const latestFeatureLinks = prevState.featureLinks.filter(link => link.id !== id);
+			const latestLinks = prevState.links.filter(link => link.id !== id);
 
 			return {
-				featureLinks: latestFeatureLinks
+				links: latestLinks
 			};
 		});
 	};
@@ -111,10 +111,10 @@ class FeatureConfig extends Component {
 		let errorMessage;
 		let removeBtn;
 
-		if (this.state.featureLinks.length > 0) {
+		if (this.state.links.length > 0) {
 			testLinks = (
 				<div>
-					{this.state.featureLinks.map(featureLink => (
+					{this.state.links.map(featureLink => (
 						<FeatureConfigLink key={featureLink.id} removeLink={this.removeLink} {...featureLink} />
 					))}
 				</div>
@@ -159,9 +159,9 @@ class FeatureConfig extends Component {
 											<input
 												type="text"
 												id="feature-name"
-												name="featureName"
+												name="name"
 												className="form-control"
-												value={this.state.featureName}
+												value={this.state.name}
 												onChange={this.handleInputChange}
 											/>
 										</div>
@@ -177,9 +177,9 @@ class FeatureConfig extends Component {
 											<input
 												type="checkbox"
 												id="feature-requireLogin"
-												name="featureRequireLogin"
+												name="requireLogin"
 												className="form-control"
-												checked={this.state.featureRequireLogin}
+												checked={this.state.requireLogin}
 												onChange={this.handleCheckBoxChange}
 											/>
 										</div>
@@ -215,18 +215,16 @@ class FeatureConfig extends Component {
 }
 
 FeatureConfig.propTypes = {
-	feature: PropTypes.shape({
-		id: PropTypes.string.isRequired,
-		name: PropTypes.string.isRequired,
-		requireLogin: PropTypes.bool.isRequired,
-		links: PropTypes.arrayOf(
-			PropTypes.shape({
-				url: PropTypes.string.isRequired,
-				env: PropTypes.string.isRequired,
-				id: PropTypes.string.isRequired
-			})
-		).isRequired
-	}).isRequired,
+	id: PropTypes.string.isRequired,
+	name: PropTypes.string.isRequired,
+	requireLogin: PropTypes.bool.isRequired,
+	links: PropTypes.arrayOf(
+		PropTypes.shape({
+			url: PropTypes.string.isRequired,
+			env: PropTypes.string.isRequired,
+			id: PropTypes.string.isRequired
+		})
+	).isRequired,
 	history: PropTypes.shape({ goBack: PropTypes.func.isRequired }).isRequired,
 	loggedIn: PropTypes.bool.isRequired,
 	isAdmin: PropTypes.bool.isRequired,

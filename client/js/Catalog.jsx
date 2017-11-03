@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import { Navbar, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
 
 import Feature from './Feature';
 import Header from './Header';
 import SearchBar from './SearchBar';
 import Spinner from './Spinner';
+import DotsLoader from './DotsLoader';
 
 import preferenceService from './service/preferenceService';
 
@@ -15,6 +17,13 @@ class Catalog extends Component {
 		searchTerm: '',
 		fav: preferenceService.getFavFeatures()
 	};
+
+	componentWillMount() {
+		// increase security to require login to access
+		if (this.props.loggedIn === false) {
+			this.props.history.push('/landing');
+		}
+	}
 
 	handleSearchTermChange = event => {
 		this.setState({ searchTerm: event.target.value });
@@ -59,9 +68,9 @@ class Catalog extends Component {
 				sprintPageNav = (
 					<div className="container">
 						<Navbar inverse>
-							<Nav className="text-xxlarge">
-								<Spinner />
-							</Nav>
+							<Navbar.Text>
+								<DotsLoader />
+							</Navbar.Text>
 						</Navbar>
 					</div>
 				);
@@ -132,7 +141,8 @@ Catalog.propTypes = {
 	).isRequired,
 	loggedIn: PropTypes.bool.isRequired,
 	userName: PropTypes.string.isRequired,
-	refreshLoginStatus: PropTypes.func.isRequired
+	refreshLoginStatus: PropTypes.func.isRequired,
+	history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired
 };
 
-export default Catalog;
+export default withRouter(Catalog);

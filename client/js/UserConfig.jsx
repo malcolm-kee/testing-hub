@@ -77,10 +77,16 @@ class UserConfig extends Component {
 				.then(() => {
 					this.props.history.goBack();
 				})
-				.catch(() => {
-					this.setState({
-						error: 'Sorry, unable to update user'
-					});
+				.catch(error => {
+					if (error.message) {
+						this.setState({
+							error: error.message
+						});
+					} else {
+						this.setState({
+							error: 'Sorry, unable to update user'
+						});
+					}
 				});
 		}
 	};
@@ -89,8 +95,19 @@ class UserConfig extends Component {
 		let formContent;
 
 		if (this.state.loaded) {
+			let systemMessage;
+
+			if (this.state.error.length > 0) {
+				systemMessage = (
+					<div className="alert alert-danger">
+						<p className="text-xlarge">{this.state.error}</p>
+					</div>
+				);
+			}
+
 			formContent = (
 				<form className="form-horizontal">
+					{systemMessage}
 					<fieldset>
 						<legend>Details</legend>
 						<div className="form-group">

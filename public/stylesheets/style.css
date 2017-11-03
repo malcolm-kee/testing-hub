@@ -9,6 +9,12 @@ nav.navbar.navbar-fixed-top {
     padding: 15px 30px;
 }
 
+.landing-message {
+    max-width: 580px;
+    margin: 0 auto;
+    padding: 15px 30px;
+}
+
 .fav-icon {
     position: absolute;
     top: 3px;

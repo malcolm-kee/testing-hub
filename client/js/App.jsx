@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 // import preload from './data.json';
+import Landing from './Landing';
 import Catalog from './Catalog';
 import Admin from './Admin';
 import FeatureCreate from './FeatureCreate';
@@ -101,6 +102,17 @@ class App extends Component {
 						/>
 						<Route
 							exact
+							path="/landing"
+							component={() => (
+								<Landing
+									loggedIn={this.state.loggedIn}
+									userName={this.state.userName}
+									refreshLoginStatus={this.refreshLoginStatus}
+								/>
+							)}
+						/>
+						<Route
+							exact
 							path="/login"
 							component={() => (
 								<Login loggedIn={this.state.loggedIn} refreshLoginStatus={this.refreshLoginStatus} />
@@ -156,12 +168,12 @@ class App extends Component {
 								);
 								return (
 									<FeatureConfig
-										feature={selectedFeature}
 										refreshFeatures={this.refreshFeatures}
 										loggedIn={this.state.loggedIn}
 										isAdmin={this.state.isAdmin}
 										userName={this.state.userName}
 										refreshLoginStatus={this.refreshLoginStatus}
+										{...selectedFeature}
 									/>
 								);
 							}}
