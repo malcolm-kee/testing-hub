@@ -63,7 +63,12 @@ class Header extends Component {
 				const userNameNode = <span className="text-xlarge">{this.props.userName}</span>;
 				profileManager = (
 					<Nav pullRight>
-						<DropdownButton title={userNameNode} onSelect={this.handleSelectUserAction} bsStyle="info">
+						<DropdownButton
+							title={userNameNode}
+							onSelect={this.handleSelectUserAction}
+							bsStyle="info"
+							id="header-options"
+						>
 							<MenuItem eventKey="Administer">Administer</MenuItem>
 							<MenuItem eventKey="Logout">Logout</MenuItem>
 						</DropdownButton>
