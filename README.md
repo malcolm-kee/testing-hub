@@ -11,6 +11,14 @@ This project is used as a demo page for a testing-hub page, in which tester can 
 ```
 mongorestore -h localhost:27017 -d DSOPortal ~/tmp/mongodump/DSOPortal
 ```
+5. Add a .env file at the root directory with the following contents
+```
+JWT_SECRET=yourSecretKey
+SENDGRID_API_KEY=sendGridApiKeyFromYourSendGridAccount
+VERIFY_EMAIL_TEMPLATE_ID=your-Send-Grid-TemplateId-1
+ACCOUNT_CREATED_TEMPLATE_ID=your-Send-Grid-TemplateId-2
+URL=http://localhost:3000
+```
 6. Go to the root of this project and run the following command
 ```
 heroku local
