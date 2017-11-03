@@ -4,7 +4,7 @@ const merge = require('webpack-merge');
 const prodconfig = require('./webpack.config.js');
 
 module.exports = merge.strategy({
-	entry: 'prepand'
+	entry: 'prepend'
 })(prodconfig, {
 	entry: ['react-hot-loader/patch', 'webpack-dev-server/client?http://localhost:3000', 'webpack/hot/only-dev-server'],
 	devtool: 'source-map',
