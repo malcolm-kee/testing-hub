@@ -23,8 +23,14 @@ function register({ name, email, isAdmin, password }) {
 					reject();
 				}
 			})
-			.catch(() => {
-				reject();
+			.catch(error => {
+				if (error.response) {
+					reject({
+						message: error.response.data.message
+					});
+				} else {
+					reject();
+				}
 			});
 	});
 }
@@ -42,8 +48,14 @@ function verify({ code }) {
 					reject();
 				}
 			})
-			.catch(() => {
-				reject();
+			.catch(error => {
+				if (error.response) {
+					reject({
+						message: error.response.data.message
+					});
+				} else {
+					reject();
+				}
 			});
 	});
 }
@@ -61,8 +73,14 @@ function login({ email, password }) {
 					reject();
 				}
 			})
-			.catch(() => {
-				reject();
+			.catch(error => {
+				if (error.response) {
+					reject({
+						message: error.response.data.message
+					});
+				} else {
+					reject();
+				}
 			});
 	});
 }

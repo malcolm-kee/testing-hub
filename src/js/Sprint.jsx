@@ -20,7 +20,7 @@ class Sprint extends Component {
 		error: ''
 	};
 
-	componentWillMount() {
+	componentDidMount() {
 		sprintService
 			.getOne({ url: this.props.url })
 			.then(sprint => {
@@ -76,6 +76,7 @@ class Sprint extends Component {
 							<SprintItem
 								feature={itemFeature}
 								updateSprintItemStatus={this.updateSprintItemStatus}
+								editable={this.props.loggedIn}
 								{...sprintItem}
 							/>
 						</div>
@@ -87,7 +88,12 @@ class Sprint extends Component {
 
 		return (
 			<div>
-				<Header />
+				<Header
+					showLogin
+					loggedIn={this.props.loggedIn}
+					userName={this.props.userName}
+					refreshLoginStatus={this.props.refreshLoginStatus}
+				/>
 				<div className="container-fluid">
 					<div className="row">
 						<header className="page-header">
@@ -113,7 +119,10 @@ class Sprint extends Component {
 
 Sprint.propTypes = {
 	url: PropTypes.string.isRequired,
-	features: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string.isRequired })).isRequired
+	features: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string.isRequired })).isRequired,
+	loggedIn: PropTypes.bool.isRequired,
+	userName: PropTypes.string.isRequired,
+	refreshLoginStatus: PropTypes.func.isRequired
 };
 
 export default Sprint;

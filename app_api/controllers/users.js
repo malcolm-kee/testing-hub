@@ -30,6 +30,23 @@ const getAuthor = function getAuthor(req, res, callback) {
 	}
 };
 
+const validateUserJson = function validateUserJson(userJson) {
+	if (typeof userJson === 'undefined' || userJson === null) {
+		return false;
+	} else if (typeof userJson.name !== 'string' || userJson.name.length === 0) {
+		return false;
+	} else if (
+		typeof userJson.email !== 'string' ||
+		userJson.email.length === 0 ||
+		/^.+@.+\..+/.test(userJson.email) === false
+	) {
+		return false;
+	} else if (typeof userJson.password !== 'string' || userJson.password.length === 0) {
+		return false;
+	}
+	return true;
+};
+
 module.exports.userList = function exportUserList(req, res) {
 	User.find({}, 'email name isAdmin verified', (err, users) => {
 		if (err) {
@@ -65,18 +82,17 @@ module.exports.userReadOne = function exportUserReadOne(req, res) {
 
 module.exports.userCreate = function exportUserCreate(request, response) {
 	getAuthor(request, response, (req, res, userName) => {
-		const userInputData = req.body;
-		const name = userInputData.name;
-		const email = userInputData.email;
-		const isAdmin = userInputData.isAdmin || false;
-		const password = userInputData.password;
-
-		if (!name || !email || !password) {
+		const userJson = req.body;
+		if (validateUserJson(userJson) === false) {
 			sendJsonResponse(res, 400, {
-				message: 'All fields are required.'
+				message: 'Invalid request data.'
 			});
 			return;
 		}
+		const name = userJson.name;
+		const email = userJson.email;
+		const isAdmin = userJson.isAdmin || false;
+		const password = userJson.password;
 
 		User.create({ name, email, isAdmin, verified: true, createdBy: userName })
 			.then(user => {

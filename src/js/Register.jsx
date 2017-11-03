@@ -50,10 +50,16 @@ class Register extends Component {
 				.then(() => {
 					this.setState({ message: `A verification email has been sent to ${this.state.email}` });
 				})
-				.catch(() => {
-					this.setState({
-						error: "Sorry, we've problem registering your account. Please try again later."
-					});
+				.catch(error => {
+					if (error.message) {
+						this.setState({
+							error: error.message
+						});
+					} else {
+						this.setState({
+							error: "Sorry, we've problem registering your account. Please try again later."
+						});
+					}
 				});
 		}
 	};

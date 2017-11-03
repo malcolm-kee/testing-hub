@@ -60,8 +60,14 @@ function create({ name, url, desc, sprintItems }) {
 					reject();
 				}
 			})
-			.catch(() => {
-				reject();
+			.catch(error => {
+				if (error.response) {
+					reject({
+						message: error.response.data.message
+					});
+				} else {
+					reject();
+				}
 			});
 	});
 }

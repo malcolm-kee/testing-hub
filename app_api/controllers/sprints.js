@@ -70,19 +70,20 @@ module.exports.sprintsList = function exportSprintList(req, res) {
 module.exports.sprintCreate = function exportSprintCreate(request, response) {
   getAuthor(request, response, (req, res, userName) => {
     const sprint = merge({}, req.body, { createdBy: userName });
-    if (validateSprintJson(sprint)) {
-      Sprint.create(sprint, (err, createdSprints) => {
-        if (err) {
-          sendJsonResponse(res, 404, {
-            message: 'error thrown by DB.'
-          });
-          return;
-        }
-        sendJsonResponse(res, 200, { status: 'success', sprints: [createdSprints] });
-      });
-    } else {
+    if (validateSprintJson(sprint) === false) {
       sendJsonResponse(res, 400, { message: 'Invalid Json' });
+      return;
     }
+
+    Sprint.create(sprint, (err, createdSprints) => {
+      if (err) {
+        sendJsonResponse(res, 404, {
+          message: 'error thrown by DB.'
+        });
+        return;
+      }
+      sendJsonResponse(res, 200, { status: 'success', sprints: [createdSprints] });
+    });
   });
 };
 

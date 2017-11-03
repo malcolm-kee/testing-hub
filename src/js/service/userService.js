@@ -67,8 +67,14 @@ function create({ name, email, isAdmin, password }) {
 					reject();
 				}
 			})
-			.catch(() => {
-				reject();
+			.catch(error => {
+				if (error.response) {
+					reject({
+						message: error.response.data.message
+					});
+				} else {
+					reject();
+				}
 			});
 	});
 }

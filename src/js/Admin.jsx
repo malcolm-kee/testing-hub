@@ -20,11 +20,9 @@ class Admin extends Component {
 	componentWillMount() {
 		if (this.props.loggedIn === false) {
 			this.props.history.push('/login');
+		} else if (this.props.isAdmin) {
+			this.refreshUsers();
 		}
-	}
-
-	componentDidMount() {
-		this.refreshUsers();
 	}
 
 	refreshUsers = () => {

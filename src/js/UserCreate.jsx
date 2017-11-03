@@ -63,15 +63,31 @@ class UserCreate extends Component {
 				.then(() => {
 					this.props.history.goBack();
 				})
-				.catch(() => {
-					this.setState({
-						error: 'Sorry, unable to create new user.'
-					});
+				.catch(error => {
+					if (error.message) {
+						this.setState({
+							error: error.message
+						});
+					} else {
+						this.setState({
+							error: 'Sorry, unable to create new user.'
+						});
+					}
 				});
 		}
 	};
 
 	render() {
+		let systemMessage;
+
+		if (this.state.error.length > 0) {
+			systemMessage = (
+				<div className="alert alert-danger">
+					<p className="text-xlarge">{this.state.error}</p>
+				</div>
+			);
+		}
+
 		return (
 			<div>
 				<Header back next nextAction={this.handleSubmit} backAction={this.props.history.goBack} />
@@ -82,6 +98,7 @@ class UserCreate extends Component {
 						</header>
 						<div className="container">
 							<form className="form-horizontal">
+								{systemMessage}
 								<fieldset>
 									<legend>Details</legend>
 									<div className="form-group">

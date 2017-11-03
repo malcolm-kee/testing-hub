@@ -23,7 +23,7 @@ class SprintItem extends Component {
 		};
 		const btnStyle = btnStyleMap[this.state.status];
 		const detailsPopover = (
-			<Popover title="Details">
+			<Popover title="Details" id={`popOver-${this.props.id}`}>
 				<ButtonToolbar>
 					<ButtonGroup>
 						{this.props.feature.links.map(link => (
@@ -51,6 +51,8 @@ class SprintItem extends Component {
 								title={this.state.status}
 								bsStyle={btnStyle}
 								onSelect={this.handleSelectStatus}
+								disabled={!this.props.editable}
+								id={`actionBtn-${this.props.id}`}
 							>
 								<MenuItem eventKey="Not Started">Not Started</MenuItem>
 								<MenuItem eventKey="In Progress">In Progress</MenuItem>
@@ -83,6 +85,7 @@ SprintItem.propTypes = {
 	}).isRequired,
 	status: PropTypes.string,
 	desc: PropTypes.string,
+	editable: PropTypes.bool.isRequired,
 	updateSprintItemStatus: PropTypes.func.isRequired
 };
 
