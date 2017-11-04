@@ -19,6 +19,7 @@ class SprintItem extends Component {
 		const btnStyle = btnStyleMap[this.props.status];
 		const detailsPopover = (
 			<Popover title="Details" id={`popOver-${this.props.id}`}>
+				<div>{this.props.feature.name}</div>
 				<ButtonToolbar>
 					<ButtonGroup>
 						{this.props.feature.links.map(link => (
@@ -34,10 +35,10 @@ class SprintItem extends Component {
 		return (
 			<div className="panel panel-default">
 				<div className="panel-heading">
-					<div className="panel-title">{this.props.name}</div>
+					<div className="panel-title">{this.props.scenarioId}</div>
 				</div>
 				<div className="panel-body">
-					<h3 className="text-xxlarge">{this.props.feature.name}</h3>
+					<h3 className="text-xxlarge">{this.props.name}</h3>
 				</div>
 				<div className="panel-footer">
 					<ButtonToolbar>
@@ -67,6 +68,7 @@ class SprintItem extends Component {
 
 SprintItem.propTypes = {
 	id: PropTypes.string.isRequired,
+	scenarioId: PropTypes.string,
 	name: PropTypes.string.isRequired,
 	feature: PropTypes.shape({
 		name: PropTypes.string.isRequired,
@@ -86,6 +88,7 @@ SprintItem.propTypes = {
 
 SprintItem.defaultProps = {
 	status: 'Not Started',
+	scenarioId: 'Scenario',
 	desc: ''
 };
 

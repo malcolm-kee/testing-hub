@@ -3,6 +3,7 @@ const uniqueValidator = require('mongoose-unique-validator');
 
 const sprintItem = new mongoose.Schema({
 	name: { type: String, required: true },
+	scenarioId: String,
 	featureId: String,
 	status: String,
 	desc: String

@@ -6,6 +6,7 @@ import ulid from 'ulid';
 class SprintItemConfig extends Component {
 	state = {
 		id: this.props.id,
+		scenarioId: this.props.scenarioId,
 		name: this.props.name,
 		status: this.props.status,
 		featureId: this.props.new ? this.props.features[0].id : this.props.featureId,
@@ -107,6 +108,24 @@ class SprintItemConfig extends Component {
 						<fieldset>
 							<div className="form-group">
 								<label
+									htmlFor="sprint-item-scenarioId"
+									className="col-sm-2 col-form-label text-xlarge text-right"
+								>
+									Scneario Id
+								</label>
+								<div className="col-sm-10">
+									<input
+										type="text"
+										id="sprint-item-scenarioId"
+										name="scenarioId"
+										className="form-control"
+										value={this.state.scenarioId}
+										onChange={this.handleInputChange}
+									/>
+								</div>
+							</div>
+							<div className="form-group">
+								<label
 									htmlFor="sprint-item-name"
 									className="col-sm-2 col-form-label text-xlarge text-right"
 								>
@@ -175,6 +194,7 @@ class SprintItemConfig extends Component {
 
 SprintItemConfig.propTypes = {
 	id: PropTypes.string,
+	scenarioId: PropTypes.string,
 	name: PropTypes.string,
 	featureId: PropTypes.string,
 	features: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string.isRequired, name: PropTypes.string.isRequired }))
@@ -189,6 +209,7 @@ SprintItemConfig.propTypes = {
 
 SprintItemConfig.defaultProps = {
 	id: ulid(),
+	scenarioId: '',
 	name: '',
 	featureId: '',
 	status: 'Not Started',
