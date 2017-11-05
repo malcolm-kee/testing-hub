@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, ButtonGroup, ButtonToolbar, DropdownButton, MenuItem, OverlayTrigger, Popover } from 'react-bootstrap';
+import Markdown from 'react-remarkable';
 
 class SprintItem extends Component {
 	handleSelectStatus = (eventKey, event) => {
@@ -29,7 +30,7 @@ class SprintItem extends Component {
 						))}
 					</ButtonGroup>
 				</ButtonToolbar>
-				{this.props.desc}
+				<Markdown source={this.props.desc} />
 			</Popover>
 		);
 		return (

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Panel } from 'react-bootstrap';
+import { ControlLabel, Panel, Form, Col, FormGroup, FormControl, HelpBlock } from 'react-bootstrap';
 import ulid from 'ulid';
 
 class SprintItemConfig extends Component {
@@ -104,26 +104,20 @@ class SprintItemConfig extends Component {
 		return (
 			<div className="col-sm-6">
 				<Panel header={headerText} bsStyle={bsStyle}>
-					<div className="form-horizontal">
+					<Form horizontal>
 						<fieldset>
-							<div className="form-group">
-								<label
-									htmlFor="sprint-item-scenarioId"
-									className="col-sm-2 col-form-label text-xlarge text-right"
-								>
-									Scneario Id
-								</label>
-								<div className="col-sm-10">
-									<input
+							<FormGroup controlId="sprint-item-scenarioId">
+								<Col sm={2}>
+									<ControlLabel className="text-xlarge text-right">Scenario Id</ControlLabel>
+								</Col>
+								<Col sm={10}>
+									<FormControl
 										type="text"
-										id="sprint-item-scenarioId"
-										name="scenarioId"
-										className="form-control"
 										value={this.state.scenarioId}
 										onChange={this.handleInputChange}
 									/>
-								</div>
-							</div>
+								</Col>
+							</FormGroup>
 							<div className="form-group">
 								<label
 									htmlFor="sprint-item-name"
@@ -166,26 +160,32 @@ class SprintItemConfig extends Component {
 								</div>
 							</div>
 							{statusField}
-							<div className="form-group">
-								<label
-									htmlFor="sprint-item-desc"
-									className="col-sm-2 col-form-label text-xlarge text-right"
-								>
-									Details
-								</label>
-								<div className="col-sm-10">
-									<textarea
+							<FormGroup controlId="sprint-item-desc">
+								<Col sm={2}>
+									<ControlLabel className="text-xlarge text-right">Details</ControlLabel>
+								</Col>
+								<Col sm={10}>
+									<FormControl
+										componentClass="textarea"
 										name="desc"
-										id="sprint-item-desc"
-										className="form-control"
 										value={this.state.desc}
 										onChange={this.handleInputChange}
 									/>
-								</div>
-							</div>
+									<HelpBlock>
+										You may format the description using{' '}
+										<a
+											href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet"
+											target="_blank"
+											rel="noopener noreferrer"
+										>
+											markdown syntax
+										</a>
+									</HelpBlock>
+								</Col>
+							</FormGroup>
 							{buttons}
 						</fieldset>
-					</div>
+					</Form>
 				</Panel>
 			</div>
 		);
