@@ -83,21 +83,14 @@ class SprintItemConfig extends Component {
 				</div>
 			);
 			statusField = (
-				<div className="form-group">
-					<label htmlFor="sprint-item-status" className="col-sm-2 col-form-label text-xlarge text-right">
-						Current Status
-					</label>
-					<div className="col-sm-10">
-						<input
-							type="text"
-							id="sprint-item-status"
-							name="status"
-							className="form-control"
-							value={this.state.status}
-							readOnly
-						/>
-					</div>
-				</div>
+				<FormGroup controlId="sprint-item-status">
+					<Col sm={3}>
+						<ControlLabel className="text-xlarge">Current Status</ControlLabel>
+					</Col>
+					<Col sm={9}>
+						<FormControl type="text" name="status" value={this.state.status} readOnly />
+					</Col>
+				</FormGroup>
 			);
 		}
 
@@ -107,47 +100,39 @@ class SprintItemConfig extends Component {
 					<Form horizontal>
 						<fieldset>
 							<FormGroup controlId="sprint-item-scenarioId">
-								<Col sm={2}>
-									<ControlLabel className="text-xlarge text-right">Scenario Id</ControlLabel>
+								<Col sm={3}>
+									<ControlLabel className="text-xlarge">Scenario Id</ControlLabel>
 								</Col>
-								<Col sm={10}>
+								<Col sm={9}>
 									<FormControl
 										type="text"
+										name="scenarioId"
 										value={this.state.scenarioId}
 										onChange={this.handleInputChange}
 									/>
 								</Col>
 							</FormGroup>
-							<div className="form-group">
-								<label
-									htmlFor="sprint-item-name"
-									className="col-sm-2 col-form-label text-xlarge text-right"
-								>
-									Name
-								</label>
-								<div className="col-sm-10">
-									<input
+							<FormGroup controlId="sprint-item-name">
+								<Col sm={3}>
+									<ControlLabel className="text-xlarge">Name</ControlLabel>
+								</Col>
+								<Col sm={9}>
+									<FormControl
 										type="text"
-										id="sprint-item-name"
 										name="name"
-										className="form-control"
 										value={this.state.name}
 										onChange={this.handleInputChange}
 									/>
-								</div>
-							</div>
-							<div className="form-group">
-								<label
-									htmlFor="sprint-item-feature"
-									className="col-sm-2 col-form-label text-xlarge text-right"
-								>
-									Feature
-								</label>
-								<div className="col-sm-10">
-									<select
+								</Col>
+							</FormGroup>
+							<FormGroup controlId="sprint-item-feature">
+								<Col sm={3}>
+									<ControlLabel className="text-xlarge">Feature</ControlLabel>
+								</Col>
+								<Col sm={9}>
+									<FormControl
+										componentClass="select"
 										name="featureId"
-										id="sprint-item-feature"
-										className="form-control"
 										value={this.state.featureId}
 										onChange={this.handleInputChange}
 									>
@@ -156,15 +141,15 @@ class SprintItemConfig extends Component {
 												{feature.name}
 											</option>
 										))}
-									</select>
-								</div>
-							</div>
+									</FormControl>
+								</Col>
+							</FormGroup>
 							{statusField}
 							<FormGroup controlId="sprint-item-desc">
-								<Col sm={2}>
-									<ControlLabel className="text-xlarge text-right">Details</ControlLabel>
+								<Col sm={3}>
+									<ControlLabel className="text-xlarge">Details</ControlLabel>
 								</Col>
-								<Col sm={10}>
+								<Col sm={9}>
 									<FormControl
 										componentClass="textarea"
 										name="desc"
