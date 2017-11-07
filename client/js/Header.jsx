@@ -16,8 +16,9 @@ class Header extends Component {
 				this.props.history.push('/admin');
 				break;
 			case 'Logout':
-				authenticationService.logout();
-				this.props.refreshLoginStatus();
+				authenticationService.logout().then(() => {
+					this.props.refreshLoginStatus();
+				});
 				break;
 			default:
 				this.props.history.push('/');

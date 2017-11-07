@@ -73,14 +73,21 @@ class App extends Component {
 			});
 	};
 
-	refreshLoginStatus = () => {
-		const currentUser = authenticationService.getCurrentUser();
-		this.setState({ loggedIn: authenticationService.isLoggedIn() }, () => {
-			this.refreshFeatures();
+	refreshLoginStatus = () =>
+		Promise.all([authenticationService.getLoginStatus(), authenticationService.getCurrentUser()]).then(data => {
+			const loggedIn = data[0];
+			const currentUser = data[1];
+			this.setState(
+				{
+					loggedIn,
+					userName: currentUser.name,
+					isAdmin: currentUser.isAdmin
+				},
+				() => {
+					this.refreshFeatures();
+				}
+			);
 		});
-		this.setState({ userName: currentUser.name });
-		this.setState({ isAdmin: currentUser.isAdmin });
-	};
 
 	render() {
 		return (

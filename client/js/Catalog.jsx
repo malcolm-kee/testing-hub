@@ -15,13 +15,17 @@ import preferenceService from './service/preferenceService';
 class Catalog extends Component {
 	state = {
 		searchTerm: '',
-		fav: preferenceService.getFavFeatures()
+		fav: []
 	};
 
 	componentWillMount() {
 		// increase security to require login to access
 		if (this.props.loggedIn === false) {
 			this.props.history.push('/landing');
+		} else {
+			preferenceService.getFavFeatures().then(favFeatures => {
+				this.setState({ fav: favFeatures });
+			});
 		}
 	}
 
@@ -31,11 +35,13 @@ class Catalog extends Component {
 
 	toggleFav = id => {
 		if (this.state.fav.includes(id) === true) {
-			const updatedFav = preferenceService.removeFavFeature(id);
-			this.setState({ fav: updatedFav });
+			preferenceService.removeFavFeature(id).then(favFeatures => {
+				this.setState({ fav: favFeatures });
+			});
 		} else {
-			const updatedFav = preferenceService.addFavFeature(id);
-			this.setState({ fav: updatedFav });
+			preferenceService.addFavFeature(id).then(favFeatures => {
+				this.setState({ fav: favFeatures });
+			});
 		}
 	};
 

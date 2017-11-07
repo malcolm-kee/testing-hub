@@ -1,15 +1,43 @@
 import axios from 'axios';
+import idbKeyval from 'idb-keyval';
 
 function saveToken(token) {
-	window.localStorage.setItem('testhub-token', token);
+	return new Promise((resolve, reject) => {
+		idbKeyval
+			.set('testhub-token', token)
+			.then(() => {
+				resolve();
+			})
+			.catch(err => {
+				reject(err);
+			});
+	});
 }
 
 function getToken() {
-	return window.localStorage.getItem('testhub-token');
+	return new Promise((resolve, reject) => {
+		idbKeyval
+			.get('testhub-token')
+			.then(token => {
+				resolve(token);
+			})
+			.catch(err => {
+				reject(err);
+			});
+	});
 }
 
 function removeToken() {
-	window.localStorage.removeItem('testhub-token');
+	return new Promise((resolve, reject) => {
+		idbKeyval
+			.delete('testhub-token')
+			.then(() => {
+				resolve();
+			})
+			.catch(err => {
+				reject(err);
+			});
+	});
 }
 
 function register({ name, email, isAdmin, password }) {
@@ -42,8 +70,13 @@ function verify({ code }) {
 			.then(response => {
 				if (response.status === 200) {
 					const token = response.data.token;
-					saveToken(token);
-					resolve();
+					saveToken(token)
+						.then(() => {
+							resolve();
+						})
+						.catch(() => {
+							reject();
+						});
 				} else {
 					reject();
 				}
@@ -67,8 +100,13 @@ function login({ email, password }) {
 			.then(response => {
 				if (response.status === 200) {
 					const token = response.data.token;
-					saveToken(token);
-					resolve();
+					saveToken(token)
+						.then(() => {
+							resolve();
+						})
+						.catch(() => {
+							reject();
+						});
 				} else {
 					reject();
 				}
@@ -86,31 +124,52 @@ function login({ email, password }) {
 }
 
 function logout() {
-	removeToken();
+	return removeToken();
 }
 
-function isLoggedIn() {
-	const token = getToken();
-
-	if (token) {
-		const payload = JSON.parse(window.atob(token.split('.')[1]));
-
-		return payload.exp > Date.now() / 1000;
-	}
-	return false;
+function getLoginStatus() {
+	return new Promise((resolve, reject) => {
+		getToken()
+			.then(token => {
+				if (token) {
+					const payload = JSON.parse(window.atob(token.split('.')[1]));
+					const loggedIn = payload.exp > Date.now() / 1000;
+					resolve(loggedIn);
+				} else {
+					reject();
+				}
+			})
+			.catch(err => {
+				reject(err);
+			});
+	});
 }
 
 function getCurrentUser() {
-	if (isLoggedIn()) {
-		const token = getToken();
-		const payload = JSON.parse(window.atob(token.split('.')[1]));
-		return {
-			email: payload.email,
-			name: payload.name,
-			isAdmin: payload.isAdmin
-		};
-	}
-	return false;
+	return new Promise((resolve, reject) => {
+		getLoginStatus()
+			.then(loggedIn => {
+				if (loggedIn) {
+					getToken()
+						.then(token => {
+							const payload = JSON.parse(window.atob(token.split('.')[1]));
+							resolve({
+								email: payload.email,
+								name: payload.name,
+								isAdmin: payload.isAdmin
+							});
+						})
+						.catch(err => {
+							reject(err);
+						});
+				} else {
+					reject();
+				}
+			})
+			.catch(err => {
+				reject(err);
+			});
+	});
 }
 
-export default { getToken, register, verify, login, logout, isLoggedIn, getCurrentUser };
+export default { getToken, register, verify, login, logout, getLoginStatus, getCurrentUser };

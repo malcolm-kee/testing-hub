@@ -20,21 +20,28 @@ function getPublic() {
 
 function getAll() {
 	return new Promise((resolve, reject) => {
-		axios
-			.get('/api/featureAll', {
-				headers: {
-					Authorization: `Bearer ${authenticationService.getToken()}`
-				}
+		authenticationService
+			.getToken()
+			.then(token => {
+				axios
+					.get('/api/featureAll', {
+						headers: {
+							Authorization: `Bearer ${token}`
+						}
+					})
+					.then(response => {
+						if (response.status === 200) {
+							resolve(response.data);
+						} else {
+							reject();
+						}
+					})
+					.catch(() => {
+						reject();
+					});
 			})
-			.then(response => {
-				if (response.status === 200) {
-					resolve(response.data);
-				} else {
-					reject();
-				}
-			})
-			.catch(() => {
-				reject();
+			.catch(err => {
+				reject(err);
 			});
 	});
 }
@@ -58,79 +65,100 @@ function getOne({ id }) {
 
 function create({ name, requireLogin, links }) {
 	return new Promise((resolve, reject) => {
-		axios
-			.post(
-				'/api/feature',
-				{
-					name,
-					requireLogin,
-					links
-				},
-				{
-					headers: {
-						Authorization: `Bearer ${authenticationService.getToken()}`
-					}
-				}
-			)
-			.then(response => {
-				if (response.status === 200) {
-					resolve(response.data);
-				} else {
-					reject();
-				}
+		authenticationService
+			.getToken()
+			.then(token => {
+				axios
+					.post(
+						'/api/feature',
+						{
+							name,
+							requireLogin,
+							links
+						},
+						{
+							headers: {
+								Authorization: `Bearer ${token}`
+							}
+						}
+					)
+					.then(response => {
+						if (response.status === 200) {
+							resolve(response.data);
+						} else {
+							reject();
+						}
+					})
+					.catch(() => {
+						reject();
+					});
 			})
-			.catch(() => {
-				reject();
+			.catch(err => {
+				reject(err);
 			});
 	});
 }
 
 function update({ id, name, requireLogin, links }) {
 	return new Promise((resolve, reject) => {
-		axios
-			.put(
-				`/api/feature/id/${id}`,
-				{
-					name,
-					requireLogin,
-					links
-				},
-				{
-					headers: {
-						Authorization: `Bearer ${authenticationService.getToken()}`
-					}
-				}
-			)
-			.then(response => {
-				if (response.status === 200) {
-					resolve();
-				} else {
-					reject();
-				}
+		authenticationService
+			.getToken()
+			.then(token => {
+				axios
+					.put(
+						`/api/feature/id/${id}`,
+						{
+							name,
+							requireLogin,
+							links
+						},
+						{
+							headers: {
+								Authorization: `Bearer ${token}`
+							}
+						}
+					)
+					.then(response => {
+						if (response.status === 200) {
+							resolve();
+						} else {
+							reject();
+						}
+					})
+					.catch(() => {
+						reject();
+					});
 			})
-			.catch(() => {
-				reject();
+			.catch(err => {
+				reject(err);
 			});
 	});
 }
 
 function remove({ id }) {
 	return new Promise((resolve, reject) => {
-		axios
-			.delete(`/api/feature/id/${id}`, {
-				headers: {
-					Authorization: `Bearer ${authenticationService.getToken()}`
-				}
+		authenticationService
+			.getToken()
+			.then(token => {
+				axios
+					.delete(`/api/feature/id/${id}`, {
+						headers: {
+							Authorization: `Bearer ${token}`
+						}
+					})
+					.then(response => {
+						if (response.status === 200) {
+							resolve();
+						} else {
+							reject();
+						}
+					})
+					.catch(() => {
+						reject();
+					});
 			})
-			.then(response => {
-				if (response.status === 200) {
-					resolve();
-				} else {
-					reject();
-				}
-			})
-			.catch(() => {
-				reject();
+			.catch(err => {
+				reject(err);
 			});
 	});
 }
