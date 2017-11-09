@@ -135,29 +135,23 @@ module.exports.featureUpdateOne = function exportFeatureUpdateOne(request, respo
       return;
     }
 
-    Feature.findById(req.params.featureid, (err, feature) => {
-      if (err) {
-        sendJsonResponse(res, 404, {
-          message: 'error thrown by DB.'
-        });
-      } else if (feature === null) {
-        sendJsonResponse(res, 404, {
-          message: 'no feature is found.'
-        });
-      } else {
-        feature.name = name;
-        feature.requireLogin = requireLogin;
-        feature.links = links;
-        feature.lastUpdatedBy = userName;
-        feature.save((saveErr, savedFeature) => {
-          if (saveErr) {
-            sendJsonResponse(res, 404, saveErr);
-          } else {
-            sendJsonResponse(res, 200, { status: 'success', features: [savedFeature] });
-          }
-        });
+    Feature.findByIdAndUpdate(
+      req.params.featureid,
+      { name, requireLogin, links, lastUpdatedBy: userName },
+      (err, feature) => {
+        if (err) {
+          sendJsonResponse(res, 404, {
+            message: 'error thrown by DB.'
+          });
+        } else if (feature === null) {
+          sendJsonResponse(res, 404, {
+            message: 'no feature is found.'
+          });
+        } else {
+          sendJsonResponse(res, 200, { status: 'success', features: [feature] });
+        }
       }
-    });
+    );
   });
 };
 

@@ -89,12 +89,13 @@ Feature.propTypes = {
 		})
 	).isRequired,
 	pinned: PropTypes.bool,
-	toggleFav: PropTypes.func.isRequired
+	toggleFav: PropTypes.func
 };
 
 Feature.defaultProps = {
 	editMode: false,
-	pinned: false
+	pinned: false,
+	toggleFav: function noop() {}
 };
 
 export default Feature;

@@ -11,16 +11,6 @@ class FeatureConfigLink extends Component {
 		error: ''
 	};
 
-	handleInputChange = event => {
-		const target = event.target;
-		const value = target.value;
-		const name = target.name;
-
-		this.setState({
-			[name]: value
-		});
-	};
-
 	validateLink = () => {
 		if (this.state.env.length === 0) {
 			this.setState({ error: 'Env is required' });
@@ -87,10 +77,11 @@ class FeatureConfigLink extends Component {
 								<input
 									type="text"
 									id={`link-env-${this.props.id}`}
+									data-linkid={this.props.id}
 									className="form-control"
 									name="env"
-									value={this.state.env}
-									onChange={this.handleInputChange}
+									value={this.props.env}
+									onChange={this.props.handleLinkInputChange}
 								/>
 							</div>
 							<div className="col-xs-12 col-sm-5">
@@ -100,10 +91,11 @@ class FeatureConfigLink extends Component {
 								<input
 									type="url"
 									id={`link-url-${this.props.id}`}
+									data-linkid={this.props.id}
 									name="url"
 									className="form-control"
-									value={this.state.url}
-									onChange={this.handleInputChange}
+									value={this.props.url}
+									onChange={this.props.handleLinkInputChange}
 								/>
 							</div>
 							<div className="col-xs-8 col-sm-2">{errorMessage}</div>
@@ -122,7 +114,8 @@ FeatureConfigLink.propTypes = {
 	env: PropTypes.string,
 	url: PropTypes.string,
 	addLink: PropTypes.func,
-	removeLink: PropTypes.func
+	removeLink: PropTypes.func,
+	handleLinkInputChange: PropTypes.func
 };
 
 FeatureConfigLink.defaultProps = {
@@ -131,7 +124,8 @@ FeatureConfigLink.defaultProps = {
 	env: '',
 	url: '',
 	addLink: function noop() {},
-	removeLink: function noop() {}
+	removeLink: function noop() {},
+	handleLinkInputChange: function noop() {}
 };
 
 export default FeatureConfigLink;

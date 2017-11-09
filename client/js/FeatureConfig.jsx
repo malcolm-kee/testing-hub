@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 
 import Header from './Header';
 import FeatureConfigLink from './FeatureConfigLink';
+import FeatureConfigLinkCreate from './FeatureConfigLinkCreate';
 
 import featureService from './service/featureService';
 
@@ -23,6 +24,37 @@ class FeatureConfig extends Component {
 
 		this.setState({
 			[name]: value
+		});
+	};
+
+	handleLinkInputChange = event => {
+		const target = event.target;
+		const value = target.value;
+		const name = target.name;
+		const linkId = target.dataset.linkid;
+
+		console.log(value, name, linkId);
+
+		this.setState(prevState => {
+			const latestLinks = prevState.links.map(link => {
+				if (link.id === linkId) {
+					const updatedLink = Object.assign({}, link, {
+						[name]: value
+					});
+
+					console.log('updatedLink:', updatedLink);
+
+					return updatedLink;
+				}
+				console.log('link:', link);
+				return link;
+			});
+
+			console.log('latestLinks:', latestLinks);
+
+			return {
+				links: latestLinks
+			};
 		});
 	};
 
@@ -106,6 +138,21 @@ class FeatureConfig extends Component {
 		});
 	};
 
+	updateLink = updatedLink => {
+		this.setState(prevState => {
+			const latestLinks = prevState.links.map(link => {
+				if (link.id === updatedLink.id) {
+					return updatedLink;
+				}
+				return link;
+			});
+
+			return {
+				links: latestLinks
+			};
+		});
+	};
+
 	render() {
 		let testLinks;
 		let errorMessage;
@@ -115,7 +162,13 @@ class FeatureConfig extends Component {
 			testLinks = (
 				<div>
 					{this.state.links.map(featureLink => (
-						<FeatureConfigLink key={featureLink.id} removeLink={this.removeLink} {...featureLink} />
+						<FeatureConfigLink
+							key={featureLink.id}
+							updatedLink={this.updatedLink}
+							removeLink={this.removeLink}
+							handleLinkInputChange={this.handleLinkInputChange}
+							{...featureLink}
+						/>
 					))}
 				</div>
 			);
@@ -147,7 +200,7 @@ class FeatureConfig extends Component {
 							<h1>Edit Test Link</h1>
 						</header>
 						<div className="container">
-							<form className="form-horizontal">
+							<form className="form-horizontal" onSubmit={this.handleSubmit}>
 								{errorMessage}
 								<fieldset>
 									<legend>Details</legend>
@@ -188,7 +241,7 @@ class FeatureConfig extends Component {
 								<fieldset>
 									<legend>Links</legend>
 									{testLinks}
-									<FeatureConfigLink new addLink={this.addLink} />
+									<FeatureConfigLinkCreate addLink={this.addLink} />
 								</fieldset>
 								<div className="form-group">
 									<button
@@ -199,7 +252,7 @@ class FeatureConfig extends Component {
 										<span className="glyphicon glyphicon-menu-left text-large" />
 										Back
 									</button>
-									<button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>
+									<button type="submit" className="btn btn-primary">
 										Save changes&nbsp;
 										<span className="glyphicon glyphicon-ok text-large" />
 									</button>
