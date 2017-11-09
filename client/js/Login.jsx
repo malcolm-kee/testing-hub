@@ -83,7 +83,7 @@ class Login extends Component {
 					<div className="row">
 						<div className="container">
 							<div className="user-auth-form panel">
-								<form className=" form-horizontal">
+								<form className=" form-horizontal" onSubmit={this.handleSubmit}>
 									{systemMessage}
 									<fieldset>
 										<legend>Login</legend>
@@ -116,11 +116,7 @@ class Login extends Component {
 									</fieldset>
 									<div className="btn-toolbar">
 										<div className="btn-group pull-right">
-											<button
-												type="button"
-												className="btn btn-primary"
-												onClick={this.handleSubmit}
-											>
+											<button type="submit" className="btn btn-primary">
 												Login
 											</button>
 										</div>

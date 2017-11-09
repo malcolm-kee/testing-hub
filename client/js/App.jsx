@@ -27,7 +27,7 @@ class App extends Component {
 		sprints: [],
 		loggedIn: null,
 		isAdmin: null,
-		userName: '',
+		userName: null,
 		error: false,
 		errorMessage: null
 	};
@@ -74,20 +74,26 @@ class App extends Component {
 	};
 
 	refreshLoginStatus = () =>
-		Promise.all([authenticationService.getLoginStatus(), authenticationService.getCurrentUser()]).then(data => {
-			const loggedIn = data[0];
-			const currentUser = data[1];
-			this.setState(
-				{
-					loggedIn,
-					userName: currentUser.name,
-					isAdmin: currentUser.isAdmin
-				},
-				() => {
-					this.refreshFeatures();
-				}
-			);
-		});
+		Promise.all([authenticationService.getLoginStatus(), authenticationService.getCurrentUser()])
+			.then(data => {
+				const loggedIn = data[0];
+				const currentUser = data[1];
+				this.setState(
+					{
+						loggedIn,
+						userName: currentUser.name,
+						isAdmin: currentUser.isAdmin
+					},
+					() => {
+						this.refreshFeatures();
+					}
+				);
+			})
+			.catch(() => {
+				this.setState({
+					loggedIn: false
+				});
+			});
 
 	render() {
 		return (

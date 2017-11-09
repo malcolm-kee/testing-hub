@@ -29,6 +29,16 @@ class Catalog extends Component {
 		}
 	}
 
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.loggedIn === false) {
+			this.props.history.push('/landing');
+		} else if (nextProps.loggedIn === true && this.props.loggedIn === false) {
+			preferenceService.getFavFeatures().then(favFeatures => {
+				this.setState({ fav: favFeatures });
+			});
+		}
+	}
+
 	handleSearchTermChange = event => {
 		this.setState({ searchTerm: event.target.value });
 	};
