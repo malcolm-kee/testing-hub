@@ -25,8 +25,8 @@ class App extends Component {
 	state = {
 		features: [],
 		sprints: [],
-		loggedIn: false,
-		isAdmin: false,
+		loggedIn: null,
+		isAdmin: null,
 		userName: '',
 		error: false,
 		errorMessage: null

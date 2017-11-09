@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
+import { isURL } from 'validator';
 
 import Header from './Header';
 import FeatureConfigLink from './FeatureConfigLink';
@@ -27,37 +28,6 @@ class FeatureConfig extends Component {
 		});
 	};
 
-	handleLinkInputChange = event => {
-		const target = event.target;
-		const value = target.value;
-		const name = target.name;
-		const linkId = target.dataset.linkid;
-
-		console.log(value, name, linkId);
-
-		this.setState(prevState => {
-			const latestLinks = prevState.links.map(link => {
-				if (link.id === linkId) {
-					const updatedLink = Object.assign({}, link, {
-						[name]: value
-					});
-
-					console.log('updatedLink:', updatedLink);
-
-					return updatedLink;
-				}
-				console.log('link:', link);
-				return link;
-			});
-
-			console.log('latestLinks:', latestLinks);
-
-			return {
-				links: latestLinks
-			};
-		});
-	};
-
 	handleCheckBoxChange = event => {
 		const target = event.target;
 		const name = target.name;
@@ -69,12 +39,17 @@ class FeatureConfig extends Component {
 	};
 
 	validateForm = () => {
+		const checkLinkUrl = link => isURL(link.url);
+
 		this.setState({ error: '' });
 		if (this.state.name.length === 0) {
 			this.setState({ error: 'Please populate Name field' });
 			return false;
 		} else if (this.state.links.length === 0) {
 			this.setState({ error: 'Please add at least a link' });
+			return false;
+		} else if (this.state.links.every(checkLinkUrl) === false) {
+			this.setState({ error: 'Please use a valid URL.' });
 			return false;
 		}
 		return true;
@@ -116,6 +91,44 @@ class FeatureConfig extends Component {
 					error: 'Sorry, we have problem delete this test link. Please try again.'
 				});
 			});
+	};
+
+	handleLinkInputChange = event => {
+		const target = event.target;
+		const value = target.value;
+		const name = target.name;
+		const linkId = target.dataset.linkid;
+
+		this.setState(prevState => {
+			const latestLinks = prevState.links.map(link => {
+				if (link.id === linkId) {
+					const updatedLink = Object.assign({}, link, {
+						[name]: value
+					});
+
+					return updatedLink;
+				}
+				return link;
+			});
+
+			return {
+				links: latestLinks
+			};
+		});
+	};
+
+	handleLinkRemove = event => {
+		event.preventDefault();
+
+		const linkId = event.target.dataset.linkid;
+
+		this.setState(prevState => {
+			const latestLinks = prevState.links.filter(link => link.id !== linkId);
+
+			return {
+				links: latestLinks
+			};
+		});
 	};
 
 	addLink = link => {
@@ -165,7 +178,7 @@ class FeatureConfig extends Component {
 						<FeatureConfigLink
 							key={featureLink.id}
 							updatedLink={this.updatedLink}
-							removeLink={this.removeLink}
+							handleLinkRemove={this.handleLinkRemove}
 							handleLinkInputChange={this.handleLinkInputChange}
 							{...featureLink}
 						/>
