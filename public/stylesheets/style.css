@@ -1,5 +1,6 @@
 /* CUSTOM CLASS */
-.panel-heading {
+.panel-heading,
+.nav.nav-pills > li > a {
     font-size: 1.5rem;
 }
 

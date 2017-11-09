@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Tabs, Tab } from 'react-bootstrap';
 
-import SprintItem from './SprintItem';
 import SprintSummary from './SprintSummary';
 import Header from './Header';
 import SearchBar from './SearchBar';
 import Spinner from './Spinner';
 import DotsLoader from './DotsLoader';
+import SprintItemCardView from './SprintItemCardView';
+import SprintItemTableView from './SprintItemTableView';
 
 import sprintService from './service/sprintService';
 
@@ -38,7 +40,12 @@ class Sprint extends Component {
 		this.setState({ searchTerm: event.target.value });
 	};
 
-	updateSprintItemStatus = (itemId, status) => {
+	handleSprintItemStatusSelect = (eventKey, event) => {
+		event.preventDefault();
+
+		const status = eventKey;
+		const itemId = event.target.dataset.itemid;
+
 		sprintService
 			.updateItemStatus({ id: this.state.id, itemId, status })
 			.then(sprint => {
@@ -74,29 +81,36 @@ class Sprint extends Component {
 				</header>
 			);
 
-			content = this.state.sprintItems
-				.filter(sprintItem => {
-					const itemFeature = this.props.features.find(feature => feature.id === sprintItem.featureId);
-
-					return (
-						`${sprintItem.name} ${sprintItem.desc} ${itemFeature.name}`
-							.toUpperCase()
-							.indexOf(this.state.searchTerm.toUpperCase()) >= 0
-					);
-				})
+			const filteredSprintItems = this.state.sprintItems
 				.map(sprintItem => {
 					const itemFeature = this.props.features.find(feature => feature.id === sprintItem.featureId);
-					return (
-						<div key={sprintItem.id} className="col-xs-12 col-sm-6 col-md-4 col-lg-3 pad-vertical">
-							<SprintItem
-								feature={itemFeature}
-								updateSprintItemStatus={this.updateSprintItemStatus}
-								editable={this.props.loggedIn}
-								{...sprintItem}
-							/>
-						</div>
-					);
-				});
+					return Object.assign(sprintItem, { feature: itemFeature });
+				})
+				.filter(
+					sprintItem =>
+						`${sprintItem.name} ${sprintItem.desc} ${sprintItem.feature.name}`
+							.toUpperCase()
+							.indexOf(this.state.searchTerm.toUpperCase()) >= 0
+				);
+
+			content = (
+				<Tabs defaultActiveKey={1} bsStyle="pills">
+					<Tab eventKey={1} title="Card View">
+						<SprintItemCardView
+							sprintItems={filteredSprintItems}
+							loggedIn={this.props.loggedIn}
+							handleSprintItemStatusSelect={this.handleSprintItemStatusSelect}
+						/>
+					</Tab>
+					<Tab eventKey={2} title="Table View">
+						<SprintItemTableView
+							sprintItems={filteredSprintItems}
+							loggedIn={this.props.loggedIn}
+							handleSprintItemStatusSelect={this.handleSprintItemStatusSelect}
+						/>
+					</Tab>
+				</Tabs>
+			);
 		} else {
 			header = (
 				<header className="page-header">
