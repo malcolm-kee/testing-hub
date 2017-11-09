@@ -5,6 +5,7 @@ import copy from 'copy-to-clipboard';
 
 import Header from './Header';
 import SprintItemConfig from './SprintItemConfig';
+import SprintItemCreate from './SprintItemCreate';
 
 import sprintService from './service/sprintService';
 
@@ -107,23 +108,22 @@ class SprintConfig extends Component {
 		this.setState({ searchTerm: event.target.value });
 	};
 
-	addSprintItem = sprintItem => {
-		this.setState(prevState => {
-			const latestItems = prevState.sprintItems.concat(sprintItem);
+	handleItemInputChange = event => {
+		const target = event.target;
+		const value = target.value;
+		const name = target.name;
+		const itemId = target.dataset.itemid;
 
-			return {
-				sprintItems: latestItems
-			};
-		});
-	};
-
-	updateSprintItem = sprintItem => {
 		this.setState(prevState => {
-			const latestItems = prevState.sprintItems.map(item => {
-				if (item.id === sprintItem.id) {
-					return sprintItem;
+			const latestItems = prevState.sprintItems.map(sprintItem => {
+				if (sprintItem.id === itemId) {
+					const updatedItem = Object.assign({}, sprintItem, {
+						[name]: value
+					});
+
+					return updatedItem;
 				}
-				return item;
+				return sprintItem;
 			});
 
 			return {
@@ -132,9 +132,23 @@ class SprintConfig extends Component {
 		});
 	};
 
-	removeSprintItem = id => {
+	handleItemRemove = event => {
+		event.preventDefault();
+
+		const itemId = event.target.dataset.itemid;
+
 		this.setState(prevState => {
-			const latestItems = prevState.sprintItems.filter(sprintItem => sprintItem.id !== id);
+			const latestItems = prevState.sprintItems.filter(sprintItem => sprintItem.id !== itemId);
+
+			return {
+				sprintItems: latestItems
+			};
+		});
+	};
+
+	addSprintItem = sprintItem => {
+		this.setState(prevState => {
+			const latestItems = prevState.sprintItems.concat(sprintItem);
 
 			return {
 				sprintItems: latestItems
@@ -152,8 +166,8 @@ class SprintConfig extends Component {
 				<SprintItemConfig
 					key={sprintItem.id}
 					features={this.props.features}
-					updateSprintItem={this.updateSprintItem}
-					removeSprintItem={this.removeSprintItem}
+					handleItemInputChange={this.handleItemInputChange}
+					handleItemRemove={this.handleItemRemove}
 					{...sprintItem}
 				/>
 			));
@@ -254,9 +268,7 @@ class SprintConfig extends Component {
 									<legend>Sprint Items</legend>
 									<div>
 										{sprintItemsSection}
-										<SprintItemConfig
-											new
-											eventKey="0"
+										<SprintItemCreate
 											addSprintItem={this.addSprintItem}
 											features={this.props.features}
 										/>

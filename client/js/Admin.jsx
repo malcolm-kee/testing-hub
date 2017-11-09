@@ -201,11 +201,17 @@ Admin.propTypes = {
 			name: PropTypes.string.isRequired
 		})
 	).isRequired,
-	loggedIn: PropTypes.bool.isRequired,
-	isAdmin: PropTypes.bool.isRequired,
-	userName: PropTypes.string.isRequired,
+	loggedIn: PropTypes.bool,
+	isAdmin: PropTypes.bool,
+	userName: PropTypes.string,
 	refreshLoginStatus: PropTypes.func.isRequired,
 	history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired
+};
+
+Admin.defaultProps = {
+	loggedIn: null,
+	isAdmin: null,
+	userName: ''
 };
 
 export default withRouter(Admin);

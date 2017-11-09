@@ -1,4 +1,8 @@
 /* CUSTOM CLASS */
+.panel-heading {
+    font-size: 1.5rem;
+}
+
 nav.navbar.navbar-fixed-top {
     background-color: #3498db;
 }
