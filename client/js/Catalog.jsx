@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Navbar, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
 
@@ -18,7 +19,7 @@ class Catalog extends Component {
 		fav: []
 	};
 
-	componentWillMount() {
+	componentDidMount() {
 		// increase security to require login to access
 		if (this.props.loggedIn === false) {
 			this.props.history.push('/landing');
@@ -118,12 +119,7 @@ class Catalog extends Component {
 
 		return (
 			<div>
-				<Header
-					showLogin
-					loggedIn={this.props.loggedIn}
-					userName={this.props.userName}
-					refreshLoginStatus={this.props.refreshLoginStatus}
-				/>
+				<Header showLogin />
 				<div className="container-fluid">
 					<div className="row">
 						<header className="page-header">
@@ -146,6 +142,8 @@ class Catalog extends Component {
 	}
 }
 
+const mapStateToProps = state => ({ loggedIn: state.loggedIn });
+
 Catalog.propTypes = {
 	features: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string.isRequired })).isRequired,
 	sprints: PropTypes.arrayOf(
@@ -156,9 +154,7 @@ Catalog.propTypes = {
 		})
 	).isRequired,
 	loggedIn: PropTypes.bool.isRequired,
-	userName: PropTypes.string.isRequired,
-	refreshLoginStatus: PropTypes.func.isRequired,
 	history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired
 };
 
-export default withRouter(Catalog);
+export default connect(mapStateToProps)(withRouter(Catalog));

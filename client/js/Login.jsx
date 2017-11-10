@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
+
+import { setLoginStatus } from './actionCreators';
 
 import Header from './Header';
 
@@ -44,10 +47,10 @@ class Login extends Component {
 					email: this.state.email,
 					password: this.state.password
 				})
-				.then(() => {
+				.then(data => {
 					this.setState({ message: 'Your have logged in successfully!' });
 					window.setTimeout(() => {
-						this.props.refreshLoginStatus();
+						this.props.loginUser({ userName: data.name, isAdmin: data.isAdmin });
 						this.props.history.goBack();
 					}, 1500);
 				})
@@ -131,9 +134,15 @@ class Login extends Component {
 	}
 }
 
+const mapDispatchToProps = dispatch => ({
+	loginUser({ userName, isAdmin }) {
+		dispatch(setLoginStatus({ loggedIn: true, userName, isAdmin }));
+	}
+});
+
 Login.propTypes = {
 	history: PropTypes.shape({ goBack: PropTypes.func.isRequired }).isRequired,
-	refreshLoginStatus: PropTypes.func.isRequired
+	loginUser: PropTypes.func.isRequired
 };
 
-export default withRouter(Login);
+export default connect(null, mapDispatchToProps)(withRouter(Login));

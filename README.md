@@ -21,7 +21,7 @@ VERIFY_EMAIL_TEMPLATE_ID=your-Send-Grid-TemplateId-1
 ACCOUNT_CREATED_TEMPLATE_ID=your-Send-Grid-TemplateId-2
 URL=http://localhost:3000
 ```
-*You need to register for a sendgrid account and create your own verify email and account creation email. For more details, refer to https://github.com/sendgrid/sendgrid-nodejs/tree/master/packages/mail
+*You need to register for a sendgrid account and create your own verify email and account creation email. For more details, refer to https://github.com/sendgrid/sendgrid-nodejs/tree/master/packages/mail*
 6. Go to the root of this project and run the following command
 ```
 heroku local

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 
@@ -15,12 +16,7 @@ class Landing extends Component {
 	render() {
 		return (
 			<div>
-				<Header
-					showLogin
-					loggedIn={this.props.loggedIn}
-					userName={this.props.userName}
-					refreshLoginStatus={this.props.refreshLoginStatus}
-				/>
+				<Header showLogin />
 				<div className="container-fluid">
 					<div className="row">
 						<div className="container">
@@ -49,11 +45,11 @@ class Landing extends Component {
 	}
 }
 
+const mapStateToProps = state => ({ loggedIn: state.loggedIn });
+
 Landing.propTypes = {
 	loggedIn: PropTypes.bool.isRequired,
-	userName: PropTypes.string.isRequired,
-	refreshLoginStatus: PropTypes.func.isRequired,
 	history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired
 };
 
-export default withRouter(Landing);
+export default connect(mapStateToProps)(withRouter(Landing));

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Tabs, Tab } from 'react-bootstrap';
+import { connect } from 'react-redux';
 
 import SprintSummary from './SprintSummary';
 import Header from './Header';
@@ -83,7 +84,9 @@ class Sprint extends Component {
 
 			const filteredSprintItems = this.state.sprintItems
 				.map(sprintItem => {
-					const itemFeature = this.props.features.find(feature => feature.id === sprintItem.featureId);
+					const itemFeature = this.props.features.find(
+						feature => feature.id === sprintItem.featureId
+					);
 					return Object.assign(sprintItem, { feature: itemFeature });
 				})
 				.filter(
@@ -99,14 +102,18 @@ class Sprint extends Component {
 						<SprintItemCardView
 							sprintItems={filteredSprintItems}
 							loggedIn={this.props.loggedIn}
-							handleSprintItemStatusSelect={this.handleSprintItemStatusSelect}
+							handleSprintItemStatusSelect={
+								this.handleSprintItemStatusSelect
+							}
 						/>
 					</Tab>
 					<Tab eventKey={2} title="Table View">
 						<SprintItemTableView
 							sprintItems={filteredSprintItems}
 							loggedIn={this.props.loggedIn}
-							handleSprintItemStatusSelect={this.handleSprintItemStatusSelect}
+							handleSprintItemStatusSelect={
+								this.handleSprintItemStatusSelect
+							}
 						/>
 					</Tab>
 				</Tabs>
@@ -125,12 +132,7 @@ class Sprint extends Component {
 
 		return (
 			<div>
-				<Header
-					showLogin
-					loggedIn={this.props.loggedIn}
-					userName={this.props.userName}
-					refreshLoginStatus={this.props.refreshLoginStatus}
-				/>
+				<Header showLogin />
 				<div className="container-fluid">
 					<div className="row">
 						{header}
@@ -151,12 +153,13 @@ class Sprint extends Component {
 	}
 }
 
+const mapStateToProps = state => ({ loggedIn: state.loggedIn });
+
 Sprint.propTypes = {
 	url: PropTypes.string.isRequired,
-	features: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string.isRequired })).isRequired,
-	loggedIn: PropTypes.bool.isRequired,
-	userName: PropTypes.string.isRequired,
-	refreshLoginStatus: PropTypes.func.isRequired
+	features: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string.isRequired }))
+		.isRequired,
+	loggedIn: PropTypes.bool.isRequired
 };
 
-export default Sprint;
+export default connect(mapStateToProps)(Sprint);

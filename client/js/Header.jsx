@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, NavItem, DropdownButton, MenuItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+
+import { setLoginStatus } from './actionCreators';
 
 import authenticationService from './service/authenticationService';
 
@@ -17,7 +20,7 @@ class Header extends Component {
 				break;
 			case 'Logout':
 				authenticationService.logout().then(() => {
-					this.props.refreshLoginStatus();
+					this.props.logoutUser();
 				});
 				break;
 			default:
@@ -107,27 +110,32 @@ class Header extends Component {
 	}
 }
 
+const mapStateToProps = state => ({ loggedIn: state.loggedIn, userName: state.userName });
+const mapDispatchToProps = dispatch => ({
+	logoutUser() {
+		dispatch(setLoginStatus({ loggedIn: false }));
+	}
+});
+
 Header.propTypes = {
 	back: PropTypes.bool,
 	backAction: PropTypes.func,
 	next: PropTypes.bool,
 	nextAction: PropTypes.func,
-	loggedIn: PropTypes.bool,
+	loggedIn: PropTypes.bool.isRequired,
 	userName: PropTypes.string,
-	refreshLoginStatus: PropTypes.func,
+	logoutUser: PropTypes.func.isRequired,
 	showLogin: PropTypes.bool,
 	history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired
 };
 
 Header.defaultProps = {
+	userName: '',
 	back: false,
 	backAction: function noop() {},
 	next: false,
 	nextAction: function noop() {},
-	showLogin: false,
-	loggedIn: false,
-	userName: '',
-	refreshLoginStatus: function noop() {}
+	showLogin: false
 };
 
-export default withRouter(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));

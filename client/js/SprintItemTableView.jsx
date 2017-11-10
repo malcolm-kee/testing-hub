@@ -1,33 +1,71 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'react-bootstrap';
 
 import SprintItemTableRow from './SprintItemTableRow';
 
-const SprintItemTableView = props => (
-	<Table responsive bordered hover>
-		<thead>
-			<tr>
-				<th>#</th>
-				<th>Scenario Id</th>
-				<th>Scenario Title</th>
-				<th>Scenario Status</th>
-				<th>Details</th>
-			</tr>
-		</thead>
-		<tbody>
-			{props.sprintItems.map((sprintItem, index) => (
-				<SprintItemTableRow
-					key={sprintItem.id}
-					count={index + 1}
-					handleSprintItemStatusSelect={props.handleSprintItemStatusSelect}
-					editable={props.loggedIn}
-					{...sprintItem}
-				/>
-			))}
-		</tbody>
-	</Table>
-);
+class SprintItemTableView extends Component {
+	state = {
+		sortFunc() {
+			return 0;
+		}
+	};
+
+	handleSortRow = event => {
+		const dataSet = event.target.dataset;
+		const fieldName = dataSet.field;
+
+		const compare = (a, b) => {
+			if (a[fieldName] < b[fieldName]) {
+				return -1;
+			}
+			if (a[fieldName] > b[fieldName]) {
+				return 1;
+			}
+
+			return 0;
+		};
+
+		this.setState({
+			sortFunc: compare
+		});
+	};
+
+	render() {
+		return (
+			<Table responsive bordered hover>
+				<thead>
+					<tr>
+						<th>#</th>
+						<th data-field="scenarioId" onClick={this.handleSortRow}>
+							Scenario Id
+						</th>
+						<th data-field="name" onClick={this.handleSortRow}>
+							Scenario Title
+						</th>
+						<th data-field="status" onClick={this.handleSortRow}>
+							Scenario Status
+						</th>
+						<th>Details</th>
+					</tr>
+				</thead>
+				<tbody>
+					{this.props.sprintItems
+						.sort(this.state.sortFunc)
+						.map((sprintItem, index) => (
+							<SprintItemTableRow
+								key={sprintItem.id}
+								count={index + 1}
+								handleSprintItemStatusSelect={this.props.handleSprintItemStatusSelect}
+								editable={this.props.loggedIn}
+								{...sprintItem}
+							/>
+						))}
+				</tbody>
+			</Table>
+		);
+	}
+}
 
 SprintItemTableView.propTypes = {
 	handleSprintItemStatusSelect: PropTypes.func.isRequired,

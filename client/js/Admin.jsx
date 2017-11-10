@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
 import Feature from './Feature';
@@ -122,12 +123,7 @@ class Admin extends Component {
 
 		return (
 			<div>
-				<Header
-					showLogin
-					loggedIn={this.props.loggedIn}
-					userName={this.props.userName}
-					refreshLoginStatus={this.props.refreshLoginStatus}
-				/>
+				<Header showLogin />
 				<div className="container-fluid">
 					<div className="row">
 						<header className="page-header">
@@ -192,6 +188,8 @@ class Admin extends Component {
 	}
 }
 
+const mapStateToProps = state => ({ loggedIn: state.loggedIn, isAdmin: state.isAdmin });
+
 Admin.propTypes = {
 	features: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string.isRequired })).isRequired,
 	sprints: PropTypes.arrayOf(
@@ -203,15 +201,12 @@ Admin.propTypes = {
 	).isRequired,
 	loggedIn: PropTypes.bool,
 	isAdmin: PropTypes.bool,
-	userName: PropTypes.string,
-	refreshLoginStatus: PropTypes.func.isRequired,
 	history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired
 };
 
 Admin.defaultProps = {
 	loggedIn: null,
-	isAdmin: null,
-	userName: ''
+	isAdmin: null
 };
 
-export default withRouter(Admin);
+export default connect(mapStateToProps)(withRouter(Admin));
