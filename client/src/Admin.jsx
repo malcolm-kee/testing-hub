@@ -10,7 +10,7 @@ import Header from './Header';
 import SearchBar from './SearchBar';
 import Spinner from './Spinner';
 
-import userService from './service/userService';
+import userService from 'service/userService';
 
 class Admin extends Component {
 	state = {
