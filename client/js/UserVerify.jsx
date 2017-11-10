@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
+
+import { setLoginStatus } from './actionCreators';
 
 import Spinner from './Spinner';
 
@@ -16,9 +19,9 @@ class UserVerify extends Component {
 		const code = this.props.code;
 		authenticationService
 			.verify({ code })
-			.then(() => {
+			.then(data => {
 				this.setState({ loaded: true, message: "You've successfully verified your account!" });
-				this.props.refreshLoginStatus();
+				this.props.loginUser({ userName: data.name, isAdmin: data.isAdmin });
 				this.props.history.push('/');
 			})
 			.catch(() => {
@@ -39,10 +42,16 @@ class UserVerify extends Component {
 	}
 }
 
+const mapDispatchToProps = dispatch => ({
+	loginUser({ userName, isAdmin }) {
+		dispatch(setLoginStatus({ loggedIn: true, userName, isAdmin }));
+	}
+});
+
 UserVerify.propTypes = {
 	code: PropTypes.string.isRequired,
 	history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
-	refreshLoginStatus: PropTypes.func.isRequired
+	loginUser: PropTypes.func.isRequired
 };
 
-export default withRouter(UserVerify);
+export default connect(mapDispatchToProps)(withRouter(UserVerify));

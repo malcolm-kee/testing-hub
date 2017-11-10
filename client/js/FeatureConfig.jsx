@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { isURL } from 'validator';
 
@@ -280,6 +281,8 @@ class FeatureConfig extends Component {
 	}
 }
 
+const mapStateToProps = state => ({ isAdmin: state.isAdmin });
+
 FeatureConfig.propTypes = {
 	id: PropTypes.string.isRequired,
 	name: PropTypes.string.isRequired,
@@ -292,9 +295,8 @@ FeatureConfig.propTypes = {
 		})
 	).isRequired,
 	history: PropTypes.shape({ goBack: PropTypes.func.isRequired }).isRequired,
-	loggedIn: PropTypes.bool.isRequired,
 	isAdmin: PropTypes.bool.isRequired,
 	refreshFeatures: PropTypes.func.isRequired
 };
 
-export default withRouter(FeatureConfig);
+export default connect(mapStateToProps)(withRouter(FeatureConfig));

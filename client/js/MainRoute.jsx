@@ -115,18 +115,9 @@ class MainRoute extends Component {
 						<Route exact path="/register" component={Register} />
 						<Route
 							path="/verify-account/:code"
-							component={props => (
-								<UserVerify
-									code={props.match.params.code}
-									refreshLoginStatus={this.refreshLoginStatus}
-								/>
-							)}
+							component={props => <UserVerify code={props.match.params.code} />}
 						/>
-						<Route
-							exact
-							path="/user-create"
-							component={() => <UserCreate loggedIn={this.state.loggedIn} />}
-						/>
+						<Route exact path="/user-create" component={UserCreate} />
 						<Route path="/user-config/:id" component={props => <UserConfig id={props.match.params.id} />} />
 						<Route
 							exact
@@ -136,14 +127,7 @@ class MainRoute extends Component {
 						<Route
 							exact
 							path="/feature-create"
-							component={() => (
-								<FeatureCreate
-									refreshFeatures={this.refreshFeatures}
-									loggedIn={this.state.loggedIn}
-									userName={this.state.userName}
-									refreshLoginStatus={this.refreshLoginStatus}
-								/>
-							)}
+							component={() => <FeatureCreate refreshFeatures={this.refreshFeatures} />}
 						/>
 						<Route
 							path="/feature-config/:id"
@@ -151,40 +135,18 @@ class MainRoute extends Component {
 								const selectedFeature = this.state.features.find(
 									feature => props.match.params.id === feature.id
 								);
-								return (
-									<FeatureConfig
-										refreshFeatures={this.refreshFeatures}
-										loggedIn={this.state.loggedIn}
-										isAdmin={this.state.isAdmin}
-										userName={this.state.userName}
-										refreshLoginStatus={this.refreshLoginStatus}
-										{...selectedFeature}
-									/>
-								);
+								return <FeatureConfig refreshFeatures={this.refreshFeatures} {...selectedFeature} />;
 							}}
 						/>
 						<Route
 							path="/sprint/:url"
-							component={props => (
-								<Sprint
-									url={props.match.params.url}
-									features={this.state.features}
-									refreshSprints={this.refreshSprints}
-									refreshLoginStatus={this.refreshLoginStatus}
-								/>
-							)}
+							component={props => <Sprint url={props.match.params.url} features={this.state.features} />}
 						/>
 						<Route
 							exact
 							path="/sprint-create"
 							component={() => (
-								<SprintCreate
-									refreshSprints={this.refreshSprints}
-									features={this.state.features}
-									loggedIn={this.state.loggedIn}
-									userName={this.state.userName}
-									refreshLoginStatus={this.refreshLoginStatus}
-								/>
+								<SprintCreate refreshSprints={this.refreshSprints} features={this.state.features} />
 							)}
 						/>
 						<Route
@@ -198,10 +160,6 @@ class MainRoute extends Component {
 										sprint={selectedSprint}
 										refreshSprints={this.refreshSprints}
 										features={this.state.features}
-										loggedIn={this.state.loggedIn}
-										isAdmin={this.state.isAdmin}
-										userName={this.state.userName}
-										refreshLoginStatus={this.refreshLoginStatus}
 									/>
 								);
 							}}

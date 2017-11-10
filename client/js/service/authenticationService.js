@@ -72,7 +72,12 @@ function verify({ code }) {
 					const token = response.data.token;
 					saveToken(token)
 						.then(() => {
-							resolve();
+							const payload = JSON.parse(window.atob(token.split('.')[1]));
+							resolve({
+								email: payload.email,
+								name: payload.name,
+								isAdmin: payload.isAdmin
+							});
 						})
 						.catch(() => {
 							reject();

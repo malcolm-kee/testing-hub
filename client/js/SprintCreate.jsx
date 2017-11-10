@@ -220,18 +220,7 @@ SprintCreate.propTypes = {
 	history: PropTypes.shape({ goBack: PropTypes.func.isRequired }).isRequired,
 	refreshSprints: PropTypes.func.isRequired,
 	features: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string.isRequired, name: PropTypes.string.isRequired }))
-		.isRequired,
-	sprintItems: PropTypes.arrayOf(
-		PropTypes.shape({
-			id: PropTypes.string.isRequired,
-			name: PropTypes.string.isRequired,
-			status: PropTypes.string
-		})
-	)
-};
-
-SprintCreate.defaultProps = {
-	sprintItems: []
+		.isRequired
 };
 
 export default withRouter(SprintCreate);

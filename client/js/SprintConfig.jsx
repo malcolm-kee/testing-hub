@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import copy from 'copy-to-clipboard';
 
@@ -298,16 +299,17 @@ class SprintConfig extends Component {
 	}
 }
 
+const mapStateToProps = state => ({ isAdmin: state.isAdmin });
+
 SprintConfig.propTypes = {
 	history: PropTypes.shape({ goBack: PropTypes.func.isRequired }).isRequired,
 	sprint: PropTypes.shape({
 		id: PropTypes.string.isRequired
 	}).isRequired,
 	refreshSprints: PropTypes.func.isRequired,
-	loggedIn: PropTypes.bool.isRequired,
 	isAdmin: PropTypes.bool.isRequired,
 	features: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string.isRequired, name: PropTypes.string.isRequired }))
 		.isRequired
 };
 
-export default withRouter(SprintConfig);
+export default connect(mapStateToProps)(withRouter(SprintConfig));
