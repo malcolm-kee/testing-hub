@@ -18,34 +18,6 @@ function getPublic() {
 	});
 }
 
-function getAll() {
-	return new Promise((resolve, reject) => {
-		authenticationService
-			.getToken()
-			.then(token => {
-				axios
-					.get('/api/featureAll', {
-						headers: {
-							Authorization: `Bearer ${token}`
-						}
-					})
-					.then(response => {
-						if (response.status === 200) {
-							resolve(response.data);
-						} else {
-							reject();
-						}
-					})
-					.catch(() => {
-						reject();
-					});
-			})
-			.catch(err => {
-				reject(err);
-			});
-	});
-}
-
 function getOne({ id }) {
 	return new Promise((resolve, reject) => {
 		axios
@@ -163,4 +135,4 @@ function remove({ id }) {
 	});
 }
 
-export default { getPublic, getAll, getOne, create, update, remove };
+export default { getPublic, getOne, create, update, remove };

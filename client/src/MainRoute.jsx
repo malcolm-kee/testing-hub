@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setLoginStatus } from './actionCreators';
-import { setFeatures } from './featureActionCreators';
-import { setSprints } from './sprintActionCreators';
+import { getFeaturesFromApi } from './featureActionCreators';
+import { getSprintsFromApi } from './sprintActionCreators';
 // import preload from './data.json';
 
 import Landing from './Landing';
@@ -19,8 +19,6 @@ import UserVerify from './UserVerify';
 // import ErrorMessage from './ErrorMessage';
 import PageNotFoundMessage from './PageNotFoundMessage';
 
-import featureService from './service/featureService';
-import sprintService from './service/sprintService';
 import authenticationService from './service/authenticationService';
 
 class MainRoute extends Component {
@@ -31,44 +29,8 @@ class MainRoute extends Component {
 
 	componentWillMount() {
 		this.initializeLoginSatus();
-		this.initializeSprintData();
+		this.props.initializeSprints();
 	}
-
-	initializeFeatureData = () => {
-		if (this.props.loggedIn) {
-			featureService
-				.getAll()
-				.then(features => {
-					this.props.initializeFeatures({ features });
-				})
-				.catch(() => {
-					this.setState({ error: true });
-					this.setState({ errorMessage: 'Error while getting features data' });
-				});
-		} else {
-			featureService
-				.getPublic()
-				.then(features => {
-					this.props.initializeFeatures({ features });
-				})
-				.catch(() => {
-					this.setState({ error: true });
-					this.setState({ errorMessage: 'Error while getting features data' });
-				});
-		}
-	};
-
-	initializeSprintData = () => {
-		sprintService
-			.getAll()
-			.then(sprints => {
-				this.props.initializeSprints({ sprints });
-			})
-			.catch(() => {
-				this.setState({ error: true });
-				this.setState({ errorMessage: 'Error while getting sprints data' });
-			});
-	};
 
 	initializeLoginSatus = () =>
 		Promise.all([authenticationService.getLoginStatus(), authenticationService.getCurrentUser()])
@@ -77,7 +39,7 @@ class MainRoute extends Component {
 				const currentUser = data[1];
 				this.props.updateLoginStatus({ loggedIn, userName: currentUser.name, isAdmin: currentUser.isAdmin });
 
-				this.initializeFeatureData();
+				this.props.initializeFeatures();
 			})
 			.catch(() => {
 				this.props.updateLoginStatus(false);
@@ -114,16 +76,15 @@ const mapDispatchToProps = dispatch => ({
 	updateLoginStatus({ loggedIn, userName, isAdmin }) {
 		dispatch(setLoginStatus({ loggedIn, userName, isAdmin }));
 	},
-	initializeFeatures({ features }) {
-		dispatch(setFeatures({ features }));
+	initializeFeatures() {
+		dispatch(getFeaturesFromApi());
 	},
-	initializeSprints({ sprints }) {
-		dispatch(setSprints({ sprints }));
+	initializeSprints() {
+		dispatch(getSprintsFromApi());
 	}
 });
 
 MainRoute.propTypes = {
-	loggedIn: PropTypes.bool,
 	updateLoginStatus: PropTypes.func.isRequired,
 	initializeFeatures: PropTypes.func.isRequired,
 	initializeSprints: PropTypes.func.isRequired

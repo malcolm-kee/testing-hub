@@ -1,23 +1,6 @@
 import axios from 'axios';
 import authenticationService from './authenticationService';
 
-function getAll() {
-	return new Promise((resolve, reject) => {
-		axios
-			.get('/api/sprint')
-			.then(response => {
-				if (response.status === 200) {
-					resolve(response.data);
-				} else {
-					reject();
-				}
-			})
-			.catch(() => {
-				reject();
-			});
-	});
-}
-
 function getOne({ id, url }) {
 	return new Promise((resolve, reject) => {
 		const apiTarget = id ? `/api/sprint/id/${id}` : `/api/sprint/url/${url}`;
@@ -184,4 +167,4 @@ function remove({ id }) {
 	});
 }
 
-export default { getAll, getOne, create, update, updateItemStatus, remove };
+export default { getOne, create, update, updateItemStatus, remove };
