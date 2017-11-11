@@ -6,6 +6,7 @@ import SprintItemTableRow from './SprintItemTableRow';
 
 class SprintItemTableView extends Component {
 	state = {
+		sorted: false,
 		sortFunc() {
 			return 0;
 		}
@@ -26,8 +27,14 @@ class SprintItemTableView extends Component {
 			return 0;
 		};
 
-		this.setState({
-			sortFunc: compare
+		this.setState(prevState => {
+			const sorted = !prevState.sorted;
+			const sortFunc = sorted ? (a, b) => compare(b, a) : compare;
+
+			return {
+				sorted,
+				sortFunc
+			};
 		});
 	};
 
@@ -37,14 +44,17 @@ class SprintItemTableView extends Component {
 				<thead>
 					<tr>
 						<th>#</th>
-						<th data-field="scenarioId" onClick={this.handleSortRow}>
+						<th className="sorter" data-field="scenarioId" onClick={this.handleSortRow}>
 							Scenario Id
+							<span className="glyphicon glyphicon-sort text-xxlarge pull-right" />
 						</th>
-						<th data-field="name" onClick={this.handleSortRow}>
+						<th className="sorter" data-field="name" onClick={this.handleSortRow}>
 							Scenario Title
+							<span className="glyphicon glyphicon-sort text-xxlarge pull-right" />
 						</th>
-						<th data-field="status" onClick={this.handleSortRow}>
+						<th className="sorter" data-field="status" onClick={this.handleSortRow}>
 							Scenario Status
+							<span className="glyphicon glyphicon-sort text-xxlarge pull-right" />
 						</th>
 						<th>Details</th>
 					</tr>
