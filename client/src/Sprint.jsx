@@ -84,9 +84,7 @@ class Sprint extends Component {
 
 			const filteredSprintItems = this.state.sprintItems
 				.map(sprintItem => {
-					const itemFeature = this.props.features.find(
-						feature => feature.id === sprintItem.featureId
-					);
+					const itemFeature = this.props.features.find(feature => feature.id === sprintItem.featureId);
 					return Object.assign(sprintItem, { feature: itemFeature });
 				})
 				.filter(
@@ -102,18 +100,14 @@ class Sprint extends Component {
 						<SprintItemCardView
 							sprintItems={filteredSprintItems}
 							loggedIn={this.props.loggedIn}
-							handleSprintItemStatusSelect={
-								this.handleSprintItemStatusSelect
-							}
+							handleSprintItemStatusSelect={this.handleSprintItemStatusSelect}
 						/>
 					</Tab>
 					<Tab eventKey={2} title="Table View">
 						<SprintItemTableView
 							sprintItems={filteredSprintItems}
 							loggedIn={this.props.loggedIn}
-							handleSprintItemStatusSelect={
-								this.handleSprintItemStatusSelect
-							}
+							handleSprintItemStatusSelect={this.handleSprintItemStatusSelect}
 						/>
 					</Tab>
 				</Tabs>
@@ -153,12 +147,11 @@ class Sprint extends Component {
 	}
 }
 
-const mapStateToProps = state => ({ loggedIn: state.loggedIn });
+const mapStateToProps = state => ({ loggedIn: state.user.loggedIn, features: state.features });
 
 Sprint.propTypes = {
 	url: PropTypes.string.isRequired,
-	features: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string.isRequired }))
-		.isRequired,
+	features: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string.isRequired })).isRequired,
 	loggedIn: PropTypes.bool.isRequired
 };
 

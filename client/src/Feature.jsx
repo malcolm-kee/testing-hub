@@ -17,7 +17,7 @@ class Feature extends Component {
 		if (this.props.editMode === true) {
 			actionBar = (
 				<div className="btn-group btn-group-justified">
-					<Link to={`/feature-config/${this.props.id}`} className="btn btn-primary">
+					<Link to={`/admin/feature-config/${this.props.id}`} className="btn btn-primary">
 						<span className="glyphicon glyphicon-edit text-large" />
 						<span className="hidden-xs text-xlarge">&nbsp;Edit</span>
 					</Link>

@@ -299,7 +299,7 @@ class SprintConfig extends Component {
 	}
 }
 
-const mapStateToProps = state => ({ isAdmin: state.isAdmin });
+const mapStateToProps = state => ({ isAdmin: state.user.isAdmin, features: state.features });
 
 SprintConfig.propTypes = {
 	history: PropTypes.shape({ goBack: PropTypes.func.isRequired }).isRequired,

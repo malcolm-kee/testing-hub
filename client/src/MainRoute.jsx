@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setLoginStatus } from './actionCreators';
+import { setFeatures } from './featureActionCreators';
 // import preload from './data.json';
 
 import Landing from './Landing';
 import Catalog from './Catalog';
-import Admin from './Admin';
-import FeatureCreate from './FeatureCreate';
-import FeatureConfig from './FeatureConfig';
+import Admin from './admin/component/Admin';
 import Sprint from './Sprint';
 import SprintCreate from './SprintCreate';
 import SprintConfig from './SprintConfig';
@@ -29,8 +28,6 @@ class MainRoute extends Component {
 	state = {
 		features: [],
 		sprints: [],
-		isAdmin: null,
-		userName: null,
 		error: false,
 		errorMessage: null
 	};
@@ -46,6 +43,7 @@ class MainRoute extends Component {
 				.getAll()
 				.then(features => {
 					this.setState({ features });
+					this.props.initializeFeatures({ features });
 				})
 				.catch(() => {
 					this.setState({ error: true });
@@ -82,22 +80,11 @@ class MainRoute extends Component {
 				const loggedIn = data[0];
 				const currentUser = data[1];
 				this.props.updateLoginStatus({ loggedIn, userName: currentUser.name, isAdmin: currentUser.isAdmin });
-				this.setState(
-					{
-						loggedIn,
-						userName: currentUser.name,
-						isAdmin: currentUser.isAdmin
-					},
-					() => {
-						this.refreshFeatures();
-					}
-				);
+
+				this.refreshFeatures();
 			})
 			.catch(() => {
 				this.props.updateLoginStatus(false);
-				this.setState({
-					loggedIn: false
-				});
 			});
 
 	render() {
@@ -105,11 +92,7 @@ class MainRoute extends Component {
 			<BrowserRouter>
 				<div className="app">
 					<Switch>
-						<Route
-							exact
-							path="/"
-							component={() => <Catalog features={this.state.features} sprints={this.state.sprints} />}
-						/>
+						<Route exact path="/" component={() => <Catalog sprints={this.state.sprints} />} />
 						<Route exact path="/landing" component={Landing} />
 						<Route exact path="/login" component={Login} />
 						<Route exact path="/register" component={Register} />
@@ -119,35 +102,12 @@ class MainRoute extends Component {
 						/>
 						<Route exact path="/user-create" component={UserCreate} />
 						<Route path="/user-config/:id" component={props => <UserConfig id={props.match.params.id} />} />
-						<Route
-							exact
-							path="/admin"
-							component={() => <Admin features={this.state.features} sprints={this.state.sprints} />}
-						/>
-						<Route
-							exact
-							path="/feature-create"
-							component={() => <FeatureCreate refreshFeatures={this.refreshFeatures} />}
-						/>
-						<Route
-							path="/feature-config/:id"
-							component={props => {
-								const selectedFeature = this.state.features.find(
-									feature => props.match.params.id === feature.id
-								);
-								return <FeatureConfig refreshFeatures={this.refreshFeatures} {...selectedFeature} />;
-							}}
-						/>
-						<Route
-							path="/sprint/:url"
-							component={props => <Sprint url={props.match.params.url} features={this.state.features} />}
-						/>
+						<Route path="/admin" component={() => <Admin sprints={this.state.sprints} />} />
+						<Route path="/sprint/:url" component={props => <Sprint url={props.match.params.url} />} />
 						<Route
 							exact
 							path="/sprint-create"
-							component={() => (
-								<SprintCreate refreshSprints={this.refreshSprints} features={this.state.features} />
-							)}
+							component={() => <SprintCreate refreshSprints={this.refreshSprints} />}
 						/>
 						<Route
 							path="/sprint-config/:id"
@@ -155,13 +115,7 @@ class MainRoute extends Component {
 								const selectedSprint = this.state.sprints.find(
 									sprint => props.match.params.id === sprint.id
 								);
-								return (
-									<SprintConfig
-										sprint={selectedSprint}
-										refreshSprints={this.refreshSprints}
-										features={this.state.features}
-									/>
-								);
+								return <SprintConfig sprint={selectedSprint} refreshSprints={this.refreshSprints} />;
 							}}
 						/>
 						<Route component={PageNotFoundMessage} />
@@ -172,17 +126,25 @@ class MainRoute extends Component {
 	}
 }
 
-const mapStateToProps = state => ({ loggedIn: state.loggedIn });
+const mapStateToProps = state => ({ loggedIn: state.user.loggedIn });
 
 const mapDispatchToProps = dispatch => ({
 	updateLoginStatus({ loggedIn, userName, isAdmin }) {
 		dispatch(setLoginStatus({ loggedIn, userName, isAdmin }));
+	},
+	initializeFeatures({ features }) {
+		dispatch(setFeatures({ features }));
 	}
 });
 
 MainRoute.propTypes = {
-	loggedIn: PropTypes.bool.isRequired,
-	updateLoginStatus: PropTypes.func.isRequired
+	loggedIn: PropTypes.bool,
+	updateLoginStatus: PropTypes.func.isRequired,
+	initializeFeatures: PropTypes.func.isRequired
+};
+
+MainRoute.defaultProps = {
+	loggedIn: null
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainRoute);

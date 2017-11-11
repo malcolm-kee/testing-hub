@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
 
-import Header from './Header';
+import { addFeature } from './../../featureActionCreators';
+
+import Header from './../../Header';
 import FeatureConfigLink from './FeatureConfigLink';
-import featureService from './service/featureService';
+import FeatureConfigLinkCreate from './FeatureConfigLinkCreate';
+import featureService from './../../service/featureService';
 
 class FeatureCreate extends Component {
 	state = {
@@ -49,14 +53,15 @@ class FeatureCreate extends Component {
 		event.preventDefault();
 		this.setState({ error: '' });
 		if (this.validateForm()) {
+			const feature = {
+				name: this.state.name,
+				requireLogin: this.state.requireLogin,
+				links: this.state.links
+			};
 			featureService
-				.create({
-					name: this.state.name,
-					requireLogin: this.state.requireLogin,
-					links: this.state.links
-				})
+				.create(feature)
 				.then(() => {
-					this.props.refreshFeatures();
+					this.props.invokeAddFeature({ feature });
 					this.props.history.goBack();
 				})
 				.catch(() => {
@@ -159,7 +164,7 @@ class FeatureCreate extends Component {
 								<fieldset>
 									<legend>Links</legend>
 									{testLinks}
-									<FeatureConfigLink new addLink={this.addLink} />
+									<FeatureConfigLinkCreate addLink={this.addLink} />
 								</fieldset>
 								<div className="form-group">
 									<button
@@ -184,9 +189,15 @@ class FeatureCreate extends Component {
 	}
 }
 
+const mapDispatchToProps = dispatch => ({
+	invokeAddFeature({ feature }) {
+		dispatch(addFeature({ feature }));
+	}
+});
+
 FeatureCreate.propTypes = {
 	history: PropTypes.shape({ goBack: PropTypes.func.isRequired }).isRequired,
-	refreshFeatures: PropTypes.func.isRequired
+	invokeAddFeature: PropTypes.func.isRequired
 };
 
-export default withRouter(FeatureCreate);
+export default withRouter(connect(null, mapDispatchToProps)(FeatureCreate));

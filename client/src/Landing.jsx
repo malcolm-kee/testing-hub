@@ -45,7 +45,7 @@ class Landing extends Component {
 	}
 }
 
-const mapStateToProps = state => ({ loggedIn: state.loggedIn });
+const mapStateToProps = state => ({ loggedIn: state.user.loggedIn });
 
 Landing.propTypes = {
 	loggedIn: PropTypes.bool.isRequired,

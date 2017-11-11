@@ -29,6 +29,7 @@ heroku local
 
 ## Pending changes
 
-1. Sortable table for sprint items
-2. Refactoring structure for admin route
-3. Adding redux for state management
+1. Added redux for state management - Done
+2. Added jest unit testing - Done
+3. Refactoring structure for admin route - WIP
+4. Sortable table for sprint items - WIP

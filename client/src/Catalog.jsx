@@ -142,7 +142,7 @@ class Catalog extends Component {
 	}
 }
 
-const mapStateToProps = state => ({ loggedIn: state.loggedIn });
+const mapStateToProps = state => ({ loggedIn: state.user.loggedIn, features: state.features });
 
 Catalog.propTypes = {
 	features: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string.isRequired })).isRequired,

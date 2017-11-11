@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { PanelGroup } from 'react-bootstrap';
 
@@ -216,6 +217,8 @@ class SprintCreate extends Component {
 	}
 }
 
+const mapStateToProps = state => ({ features: state.features });
+
 SprintCreate.propTypes = {
 	history: PropTypes.shape({ goBack: PropTypes.func.isRequired }).isRequired,
 	refreshSprints: PropTypes.func.isRequired,
@@ -223,4 +226,4 @@ SprintCreate.propTypes = {
 		.isRequired
 };
 
-export default withRouter(SprintCreate);
+export default connect(mapStateToProps)(withRouter(SprintCreate));

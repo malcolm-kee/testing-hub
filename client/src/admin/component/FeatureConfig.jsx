@@ -4,11 +4,13 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { isURL } from 'validator';
 
-import Header from './Header';
+import { updateFeature, deleteFeature } from './../../featureActionCreators';
+
+import Header from './../../Header';
 import FeatureConfigLink from './FeatureConfigLink';
 import FeatureConfigLinkCreate from './FeatureConfigLinkCreate';
 
-import featureService from './service/featureService';
+import featureService from './../../service/featureService';
 
 class FeatureConfig extends Component {
 	state = {
@@ -59,16 +61,17 @@ class FeatureConfig extends Component {
 	handleSubmit = event => {
 		event.preventDefault();
 		if (this.validateForm()) {
+			const feature = {
+				id: this.state.id,
+				name: this.state.name,
+				requireLogin: this.state.requireLogin,
+				links: this.state.links
+			};
 			featureService
-				.update({
-					id: this.state.id,
-					name: this.state.name,
-					requireLogin: this.state.requireLogin,
-					links: this.state.links
-				})
+				.update(feature)
 				.then(() => {
+					this.props.invokeUpdateFeature({ feature });
 					this.props.history.goBack();
-					this.props.refreshFeatures();
 				})
 				.catch(() => {
 					this.setState({
@@ -81,11 +84,12 @@ class FeatureConfig extends Component {
 	handleDelete = event => {
 		event.preventDefault();
 		this.setState({ error: '' });
+		const id = this.state.id;
 		featureService
-			.remove({ id: this.state.id })
+			.remove({ id })
 			.then(() => {
+				this.props.invokeDeleteFeature({ id });
 				this.props.history.goBack();
-				this.props.refreshFeatures();
 			})
 			.catch(() => {
 				this.setState({
@@ -172,7 +176,7 @@ class FeatureConfig extends Component {
 		let errorMessage;
 		let removeBtn;
 
-		if (this.state.links.length > 0) {
+		if (this.state.links && this.state.links.length > 0) {
 			testLinks = (
 				<div>
 					{this.state.links.map(featureLink => (
@@ -188,7 +192,7 @@ class FeatureConfig extends Component {
 			);
 		}
 
-		if (this.state.error.length > 0) {
+		if (this.state.error && this.state.error.length > 0) {
 			errorMessage = (
 				<div className="alert alert-danger">
 					<p className="text-xlarge">{this.state.error}</p>
@@ -281,7 +285,16 @@ class FeatureConfig extends Component {
 	}
 }
 
-const mapStateToProps = state => ({ isAdmin: state.isAdmin });
+const mapStateToProps = state => ({ isAdmin: state.user.isAdmin });
+
+const mapDispatchToProps = dispatch => ({
+	invokeUpdateFeature({ feature }) {
+		dispatch(updateFeature({ feature }));
+	},
+	invokeDeleteFeature({ id }) {
+		dispatch(deleteFeature({ id }));
+	}
+});
 
 FeatureConfig.propTypes = {
 	id: PropTypes.string.isRequired,
@@ -296,7 +309,8 @@ FeatureConfig.propTypes = {
 	).isRequired,
 	history: PropTypes.shape({ goBack: PropTypes.func.isRequired }).isRequired,
 	isAdmin: PropTypes.bool.isRequired,
-	refreshFeatures: PropTypes.func.isRequired
+	invokeUpdateFeature: PropTypes.func.isRequired,
+	invokeDeleteFeature: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps)(withRouter(FeatureConfig));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FeatureConfig));

@@ -145,4 +145,4 @@ Login.propTypes = {
 	loginUser: PropTypes.func.isRequired
 };
 
-export default connect(null, mapDispatchToProps)(withRouter(Login));
+export default withRouter(connect(null, mapDispatchToProps)(Login));

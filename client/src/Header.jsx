@@ -110,7 +110,7 @@ class Header extends Component {
 	}
 }
 
-const mapStateToProps = state => ({ loggedIn: state.loggedIn, userName: state.userName });
+const mapStateToProps = state => ({ loggedIn: state.user.loggedIn, userName: state.user.userName });
 const mapDispatchToProps = dispatch => ({
 	logoutUser() {
 		dispatch(setLoginStatus({ loggedIn: false }));
@@ -122,7 +122,7 @@ Header.propTypes = {
 	backAction: PropTypes.func,
 	next: PropTypes.bool,
 	nextAction: PropTypes.func,
-	loggedIn: PropTypes.bool.isRequired,
+	loggedIn: PropTypes.bool,
 	userName: PropTypes.string,
 	logoutUser: PropTypes.func.isRequired,
 	showLogin: PropTypes.bool,
@@ -130,6 +130,7 @@ Header.propTypes = {
 };
 
 Header.defaultProps = {
+	loggedIn: null,
 	userName: '',
 	back: false,
 	backAction: function noop() {},
