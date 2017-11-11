@@ -4,14 +4,13 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setLoginStatus } from './actionCreators';
 import { setFeatures } from './featureActionCreators';
+import { setSprints } from './sprintActionCreators';
 // import preload from './data.json';
 
 import Landing from './Landing';
 import Catalog from './Catalog';
 import Admin from './admin/component/Admin';
 import Sprint from './Sprint';
-import SprintCreate from './SprintCreate';
-import SprintConfig from './SprintConfig';
 import Login from './Login';
 import Register from './Register';
 import UserCreate from './UserCreate';
@@ -26,23 +25,20 @@ import authenticationService from './service/authenticationService';
 
 class MainRoute extends Component {
 	state = {
-		features: [],
-		sprints: [],
 		error: false,
 		errorMessage: null
 	};
 
 	componentWillMount() {
-		this.refreshLoginStatus();
-		this.refreshSprints();
+		this.initializeLoginSatus();
+		this.initializeSprintData();
 	}
 
-	refreshFeatures = () => {
+	initializeFeatureData = () => {
 		if (this.props.loggedIn) {
 			featureService
 				.getAll()
 				.then(features => {
-					this.setState({ features });
 					this.props.initializeFeatures({ features });
 				})
 				.catch(() => {
@@ -53,7 +49,7 @@ class MainRoute extends Component {
 			featureService
 				.getPublic()
 				.then(features => {
-					this.setState({ features });
+					this.props.initializeFeatures({ features });
 				})
 				.catch(() => {
 					this.setState({ error: true });
@@ -62,11 +58,11 @@ class MainRoute extends Component {
 		}
 	};
 
-	refreshSprints = () => {
+	initializeSprintData = () => {
 		sprintService
 			.getAll()
 			.then(sprints => {
-				this.setState({ sprints });
+				this.props.initializeSprints({ sprints });
 			})
 			.catch(() => {
 				this.setState({ error: true });
@@ -74,14 +70,14 @@ class MainRoute extends Component {
 			});
 	};
 
-	refreshLoginStatus = () =>
+	initializeLoginSatus = () =>
 		Promise.all([authenticationService.getLoginStatus(), authenticationService.getCurrentUser()])
 			.then(data => {
 				const loggedIn = data[0];
 				const currentUser = data[1];
 				this.props.updateLoginStatus({ loggedIn, userName: currentUser.name, isAdmin: currentUser.isAdmin });
 
-				this.refreshFeatures();
+				this.initializeFeatureData();
 			})
 			.catch(() => {
 				this.props.updateLoginStatus(false);
@@ -92,7 +88,7 @@ class MainRoute extends Component {
 			<BrowserRouter>
 				<div className="app">
 					<Switch>
-						<Route exact path="/" component={() => <Catalog sprints={this.state.sprints} />} />
+						<Route exact path="/" component={Catalog} />
 						<Route exact path="/landing" component={Landing} />
 						<Route exact path="/login" component={Login} />
 						<Route exact path="/register" component={Register} />
@@ -102,22 +98,8 @@ class MainRoute extends Component {
 						/>
 						<Route exact path="/user-create" component={UserCreate} />
 						<Route path="/user-config/:id" component={props => <UserConfig id={props.match.params.id} />} />
-						<Route path="/admin" component={() => <Admin sprints={this.state.sprints} />} />
+						<Route path="/admin" component={Admin} />
 						<Route path="/sprint/:url" component={props => <Sprint url={props.match.params.url} />} />
-						<Route
-							exact
-							path="/sprint-create"
-							component={() => <SprintCreate refreshSprints={this.refreshSprints} />}
-						/>
-						<Route
-							path="/sprint-config/:id"
-							component={props => {
-								const selectedSprint = this.state.sprints.find(
-									sprint => props.match.params.id === sprint.id
-								);
-								return <SprintConfig sprint={selectedSprint} refreshSprints={this.refreshSprints} />;
-							}}
-						/>
 						<Route component={PageNotFoundMessage} />
 					</Switch>
 				</div>
@@ -134,13 +116,17 @@ const mapDispatchToProps = dispatch => ({
 	},
 	initializeFeatures({ features }) {
 		dispatch(setFeatures({ features }));
+	},
+	initializeSprints({ sprints }) {
+		dispatch(setSprints({ sprints }));
 	}
 });
 
 MainRoute.propTypes = {
 	loggedIn: PropTypes.bool,
 	updateLoginStatus: PropTypes.func.isRequired,
-	initializeFeatures: PropTypes.func.isRequired
+	initializeFeatures: PropTypes.func.isRequired,
+	initializeSprints: PropTypes.func.isRequired
 };
 
 MainRoute.defaultProps = {

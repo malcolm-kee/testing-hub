@@ -8,6 +8,8 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 import { setLoginStatus } from './actionCreators';
 
+import DotsLoader from './DotsLoader';
+
 import authenticationService from './service/authenticationService';
 
 class Header extends Component {
@@ -63,7 +65,7 @@ class Header extends Component {
 				</Nav>
 			);
 		} else if (this.props.showLogin) {
-			if (this.props.loggedIn) {
+			if (this.props.loggedIn === true) {
 				const userNameNode = <span className="text-xlarge">{this.props.userName}</span>;
 				profileManager = (
 					<Nav pullRight>
@@ -78,7 +80,7 @@ class Header extends Component {
 						</DropdownButton>
 					</Nav>
 				);
-			} else {
+			} else if (this.props.loggedIn === false) {
 				profileManager = (
 					<Nav pullRight>
 						<LinkContainer to="/login">
@@ -88,6 +90,12 @@ class Header extends Component {
 						<LinkContainer to="/register">
 							<NavItem className="text-xlarge">Sign Up</NavItem>
 						</LinkContainer>
+					</Nav>
+				);
+			} else {
+				profileManager = (
+					<Nav pullRight>
+						<DotsLoader />
 					</Nav>
 				);
 			}

@@ -51,7 +51,7 @@ const validateSprintJson = function validateSprintJson(sprintJson) {
 };
 
 module.exports.sprintsList = function exportSprintList(req, res) {
-  Sprint.find({}, 'name url', (err, sprints) => {
+  Sprint.find({}, 'name url desc sprintItems lastUpdatedBy', (err, sprints) => {
     if (err) {
       sendJsonResponse(res, 404, {
         message: 'error thrown by DB.'
@@ -88,7 +88,7 @@ module.exports.sprintCreate = function exportSprintCreate(request, response) {
 };
 
 module.exports.sprintReadOne = function exportSprintReadOne(req, res) {
-  Sprint.findById(req.params.sprintid, 'name url desc sprintItems userName', (err, sprint) => {
+  Sprint.findById(req.params.sprintid, 'name url desc sprintItems lastUpdatedBy', (err, sprint) => {
     if (err) {
       sendJsonResponse(res, 404, {
         message: 'error thrown by DB.'
@@ -105,7 +105,7 @@ module.exports.sprintReadOne = function exportSprintReadOne(req, res) {
 };
 
 module.exports.sprintReadOneByUrl = function exportSprintReadOneByUrl(req, res) {
-  Sprint.findOne({ url: req.params.sprinturl }, 'name url desc sprintItems userName', (err, sprint) => {
+  Sprint.findOne({ url: req.params.sprinturl }, 'name url desc sprintItems lastUpdatedBy', (err, sprint) => {
     if (err) {
       sendJsonResponse(res, 404, {
         message: 'error thrown by DB.'
@@ -136,30 +136,24 @@ module.exports.sprintUpdateOne = function exportSprintUpdateOne(request, respons
       return;
     }
 
-    Sprint.findById(req.params.sprintid, (err, sprint) => {
-      if (err) {
-        sendJsonResponse(res, 404, {
-          message: 'error thrown by DB.'
-        });
-      } else if (sprint === null) {
-        sendJsonResponse(res, 404, {
-          message: 'no sprint is found.'
-        });
-      } else {
-        sprint.name = name;
-        sprint.url = url;
-        sprint.desc = desc;
-        sprint.sprintItems = sprintItems;
-        sprint.lastUpdatedBy = userName;
-        sprint.save((saveErr, savedSprint) => {
-          if (saveErr) {
-            sendJsonResponse(res, 404, saveErr);
-          } else {
-            sendJsonResponse(res, 200, { status: 'success', sprints: [savedSprint] });
-          }
-        });
+    Sprint.findByIdAndUpdate(
+      req.params.sprintid,
+      { name, url, desc, sprintItems, lastUpdatedBy: userName },
+      { new: true },
+      (err, sprint) => {
+        if (err) {
+          sendJsonResponse(res, 404, {
+            message: 'error thrown by DB.'
+          });
+        } else if (sprint === null) {
+          sendJsonResponse(res, 404, {
+            message: 'no sprint is found.'
+          });
+        } else {
+          sendJsonResponse(res, 200, { status: 'success', sprints: [sprint] });
+        }
       }
-    });
+    );
   });
 };
 
@@ -189,14 +183,13 @@ module.exports.sprintItemUpdateOne = function exportSprintItemUpdateOne(request,
           message: 'no sprint is found.'
         });
       } else {
-        const currentSprintItems = sprint.sprintItems;
-        sprint.sprintItems = currentSprintItems.map(sprintItem => {
+        const updatedSprintItems = sprint.sprintItems.map(sprintItem => {
           if (sprintItem.id === req.params.itemid) {
             return merge(sprintItem, { status: newStatus });
           }
           return sprintItem;
         });
-        sprint.lastUpdatedBy = userName;
+        sprint.set({ sprintItems: updatedSprintItems, lastUpdatedBy: userName });
         sprint.save((saveErr, savedSprint) => {
           if (saveErr) {
             sendJsonResponse(res, 404, saveErr);

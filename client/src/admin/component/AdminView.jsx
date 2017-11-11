@@ -26,7 +26,7 @@ const AdminView = props => {
 	if (props.sprints.length > 0) {
 		sprintList = props.sprints.map(sprint => {
 			const sprintUrl = `/sprint/${sprint.url}`;
-			const editSprintUrl = `/sprint-config/${sprint.id}`;
+			const editSprintUrl = `/admin/sprint-config/${sprint.id}`;
 
 			return (
 				<div key={sprint.id} className="col-xs-12 col-sm-6 pad-vertical">
@@ -94,7 +94,7 @@ const AdminView = props => {
 										<span className="hidden-xs">Add a new</span> link
 									</span>
 								</Link>
-								<Link to="/sprint-create" className="btn btn-info">
+								<Link to="/admin/sprint-create" className="btn btn-info">
 									<span className="glyphicon glyphicon-plus text-large" />
 									&nbsp;<span className="text-xxlarge">
 										<span className="hidden-xs">Add a new</span> sprint

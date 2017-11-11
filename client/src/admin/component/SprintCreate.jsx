@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { PanelGroup } from 'react-bootstrap';
+import { connect } from 'react-redux';
 
-import Header from './Header';
+import { addSprint } from './../../sprintActionCreators';
+
+import Header from './../../Header';
+import SprintItemCreate from './SprintItemCreate';
 import SprintItemConfig from './SprintItemConfig';
 
-import sprintService from './service/sprintService';
+import sprintService from './../../service/sprintService';
 
 class SprintCreate extends Component {
 	state = {
@@ -55,8 +58,8 @@ class SprintCreate extends Component {
 					desc: this.state.desc,
 					sprintItems: this.state.sprintItems
 				})
-				.then(() => {
-					this.props.refreshSprints();
+				.then(sprint => {
+					this.props.invokeCreateSprint({ sprint });
 					this.props.history.goBack();
 				})
 				.catch(() => {
@@ -187,8 +190,7 @@ class SprintCreate extends Component {
 									<legend>Sprint Items</legend>
 									<PanelGroup>
 										{sprintItemsSection}
-										<SprintItemConfig
-											new
+										<SprintItemCreate
 											addSprintItem={this.addSprintItem}
 											features={this.props.features}
 										/>
@@ -219,11 +221,17 @@ class SprintCreate extends Component {
 
 const mapStateToProps = state => ({ features: state.features });
 
+const mapDispatchToProps = dispatch => ({
+	invokeCreateSprint({ sprint }) {
+		dispatch(addSprint({ sprint }));
+	}
+});
+
 SprintCreate.propTypes = {
 	history: PropTypes.shape({ goBack: PropTypes.func.isRequired }).isRequired,
-	refreshSprints: PropTypes.func.isRequired,
+	invokeCreateSprint: PropTypes.func.isRequired,
 	features: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string.isRequired, name: PropTypes.string.isRequired }))
 		.isRequired
 };
 
-export default connect(mapStateToProps)(withRouter(SprintCreate));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SprintCreate));

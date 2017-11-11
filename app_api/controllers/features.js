@@ -138,6 +138,7 @@ module.exports.featureUpdateOne = function exportFeatureUpdateOne(request, respo
     Feature.findByIdAndUpdate(
       req.params.featureid,
       { name, requireLogin, links, lastUpdatedBy: userName },
+      { new: true },
       (err, feature) => {
         if (err) {
           sendJsonResponse(res, 404, {

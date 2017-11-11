@@ -9,6 +9,8 @@ import SearchBar from './../../SearchBar';
 import AdminView from './AdminView';
 import FeatureCreate from './FeatureCreate';
 import FeatureConfig from './FeatureConfig';
+import SprintCreate from './SprintCreate';
+import SprintConfig from './SprintConfig';
 
 import userService from './../../service/userService';
 
@@ -22,6 +24,12 @@ class Admin extends Component {
 		if (this.props.loggedIn === false) {
 			this.props.history.push('/login');
 		} else if (this.props.isAdmin) {
+			this.refreshUsers();
+		}
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (!this.props.loggedIn && nextProps.loggedIn === true) {
 			this.refreshUsers();
 		}
 	}
@@ -87,6 +95,18 @@ class Admin extends Component {
 						return <FeatureConfig {...selectedFeature} />;
 					}}
 				/>
+				<Route
+					exact
+					path="/admin/sprint-create"
+					component={() => <SprintCreate refreshSprints={this.refreshSprints} />}
+				/>
+				<Route
+					path="/admin/sprint-config/:id"
+					component={props => {
+						const selectedSprint = this.props.sprints.find(sprint => props.match.params.id === sprint.id);
+						return <SprintConfig {...selectedSprint} />;
+					}}
+				/>
 			</Switch>
 		);
 	}
@@ -95,7 +115,8 @@ class Admin extends Component {
 const mapStateToProps = state => ({
 	loggedIn: state.user.loggedIn,
 	isAdmin: state.user.isAdmin,
-	features: state.features
+	features: state.features,
+	sprints: state.sprints
 });
 
 Admin.propTypes = {

@@ -58,7 +58,7 @@ function create({ name, url, desc, sprintItems }) {
 					)
 					.then(response => {
 						if (response.status === 200) {
-							resolve(response.data);
+							resolve(response.data.sprints[0]);
 						} else {
 							reject();
 						}
@@ -101,7 +101,7 @@ function update({ id, name, url, desc, sprintItems }) {
 					)
 					.then(response => {
 						if (response.status === 200) {
-							resolve();
+							resolve(response.data.sprints[0]);
 						} else {
 							reject();
 						}

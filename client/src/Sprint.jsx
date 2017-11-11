@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Tabs, Tab } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
+import { updateSprint } from './sprintActionCreators';
+
 import SprintSummary from './SprintSummary';
 import Header from './Header';
 import SearchBar from './SearchBar';
@@ -15,27 +17,9 @@ import sprintService from './service/sprintService';
 
 class Sprint extends Component {
 	state = {
-		id: '',
-		name: '',
-		url: '',
-		desc: '',
-		sprintItems: [],
 		searchTerm: '',
 		error: ''
 	};
-
-	componentDidMount() {
-		sprintService
-			.getOne({ url: this.props.url })
-			.then(sprint => {
-				this.setState(sprint);
-			})
-			.catch(() => {
-				this.setState({
-					error: 'Sorry, we have problem getting your sprint page.'
-				});
-			});
-	}
 
 	handleSearchTermChange = event => {
 		this.setState({ searchTerm: event.target.value });
@@ -46,11 +30,12 @@ class Sprint extends Component {
 
 		const status = eventKey;
 		const itemId = event.target.dataset.itemid;
+		const sprintId = this.props.sprints.find(sprint => sprint.url === this.props.url).id;
 
 		sprintService
-			.updateItemStatus({ id: this.state.id, itemId, status })
+			.updateItemStatus({ id: sprintId, itemId, status })
 			.then(sprint => {
-				this.setState(sprint);
+				this.props.invokeUpdateSprint({ sprint });
 			})
 			.catch(() => {
 				this.setState({
@@ -62,6 +47,8 @@ class Sprint extends Component {
 	render() {
 		let content;
 		let header;
+		let progressBar;
+		const thisSprintRaw = this.props.sprints.find(sprint => sprint.url === this.props.url);
 
 		if (this.state.error) {
 			header = (
@@ -74,25 +61,40 @@ class Sprint extends Component {
 					<p className="text-xlarge">{this.state.error}</p>
 				</div>
 			);
-		} else if (this.props.features.length > 0 && this.state.sprintItems.length > 0) {
-			header = (
-				<header className="page-header">
-					<h1>{this.state.name}</h1>
-					<p>{this.state.desc}</p>
-				</header>
-			);
+		} else if (
+			this.props.features &&
+			this.props.features.length > 0 &&
+			thisSprintRaw.sprintItems &&
+			thisSprintRaw.sprintItems.length > 0
+		) {
+			const thisSprint = Object.assign({}, thisSprintRaw, {
+				sprintItems: thisSprintRaw.sprintItems.map(sprintItem =>
+					Object.assign({}, sprintItem, {
+						feature: this.props.features.find(feature => feature.id === sprintItem.featureId)
+					})
+				)
+			});
 
-			const filteredSprintItems = this.state.sprintItems
-				.map(sprintItem => {
+			const filteredSprintItems = thisSprint.sprintItems
+				/* .map(sprintItem => {
 					const itemFeature = this.props.features.find(feature => feature.id === sprintItem.featureId);
 					return Object.assign(sprintItem, { feature: itemFeature });
-				})
+				}) */
 				.filter(
 					sprintItem =>
 						`${sprintItem.name} ${sprintItem.desc} ${sprintItem.feature.name}`
 							.toUpperCase()
 							.indexOf(this.state.searchTerm.toUpperCase()) >= 0
 				);
+
+			header = (
+				<header className="page-header">
+					<h1>{thisSprint.name}</h1>
+					<p>{thisSprint.desc}</p>
+				</header>
+			);
+
+			progressBar = <SprintSummary sprintItems={thisSprint.sprintItems} />;
 
 			content = (
 				<Tabs defaultActiveKey={1} bsStyle="pills">
@@ -131,7 +133,7 @@ class Sprint extends Component {
 					<div className="row">
 						{header}
 						<div className="container">
-							<SprintSummary sprintItems={this.state.sprintItems} />
+							{progressBar}
 							<SearchBar
 								handleSearchTermChange={this.handleSearchTermChange}
 								searchTerm={this.state.searchTerm}
@@ -147,12 +149,33 @@ class Sprint extends Component {
 	}
 }
 
-const mapStateToProps = state => ({ loggedIn: state.user.loggedIn, features: state.features });
+const mapStateToProps = state => ({ loggedIn: state.user.loggedIn, features: state.features, sprints: state.sprints });
+
+const mapDispatchToProps = dispatch => ({
+	invokeUpdateSprint({ sprint }) {
+		dispatch(updateSprint({ sprint }));
+	}
+});
 
 Sprint.propTypes = {
 	url: PropTypes.string.isRequired,
 	features: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string.isRequired })).isRequired,
-	loggedIn: PropTypes.bool.isRequired
+	sprints: PropTypes.arrayOf(
+		PropTypes.shape({
+			id: PropTypes.string.isRequired,
+			url: PropTypes.string.isRequired,
+			name: PropTypes.string.isRequired,
+			sprintItems: PropTypes.arrayOf(
+				PropTypes.shape({
+					id: PropTypes.string.isRequired,
+					scenarioId: PropTypes.string,
+					name: PropTypes.string.isRequired
+				})
+			).isRequired
+		})
+	).isRequired,
+	loggedIn: PropTypes.bool.isRequired,
+	invokeUpdateSprint: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps)(Sprint);
+export default connect(mapStateToProps, mapDispatchToProps)(Sprint);

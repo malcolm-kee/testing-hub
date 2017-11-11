@@ -1,38 +1,27 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import copy from 'copy-to-clipboard';
+import { connect } from 'react-redux';
 
-import Header from './Header';
-import SprintItemConfig from './SprintItemConfig';
+import { updateSprint, deleteSprint } from './../../sprintActionCreators';
+
+import Header from './../../Header';
 import SprintItemCreate from './SprintItemCreate';
+import SprintItemConfig from './SprintItemConfig';
 
-import sprintService from './service/sprintService';
+import sprintService from './../../service/sprintService';
 
 class SprintConfig extends Component {
 	state = {
-		id: '',
-		name: '',
-		url: '',
-		desc: '',
-		sprintItems: [],
+		id: this.props.id,
+		name: this.props.name,
+		url: this.props.url,
+		desc: this.props.desc,
+		sprintItems: this.props.sprintItems,
 		searchTerm: '',
 		error: ''
 	};
-
-	componentDidMount() {
-		sprintService
-			.getOne({ id: this.props.sprint.id })
-			.then(sprint => {
-				this.setState(sprint);
-			})
-			.catch(() => {
-				this.setState({
-					error: 'Sorry, we have problem getting your test sprint. Please try again.'
-				});
-			});
-	}
 
 	handleInputChange = event => {
 		const target = event.target;
@@ -70,8 +59,8 @@ class SprintConfig extends Component {
 					desc: this.state.desc,
 					sprintItems: this.state.sprintItems
 				})
-				.then(() => {
-					this.props.refreshSprints();
+				.then(sprint => {
+					this.props.invokeUpdateSprint({ sprint });
 					this.props.history.goBack();
 				})
 				.catch(() => {
@@ -86,9 +75,9 @@ class SprintConfig extends Component {
 		event.preventDefault();
 		this.setState({ error: '' });
 		sprintService
-			.remove({ id: this.state.id })
+			.remove({ id: this.props.id })
 			.then(() => {
-				this.props.refreshSprints();
+				this.props.invokeRemoveSprint({ id: this.props.id });
 				this.props.history.goBack();
 			})
 			.catch(() => {
@@ -162,7 +151,7 @@ class SprintConfig extends Component {
 		let errorMessage;
 		let removeBtn;
 
-		if (this.state.sprintItems.length > 0) {
+		if (this.state.sprintItems && this.state.sprintItems.length > 0) {
 			sprintItemsSection = this.state.sprintItems.map(sprintItem => (
 				<SprintItemConfig
 					key={sprintItem.id}
@@ -301,15 +290,36 @@ class SprintConfig extends Component {
 
 const mapStateToProps = state => ({ isAdmin: state.user.isAdmin, features: state.features });
 
+const mapDispatchToProps = dispatch => ({
+	invokeUpdateSprint({ sprint }) {
+		dispatch(updateSprint({ sprint }));
+	},
+	invokeRemoveSprint({ id }) {
+		dispatch(deleteSprint({ id }));
+	}
+});
+
 SprintConfig.propTypes = {
+	id: PropTypes.string.isRequired,
+	name: PropTypes.string.isRequired,
+	url: PropTypes.string.isRequired,
+	desc: PropTypes.string,
+	sprintItems: PropTypes.arrayOf(
+		PropTypes.shape({
+			id: PropTypes.string.isRequired
+		})
+	),
 	history: PropTypes.shape({ goBack: PropTypes.func.isRequired }).isRequired,
-	sprint: PropTypes.shape({
-		id: PropTypes.string.isRequired
-	}).isRequired,
-	refreshSprints: PropTypes.func.isRequired,
 	isAdmin: PropTypes.bool.isRequired,
 	features: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string.isRequired, name: PropTypes.string.isRequired }))
-		.isRequired
+		.isRequired,
+	invokeUpdateSprint: PropTypes.func.isRequired,
+	invokeRemoveSprint: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps)(withRouter(SprintConfig));
+SprintConfig.defaultProps = {
+	desc: '',
+	sprintItems: []
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SprintConfig));

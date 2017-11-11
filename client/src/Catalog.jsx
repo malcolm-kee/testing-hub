@@ -142,7 +142,7 @@ class Catalog extends Component {
 	}
 }
 
-const mapStateToProps = state => ({ loggedIn: state.user.loggedIn, features: state.features });
+const mapStateToProps = state => ({ loggedIn: state.user.loggedIn, features: state.features, sprints: state.sprints });
 
 Catalog.propTypes = {
 	features: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string.isRequired })).isRequired,
@@ -157,4 +157,4 @@ Catalog.propTypes = {
 	history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired
 };
 
-export default connect(mapStateToProps)(withRouter(Catalog));
+export default withRouter(connect(mapStateToProps)(Catalog));
