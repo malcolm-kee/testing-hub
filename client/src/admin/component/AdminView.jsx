@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { ListGroup } from 'react-bootstrap';
 
-import Feature from './../../Feature';
+import AdminSprintItem from './AdminSprintItem';
+import AdminFeatureItem from './AdminFeatureItem';
 import User from './../../User';
 import Spinner from './../../Spinner';
 
@@ -14,42 +16,13 @@ const AdminView = props => {
 	let userMgmtPanel;
 
 	if (props.features.length > 0) {
-		featureList = props.features.map(feature => (
-			<div key={feature.id} className="col-xs-12 col-sm-6 pad-vertical">
-				<Feature editMode {...feature} />
-			</div>
-		));
+		featureList = props.features.map(feature => <AdminFeatureItem key={feature.id} {...feature} />);
 	} else {
 		featureList = <Spinner />;
 	}
 
 	if (props.sprints.length > 0) {
-		sprintList = props.sprints.map(sprint => {
-			const sprintUrl = `/sprint/${sprint.url}`;
-			const editSprintUrl = `/admin/sprint-config/${sprint.id}`;
-
-			return (
-				<div key={sprint.id} className="col-xs-12 col-sm-6 pad-vertical">
-					<div className="panel panel-default" id={sprint.id}>
-						<div className="panel-body">
-							<h3 className="text-xxlarge">{sprint.name}</h3>
-						</div>
-						<div className="panel-footer">
-							<div className="btn-group btn-group-justified">
-								<Link to={editSprintUrl} className="btn btn-primary">
-									<span className="glyphicon glyphicon-edit text-large" />
-									<span className="hidden-xs text-xlarge">&nbsp;Edit</span>
-								</Link>
-								<Link to={sprintUrl} target="_blank" className="btn btn-primary">
-									<span className="glyphicon glyphicon-new-window text-large" />
-									<span className="hidden-xs text-xlarge">&nbsp;View</span>
-								</Link>
-							</div>
-						</div>
-					</div>
-				</div>
-			);
-		});
+		sprintList = <ListGroup>{props.sprints.map(sprint => <AdminSprintItem {...sprint} />)}</ListGroup>;
 	} else {
 		sprintList = <Spinner />;
 	}
