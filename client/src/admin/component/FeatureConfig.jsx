@@ -285,7 +285,10 @@ class FeatureConfig extends Component {
 	}
 }
 
-const mapStateToProps = state => ({ isAdmin: state.user.isAdmin });
+const mapStateToProps = (state, ownProps) => {
+	const selectedFeature = state.features.find(feature => feature.id === ownProps.match.params.id);
+	return Object.assign({}, selectedFeature, { isAdmin: state.user.isAdmin });
+};
 
 const mapDispatchToProps = dispatch => ({
 	invokeUpdateFeature({ feature }) {

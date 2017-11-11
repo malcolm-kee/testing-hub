@@ -86,27 +86,9 @@ class Admin extends Component {
 			<Switch>
 				<Route exact path="/admin" component={AdminOverview} />
 				<Route exact path="/admin/feature-create" component={FeatureCreate} />
-				<Route
-					path="/admin/feature-config/:id"
-					component={props => {
-						const selectedFeature = this.props.features.find(
-							feature => props.match.params.id === feature.id
-						);
-						return <FeatureConfig {...selectedFeature} />;
-					}}
-				/>
-				<Route
-					exact
-					path="/admin/sprint-create"
-					component={() => <SprintCreate refreshSprints={this.refreshSprints} />}
-				/>
-				<Route
-					path="/admin/sprint-config/:id"
-					component={props => {
-						const selectedSprint = this.props.sprints.find(sprint => props.match.params.id === sprint.id);
-						return <SprintConfig {...selectedSprint} />;
-					}}
-				/>
+				<Route path="/admin/feature-config/:id" component={FeatureConfig} />
+				<Route exact path="/admin/sprint-create" component={SprintCreate} />
+				<Route path="/admin/sprint-config/:id" component={SprintConfig} />
 			</Switch>
 		);
 	}

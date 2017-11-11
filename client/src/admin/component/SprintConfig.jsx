@@ -288,7 +288,10 @@ class SprintConfig extends Component {
 	}
 }
 
-const mapStateToProps = state => ({ isAdmin: state.user.isAdmin, features: state.features });
+const mapStateToProps = (state, ownProps) => {
+	const selectedSprint = state.sprints.find(sprint => sprint.id === ownProps.match.params.id);
+	return Object.assign({}, selectedSprint, { isAdmin: state.user.isAdmin, features: state.features });
+};
 
 const mapDispatchToProps = dispatch => ({
 	invokeUpdateSprint({ sprint }) {
