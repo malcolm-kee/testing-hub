@@ -54,10 +54,12 @@ const AdminView = props => {
 		sprintList = <Spinner />;
 	}
 
-	if (props.users.length > 0) {
+	if (!props.users) {
+		userList = <Spinner />;
+	} else if (props.users.length > 0) {
 		userList = props.users.map(user => <User key={user.id} {...user} />);
 	} else {
-		userList = <Spinner />;
+		userList = <div className="text-xlarge">No users.</div>;
 	}
 
 	if (props.isAdmin) {

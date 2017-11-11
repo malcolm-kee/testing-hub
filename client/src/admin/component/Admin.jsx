@@ -17,7 +17,7 @@ import userService from './../../service/userService';
 class Admin extends Component {
 	state = {
 		searchTerm: '',
-		users: []
+		users: null
 	};
 
 	componentWillMount() {
