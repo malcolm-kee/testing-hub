@@ -42,7 +42,7 @@ class MainRoute extends Component {
 				this.props.initializeFeatures();
 			})
 			.catch(() => {
-				this.props.updateLoginStatus(false);
+				this.props.updateLoginStatus({ loggedIn: false });
 			});
 
 	render() {

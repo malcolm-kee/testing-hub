@@ -153,8 +153,12 @@ Catalog.propTypes = {
 			name: PropTypes.string.isRequired
 		})
 	).isRequired,
-	loggedIn: PropTypes.bool.isRequired,
+	loggedIn: PropTypes.bool,
 	history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired
+};
+
+Catalog.defaultProps = {
+	loggedIn: null
 };
 
 export default withRouter(connect(mapStateToProps)(Catalog));
