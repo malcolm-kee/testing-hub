@@ -1,42 +1,37 @@
 import axios from 'axios';
-import idbKeyval from 'idb-keyval';
+// import idbKeyval from 'idb-keyval';
+// dono why the library doesn't work
 
 function saveToken(token) {
 	return new Promise((resolve, reject) => {
-		idbKeyval
-			.set('testhub-token', token)
-			.then(() => {
-				resolve();
-			})
-			.catch(err => {
-				reject(err);
-			});
+		try {
+			window.localStorage.setItem('token', token);
+			resolve();
+		} catch (err) {
+			reject(err);
+		}
 	});
 }
 
 function getToken() {
 	return new Promise((resolve, reject) => {
-		idbKeyval
-			.get('testhub-token')
-			.then(token => {
-				resolve(token);
-			})
-			.catch(err => {
-				reject(err);
-			});
+		try {
+			const token = window.localStorage.getItem('token');
+			resolve(token);
+		} catch (err) {
+			reject(err);
+		}
 	});
 }
 
 function removeToken() {
 	return new Promise((resolve, reject) => {
-		idbKeyval
-			.delete('testhub-token')
-			.then(() => {
-				resolve();
-			})
-			.catch(err => {
-				reject(err);
-			});
+		try {
+			window.localStorage.removeItem('token');
+			resolve();
+		} catch (err) {
+			reject(err);
+		}
 	});
 }
 
