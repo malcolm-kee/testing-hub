@@ -1,7 +1,7 @@
 import axios from 'axios';
 import authenticationService from './service/authenticationService';
 
-import { SET_FEATURES, ADD_FEATURE, UPDATE_FEATURE, DELETE_FEATURE } from './actions';
+import { SET_FEATURES, ADD_FEATURE, UPDATE_FEATURE, DELETE_FEATURE } from './constants/actions';
 
 export function setFeatures({ features }) {
 	return { type: SET_FEATURES, payload: features };

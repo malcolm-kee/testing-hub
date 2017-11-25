@@ -1,6 +1,6 @@
 import axios from 'axios';
 import authenticationService from './service/authenticationService';
-import { SET_SPRINTS, ADD_SPRINT, UPDATE_SPRINT, DELETE_SPRINT } from './actions';
+import { SET_SPRINTS, ADD_SPRINT, UPDATE_SPRINT, DELETE_SPRINT } from './constants/actions';
 
 export function setSprints({ sprints }) {
 	return { type: SET_SPRINTS, payload: sprints };

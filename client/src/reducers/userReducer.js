@@ -1,4 +1,4 @@
-import { SET_LOGIN_STATUS, SET_USER_NAME } from './actions';
+import { SET_LOGIN_STATUS, SET_USER_NAME } from './../constants/actions';
 
 const DEFAULT_STATE = {
 	loggedIn: null,

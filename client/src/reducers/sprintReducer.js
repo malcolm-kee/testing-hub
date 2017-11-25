@@ -1,4 +1,4 @@
-import { SET_SPRINTS, ADD_SPRINT, UPDATE_SPRINT, DELETE_SPRINT } from './actions';
+import { SET_SPRINTS, ADD_SPRINT, UPDATE_SPRINT, DELETE_SPRINT } from './../constants/actions';
 
 const DEFAULT_STATE = [];
 

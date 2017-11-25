@@ -1,4 +1,4 @@
-import { SET_FEATURES, ADD_FEATURE, UPDATE_FEATURE, DELETE_FEATURE } from './actions';
+import { SET_FEATURES, ADD_FEATURE, UPDATE_FEATURE, DELETE_FEATURE } from './../constants/actions';
 
 const DEFAULT_STATE = [];
 
