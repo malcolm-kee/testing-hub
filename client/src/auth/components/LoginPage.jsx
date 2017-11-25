@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { setLoginStatus } from './../../actionCreators';
 import { getFeaturesFromApi } from './../../featureActionCreators';
@@ -17,6 +18,12 @@ class LoginPage extends Component {
 		error: '',
 		message: ''
 	};
+
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.loggedIn) {
+			this.props.history.push('/');
+		}
+	}
 
 	handleSubmit = values => {
 		authenticationService
@@ -63,6 +70,9 @@ class LoginPage extends Component {
 							<div className="user-auth-form panel">
 								{systemMessage}
 								<LoginForm onSubmit={this.handleSubmit} />
+								<span>
+									Do not have an account? <Link to="/register">Sign Up here</Link>
+								</span>
 							</div>
 						</div>
 					</div>
@@ -71,6 +81,8 @@ class LoginPage extends Component {
 		);
 	}
 }
+
+const mapStateToProps = state => ({ loggedIn: state.user.loggedIn });
 
 const mapDispatchToProps = dispatch => ({
 	loginUser({ userName, isAdmin }) {
@@ -85,10 +97,15 @@ const mapDispatchToProps = dispatch => ({
 });
 
 LoginPage.propTypes = {
-	history: PropTypes.shape({ goBack: PropTypes.func.isRequired }).isRequired,
+	loggedIn: PropTypes.bool,
+	history: PropTypes.shape({ push: PropTypes.func.isRequired, goBack: PropTypes.func.isRequired }).isRequired,
 	loginUser: PropTypes.func.isRequired,
 	initializeFeatures: PropTypes.func.isRequired,
 	initializeSprints: PropTypes.func.isRequired
 };
 
-export default withRouter(connect(null, mapDispatchToProps)(LoginPage));
+LoginPage.defaultProps = {
+	loggedIn: false
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginPage));

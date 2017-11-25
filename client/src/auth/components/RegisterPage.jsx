@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import Header from './../../Header';
 import RegisterForm from './RegisterForm';
@@ -10,6 +14,12 @@ class RegisterPage extends Component {
 		error: '',
 		message: ''
 	};
+
+	componentWillMount() {
+		if (this.props.loggedIn) {
+			this.props.history.push('/');
+		}
+	}
 
 	handleSubmit = values => {
 		authenticationService
@@ -56,6 +66,9 @@ class RegisterPage extends Component {
 							<div className="user-auth-form panel">
 								{systemMessage}
 								<RegisterForm onSubmit={this.handleSubmit} />
+								<span>
+									Already registered? <Link to="/login">Login here</Link>
+								</span>
 							</div>
 						</div>
 					</div>
@@ -65,4 +78,15 @@ class RegisterPage extends Component {
 	}
 }
 
-export default RegisterPage;
+const mapStateToProps = state => ({ loggedIn: state.user.loggedIn });
+
+RegisterPage.propTypes = {
+	loggedIn: PropTypes.bool,
+	history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired
+};
+
+RegisterPage.defaultProps = {
+	loggedIn: false
+};
+
+export default withRouter(connect(mapStateToProps, null)(RegisterPage));
