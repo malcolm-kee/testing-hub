@@ -12,7 +12,7 @@ import Catalog from './Catalog';
 import Admin from './admin/component/Admin';
 import Sprint from './Sprint';
 import LoginPage from './auth/components/LoginPage';
-import Register from './Register';
+import RegisterPage from './auth/components/RegisterPage';
 import UserCreate from './UserCreate';
 import UserConfig from './UserConfig';
 import UserVerify from './UserVerify';
@@ -53,7 +53,7 @@ class MainRoute extends Component {
 						<Route exact path="/" component={Catalog} />
 						<Route exact path="/landing" component={Landing} />
 						<Route exact path="/login" component={LoginPage} />
-						<Route exact path="/register" component={Register} />
+						<Route exact path="/register" component={RegisterPage} />
 						<Route
 							path="/verify-account/:code"
 							component={props => <UserVerify code={props.match.params.code} />}
