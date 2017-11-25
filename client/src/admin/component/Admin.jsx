@@ -51,12 +51,19 @@ class Admin extends Component {
 	};
 
 	render() {
-		const sprintList = this.props.sprints.filter(
-			sprint => sprint.name.toUpperCase().indexOf(this.state.searchTerm.toUpperCase()) >= 0
-		);
-		const featureList = this.props.features.filter(
-			feature => feature.name.toUpperCase().indexOf(this.state.searchTerm.toUpperCase()) >= 0
-		);
+		let sprintList = null;
+		let featureList = null;
+
+		if (this.props.sprints) {
+			sprintList = this.props.sprints.filter(
+				sprint => sprint.name.toUpperCase().indexOf(this.state.searchTerm.toUpperCase()) >= 0
+			);
+		}
+		if (this.props.features) {
+			featureList = this.props.features.filter(
+				feature => feature.name.toUpperCase().indexOf(this.state.searchTerm.toUpperCase()) >= 0
+			);
+		}
 		const AdminOverview = () => (
 			<div>
 				<Header showLogin />
@@ -102,14 +109,14 @@ const mapStateToProps = state => ({
 });
 
 Admin.propTypes = {
-	features: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string.isRequired })).isRequired,
+	features: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string.isRequired })),
 	sprints: PropTypes.arrayOf(
 		PropTypes.shape({
 			id: PropTypes.string.isRequired,
 			url: PropTypes.string.isRequired,
 			name: PropTypes.string.isRequired
 		})
-	).isRequired,
+	),
 	loggedIn: PropTypes.bool,
 	isAdmin: PropTypes.bool,
 	history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired
@@ -117,7 +124,9 @@ Admin.propTypes = {
 
 Admin.defaultProps = {
 	loggedIn: null,
-	isAdmin: null
+	isAdmin: null,
+	sprints: null,
+	features: null
 };
 
 export default withRouter(connect(mapStateToProps)(Admin));

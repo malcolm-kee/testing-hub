@@ -61,7 +61,17 @@ class Catalog extends Component {
 		let featureContent;
 
 		if (this.props.loggedIn === true) {
-			if (this.props.sprints.length > 0) {
+			if (this.props.sprints === null) {
+				sprintPageNav = (
+					<div className="container">
+						<Navbar inverse>
+							<Navbar.Text>
+								<DotsLoader />
+							</Navbar.Text>
+						</Navbar>
+					</div>
+				);
+			} else if (this.props.sprints.length > 0) {
 				const sprintNavItems = this.props.sprints.map(sprint => {
 					const urlTarget = `/sprint/${sprint.url}`;
 					return (
@@ -85,9 +95,7 @@ class Catalog extends Component {
 				sprintPageNav = (
 					<div className="container">
 						<Navbar inverse>
-							<Navbar.Text>
-								<DotsLoader />
-							</Navbar.Text>
+							<Navbar.Text>No Sprint is Available.</Navbar.Text>
 						</Navbar>
 					</div>
 				);
@@ -152,13 +160,14 @@ Catalog.propTypes = {
 			url: PropTypes.string.isRequired,
 			name: PropTypes.string.isRequired
 		})
-	).isRequired,
+	),
 	loggedIn: PropTypes.bool,
 	history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired
 };
 
 Catalog.defaultProps = {
-	loggedIn: null
+	loggedIn: null,
+	sprints: null
 };
 
 export default withRouter(connect(mapStateToProps)(Catalog));

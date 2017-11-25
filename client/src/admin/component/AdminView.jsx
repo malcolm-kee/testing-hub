@@ -15,31 +15,41 @@ const AdminView = props => {
 	let addUserBtn;
 	let userMgmtPanel;
 
-	if (props.features.length > 0) {
-		featureList = props.features.map(feature => <AdminFeatureItem key={feature.id} {...feature} />);
+	if (props.features) {
+		if (props.features.length > 0) {
+			featureList = props.features.map(feature => <AdminFeatureItem key={feature.id} {...feature} />);
+		} else {
+			featureList = <div className="text-xlarge">There is no feature available.</div>;
+		}
 	} else {
 		featureList = <Spinner />;
 	}
 
-	if (props.sprints.length > 0) {
-		sprintList = <ListGroup>{props.sprints.map(sprint => <AdminSprintItem {...sprint} />)}</ListGroup>;
+	if (props.sprints) {
+		if (props.sprints.length > 0) {
+			sprintList = <ListGroup>{props.sprints.map(sprint => <AdminSprintItem {...sprint} />)}</ListGroup>;
+		} else {
+			sprintList = <div className="text-xlarge">There is no sprint available.</div>;
+		}
 	} else {
 		sprintList = <Spinner />;
 	}
 
-	if (!props.users) {
-		userList = <Spinner />;
-	} else if (props.users.length > 0) {
-		userList = props.users.map(user => <User key={user.id} {...user} />);
+	if (props.users) {
+		if (props.users.length > 0) {
+			userList = props.users.map(user => <User key={user.id} {...user} />);
+		} else {
+			userList = <div className="text-xlarge">No users.</div>;
+		}
 	} else {
-		userList = <div className="text-xlarge">No users.</div>;
+		userList = <Spinner />;
 	}
 
 	if (props.isAdmin) {
 		addUserBtn = (
 			<Link to="/user-create" className="btn btn-warning">
 				<span className="glyphicon glyphicon-plus text-large" />
-				&nbsp;<span className="text-xxlarge">
+				&nbsp;<span>
 					<span className="hidden-xs">Add a new</span> user
 				</span>
 			</Link>
@@ -65,13 +75,13 @@ const AdminView = props => {
 							<div className="btn-group">
 								<Link to="/admin/feature-create" className="btn btn-success">
 									<span className="glyphicon glyphicon-plus text-large" />
-									&nbsp;<span className="text-xxlarge">
+									&nbsp;<span>
 										<span className="hidden-xs">Add a new</span> link
 									</span>
 								</Link>
 								<Link to="/admin/sprint-create" className="btn btn-info">
 									<span className="glyphicon glyphicon-plus text-large" />
-									&nbsp;<span className="text-xxlarge">
+									&nbsp;<span>
 										<span className="hidden-xs">Add a new</span> sprint
 									</span>
 								</Link>
@@ -109,14 +119,14 @@ const AdminView = props => {
 };
 
 AdminView.propTypes = {
-	features: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string.isRequired })).isRequired,
+	features: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string.isRequired })),
 	sprints: PropTypes.arrayOf(
 		PropTypes.shape({
 			id: PropTypes.string.isRequired,
 			url: PropTypes.string.isRequired,
 			name: PropTypes.string.isRequired
 		})
-	).isRequired,
+	),
 	users: PropTypes.arrayOf(
 		PropTypes.shape({
 			id: PropTypes.string.isRequired
@@ -126,7 +136,9 @@ AdminView.propTypes = {
 };
 
 AdminView.defaultProps = {
-	isAdmin: false
+	isAdmin: false,
+	features: null,
+	sprints: null
 };
 
 export default AdminView;
