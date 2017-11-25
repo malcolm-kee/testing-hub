@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 import { Tabs, Tab } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
-import { updateSprint } from './sprintActionCreators';
+import { updateSprint } from './../../sprintActionCreators';
 
 import SprintSummary from './SprintSummary';
-import Header from './Header';
-import SearchBar from './SearchBar';
-import Spinner from './Spinner';
-import DotsLoader from './DotsLoader';
+import Header from './../../Header';
+import SearchBar from './../../SearchBar';
+import Spinner from './../../Spinner';
+import DotsLoader from './../../DotsLoader';
 import SprintItemCardView from './SprintItemCardView';
 import SprintItemTableView from './SprintItemTableView';
 
-import sprintService from './service/sprintService';
+import sprintService from './../../service/sprintService';
 
 class Sprint extends Component {
 	state = {
@@ -75,17 +75,12 @@ class Sprint extends Component {
 				)
 			});
 
-			const filteredSprintItems = thisSprint.sprintItems
-				/* .map(sprintItem => {
-					const itemFeature = this.props.features.find(feature => feature.id === sprintItem.featureId);
-					return Object.assign(sprintItem, { feature: itemFeature });
-				}) */
-				.filter(
-					sprintItem =>
-						`${sprintItem.name} ${sprintItem.desc} ${sprintItem.feature.name}`
-							.toUpperCase()
-							.indexOf(this.state.searchTerm.toUpperCase()) >= 0
-				);
+			const filteredSprintItems = thisSprint.sprintItems.filter(
+				sprintItem =>
+					`${sprintItem.name} ${sprintItem.desc} ${sprintItem.feature.name}`
+						.toUpperCase()
+						.indexOf(this.state.searchTerm.toUpperCase()) >= 0
+			);
 
 			header = (
 				<header className="page-header">

@@ -3,14 +3,10 @@ import PropTypes from 'prop-types';
 import { Button, ButtonGroup, ButtonToolbar, DropdownButton, MenuItem, OverlayTrigger, Popover } from 'react-bootstrap';
 import Markdown from 'react-remarkable';
 
+import { sprintItemStatus, statusStyleMap } from './../../constants/sprint';
+
 const SprintItemTableRow = props => {
-	const btnStyleMap = {
-		'Not Started': undefined,
-		'In Progress': 'info',
-		Passed: 'success',
-		Blocked: 'danger'
-	};
-	const btnStyle = btnStyleMap[props.status];
+	const btnStyle = statusStyleMap[props.status];
 	const detailsPopover = (
 		<Popover title="Details" id={`rowPopOver-${props.id}`}>
 			<div>{props.feature.name}</div>
@@ -40,18 +36,11 @@ const SprintItemTableRow = props => {
 					disabled={!props.editable}
 					id={`rowActionBtn-${props.id}`}
 				>
-					<MenuItem eventKey="Not Started" data-itemid={props.id}>
-						Not Started
-					</MenuItem>
-					<MenuItem eventKey="In Progress" data-itemid={props.id}>
-						In Progress
-					</MenuItem>
-					<MenuItem eventKey="Passed" data-itemid={props.id}>
-						Passed
-					</MenuItem>
-					<MenuItem eventKey="Blocked" data-itemid={props.id}>
-						Blocked
-					</MenuItem>
+					{sprintItemStatus.map(status => (
+						<MenuItem key={status} eventKey={status} data-itemid={props.id}>
+							{status}
+						</MenuItem>
+					))}
 				</DropdownButton>
 			</td>
 			<td>

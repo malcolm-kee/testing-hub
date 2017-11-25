@@ -10,7 +10,7 @@ import { getSprintsFromApi } from './sprintActionCreators';
 import Landing from './Landing';
 import Catalog from './Catalog';
 import Admin from './admin/component/Admin';
-import Sprint from './Sprint';
+import Sprint from './sprint/components/Sprint';
 import LoginPage from './auth/components/LoginPage';
 import RegisterPage from './auth/components/RegisterPage';
 import UserCreate from './UserCreate';
