@@ -18,7 +18,7 @@ module.exports.register = function exportRegister(req, res) {
 			message: 'All fields are required.'
 		});
 		return;
-	} else if (/^.+@accenture\.com$|^.+@digi\.com(\.my)?$/.test(req.body.email) === false) {
+	}  else if (/^.+@accenture\.com$|^.+@digi\.com(\.my)?$/.test(req.body.email) === false) {
 		sendJSONresponse(res, 400, {
 			message: 'Sign up is only open for @accenture.com and @digi.com email.'
 		});

@@ -126,8 +126,9 @@ body {
 
 table,
 p,
+label,
 span {
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 
 .table.table-shrink {

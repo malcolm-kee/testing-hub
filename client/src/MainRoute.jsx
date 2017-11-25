@@ -11,7 +11,7 @@ import Landing from './Landing';
 import Catalog from './Catalog';
 import Admin from './admin/component/Admin';
 import Sprint from './Sprint';
-import Login from './Login';
+import LoginPage from './auth/components/LoginPage';
 import Register from './Register';
 import UserCreate from './UserCreate';
 import UserConfig from './UserConfig';
@@ -52,7 +52,7 @@ class MainRoute extends Component {
 					<Switch>
 						<Route exact path="/" component={Catalog} />
 						<Route exact path="/landing" component={Landing} />
-						<Route exact path="/login" component={Login} />
+						<Route exact path="/login" component={LoginPage} />
 						<Route exact path="/register" component={Register} />
 						<Route
 							path="/verify-account/:code"

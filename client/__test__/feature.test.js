@@ -1,7 +1,7 @@
 import deepFreeze from 'deep-freeze';
 
 import { setFeatures, addFeature, updateFeature, deleteFeature } from './../src/featureActionCreators';
-import featureReducer from './../src/featureReducer';
+import featureReducer from './../src/reducers/featureReducer';
 
 test('setFeatures', () => {
 	const oldState = [];
