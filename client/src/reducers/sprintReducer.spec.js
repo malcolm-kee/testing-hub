@@ -1,7 +1,7 @@
 import deepFreeze from 'deep-freeze';
 
-import { setSprints, addSprint, updateSprint, deleteSprint } from './../src/sprintActionCreators';
-import sprintReducer from './../src/reducers/sprintReducer';
+import { setSprints, addSprint, updateSprint, deleteSprint } from './../sprintActionCreators';
+import sprintReducer from './sprintReducer';
 
 test('setSprints', () => {
 	const oldState = [];

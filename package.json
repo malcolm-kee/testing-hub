@@ -4,10 +4,11 @@
         "build": "webpack -p",
         "build:dev": "webpack --config webpack.dev.config.js",
         "dev": "webpack-dev-server --config webpack.dev.config.js",
-        "format": "prettier --write --single-quote --print-width=120 --parser=flow \"{src/js,app_api,app_server}/**/*.{js,jsx}\"",
+        "format":
+            "prettier --write --single-quote --print-width=120 --parser=flow \"{src/js,app_api,app_server}/**/*.{js,jsx}\"",
         "lint": "eslint **/*.{js,jsx} --quiet",
         "watch": "webpack --watch --config webpack.dev.config.js",
-        "test": "jest",
+        "test": "jest --coverage",
         "heroku-postbuild": "npm run build"
     },
     "engines": {
@@ -88,5 +89,11 @@
     "devDependencies": {
         "prettier": "^1.7.0",
         "webpack-dev-server": "^2.9.1"
+    },
+    "jest": {
+        "testRegex": "src/.+\\.(test|spec).js$",
+        "coverageDirectory": "coverage",
+        "coverageReporters": ["text-summary", "html"],
+        "collectCoverageFrom": ["client/src/**/*.js", "!client/src/**/*.spec.js"]
     }
 }
