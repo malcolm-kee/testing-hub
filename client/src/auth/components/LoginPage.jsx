@@ -34,7 +34,6 @@ class LoginPage extends Component {
 				this.props.initializeSprints();
 				window.setTimeout(() => {
 					this.props.loginUser({ userName: data.name, isAdmin: data.isAdmin });
-					this.props.history.goBack();
 				}, 1500);
 			})
 			.catch(() => {
