@@ -1,8 +1,10 @@
+const path = require('path');
+
 module.exports = {
   entry: './src/ClientApp.tsx',
   output: {
-    filename: 'app.js',
-    path: __dirname + '/dist'
+    path: path.join(__dirname, 'public', 'js'),
+    filename: 'app.js'
   },
 
   // Enable sourcemaps for debugging webpack's output.
