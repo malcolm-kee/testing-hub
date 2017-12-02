@@ -1,26 +1,36 @@
-import { ActionKeys as keys } from './actionKeys';
+import { ActionKeys as keys } from './ActionKeys';
 
-interface featureLink {
+interface FeatureLink {
   env: string;
   url: string;
 }
 
-export interface feature {
+export interface Feature {
   id: string;
   name: string;
-  details: string;
-  links: Array<featureLink>;
+  details?: string;
+  links: Array<FeatureLink>;
   requireLogin: boolean;
   createdBy: string;
-  lastUpdatedBy: string;
+  lastUpdatedBy?: string;
 }
 
-export interface setFeatureAction {
+export interface SetFeatureAction {
   readonly type: keys.SET_FEATURES;
-  readonly payload: Array<feature>;
+  readonly payload: Array<Feature>;
 }
 
-export interface addFeatureAction {
+export interface AddFeatureAction {
   readonly type: keys.ADD_FEATURE;
-  readonly payload: feature;
+  readonly payload: Feature;
+}
+
+export interface UpdateFeatureAction {
+  readonly type: keys.UPDATE_FEATURE;
+  readonly payload: Feature;
+}
+
+export interface DeleteFeatureAction {
+  readonly type: keys.DELETE_FEATURE;
+  readonly payload: string;
 }

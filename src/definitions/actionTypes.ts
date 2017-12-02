@@ -1,5 +1,5 @@
-import { setFeatureAction, addFeatureAction } from './featureDef';
+import { SetFeatureAction, AddFeatureAction, UpdateFeatureAction, DeleteFeatureAction } from './FeatureDef';
 
-type ActionTypes = setFeatureAction | addFeatureAction;
+type ActionTypes = SetFeatureAction | AddFeatureAction | UpdateFeatureAction | DeleteFeatureAction;
 
 export default ActionTypes;

@@ -1,16 +1,17 @@
 {
-    "compilerOptions": {
-        "outDir": "./dist/",
-        "sourceMap": true,
-        "noImplicitAny": true,
-        "module": "commonjs",
-        "target": "es5",
-        "jsx": "react",
-        "plugins": [
-            {
-                "name": "tslint-language-service"
-            }
-        ]
-    },
-    "include": ["./src/**/*"]
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "target": "es5",
+    "jsx": "react",
+    "plugins": [
+      {
+        "name": "tslint-language-service"
+      }
+    ],
+    "skipLibCheck": true
+  },
+  "include": ["./src/**/*"]
 }
