@@ -1,7 +1,7 @@
 import 'jest';
 import * as deepFreeze from 'deep-freeze';
 
-import { featureActionCreators } from './../actionCreators';
+import featureActionCreators from 'actionCreators/featureActionCreators';
 
 import featureReducer, { State } from './featureReducer';
 

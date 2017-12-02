@@ -1,12 +1,12 @@
-import ActionTypes from '../definitions/ActionTypes';
-import { ActionKeys } from '../definitions/ActionKeys';
+import ActionTypes from 'definitions/ActionTypes';
+import { ActionKeys } from 'definitions/ActionKeys';
 import {
   Feature,
   SetFeatureAction,
   AddFeatureAction,
   UpdateFeatureAction,
   DeleteFeatureAction
-} from '../definitions/FeatureDef';
+} from 'definitions/FeatureDef';
 
 function setFeatures(features: Array<Feature>): SetFeatureAction {
   return { type: ActionKeys.SET_FEATURES, payload: features };

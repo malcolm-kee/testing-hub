@@ -4,9 +4,9 @@ import {
   SetFeatureAction,
   UpdateFeatureAction,
   DeleteFeatureAction
-} from '../definitions/FeatureDef';
-import ActionTypes from '../definitions/ActionTypes';
-import { ActionKeys } from '../definitions/ActionKeys';
+} from 'definitions/FeatureDef';
+import ActionTypes from 'definitions/ActionTypes';
+import { ActionKeys } from 'definitions/ActionKeys';
 
 export interface State {
   byId: Array<string>;
