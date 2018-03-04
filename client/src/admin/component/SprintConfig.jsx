@@ -5,7 +5,7 @@ import copy from 'copy-to-clipboard';
 import { connect } from 'react-redux';
 
 import { selectors } from '../../reducers';
-import { updateSprint, deleteSprint } from './../../sprintActionCreators';
+import { updateSprint, deleteSprint } from './../../actions/sprint';
 
 import Header from './../../Header';
 import SprintItemCreate from './SprintItemCreate';

@@ -1,6 +1,6 @@
 import deepFreeze from 'deep-freeze';
 
-import { setSprints, addSprint, updateSprint, deleteSprint } from './../sprintActionCreators';
+import { setSprints, addSprint, updateSprint, deleteSprint } from './../actions/sprint';
 import { sprintReducer } from './sprintReducer';
 
 test('setSprints', () => {

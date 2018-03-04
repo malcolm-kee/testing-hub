@@ -4,7 +4,7 @@ import { Tabs, Tab } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 import { selectors } from '../../reducers';
-import { updateSprint } from './../../sprintActionCreators';
+import { updateSprint } from './../../actions/sprint';
 
 import SprintSummary from './SprintSummary';
 import Header from './../../Header';

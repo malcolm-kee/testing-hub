@@ -1,6 +1,6 @@
 import deepFreeze from 'deep-freeze';
 
-import { setFeatures, addFeature, updateFeature, deleteFeature } from './../featureActionCreators';
+import { setFeatures, addFeature, updateFeature, deleteFeature } from './../actions/feature';
 import { featureReducer, featureSelector } from './featureReducer';
 
 const feature1 = { id: 2, name: 'object2' };

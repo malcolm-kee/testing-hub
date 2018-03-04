@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { selectors } from '../../reducers';
-import { setLoginStatus } from './../../actionCreators';
-import { getFeaturesFromApi } from './../../featureActionCreators';
-import { getSprintsFromApi } from './../../sprintActionCreators';
+import { setLoginStatus } from './../../actions/auth';
+import { getFeaturesFromApi } from './../../actions/feature';
+import { getSprintsFromApi } from './../../actions/sprint';
 
 import Header from './../../Header';
 import LoginForm from './LoginForm';

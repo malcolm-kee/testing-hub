@@ -5,7 +5,7 @@ import { PanelGroup } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 import { selectors } from '../../reducers';
-import { addSprint } from './../../sprintActionCreators';
+import { addSprint } from './../../actions/sprint';
 
 import Header from './../../Header';
 import SprintItemCreate from './SprintItemCreate';

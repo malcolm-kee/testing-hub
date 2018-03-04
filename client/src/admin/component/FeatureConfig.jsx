@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 import { isURL } from 'validator';
 
 import { selectors } from '../../reducers';
-import { updateFeature, deleteFeature } from './../../featureActionCreators';
+import { updateFeature, deleteFeature } from './../../actions/feature';
 
 import Header from './../../Header';
 import FeatureConfigLink from './FeatureConfigLink';

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { Navbar, Nav, NavItem, DropdownButton, MenuItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
-import { setLoginStatus } from './actionCreators';
+import { setLoginStatus } from './actions/auth';
 import { selectors } from './reducers';
 
 import DotsLoader from './DotsLoader';

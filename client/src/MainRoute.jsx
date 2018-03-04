@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { selectors } from './reducers';
-import { setLoginStatus } from './actionCreators';
-import { getFeaturesFromApi } from './featureActionCreators';
-import { getSprintsFromApi } from './sprintActionCreators';
+import { setLoginStatus } from './actions/auth';
+import { getFeaturesFromApi } from './actions/feature';
+import { getSprintsFromApi } from './actions/sprint';
 // import preload from './data.json';
 
 import Landing from './Landing';
