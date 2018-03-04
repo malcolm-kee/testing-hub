@@ -11,7 +11,7 @@ import Header from './../../Header';
 import FeatureConfigLink from './FeatureConfigLink';
 import FeatureConfigLinkCreate from './FeatureConfigLinkCreate';
 
-import featureService from './../../service/featureService';
+import { update, remove } from './../../service/featureService';
 
 class FeatureConfig extends Component {
   state = {
@@ -68,8 +68,7 @@ class FeatureConfig extends Component {
         requireLogin: this.state.requireLogin,
         links: this.state.links
       };
-      featureService
-        .update(feature)
+      update(feature)
         .then(() => {
           this.props.invokeUpdateFeature({ feature });
           this.props.history.goBack();
@@ -86,8 +85,7 @@ class FeatureConfig extends Component {
     event.preventDefault();
     this.setState({ error: '' });
     const id = this.state.id;
-    featureService
-      .remove({ id })
+    remove({ id })
       .then(() => {
         this.props.invokeDeleteFeature({ id });
         this.props.history.goBack();

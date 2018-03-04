@@ -8,7 +8,7 @@ import { selectors } from '../../reducers';
 import Header from './../../Header';
 import RegisterForm from './RegisterForm';
 
-import authenticationService from './../../service/authenticationService';
+import { register } from './../../service/authenticationService';
 
 class RegisterPage extends Component {
   state = {
@@ -23,8 +23,7 @@ class RegisterPage extends Component {
   }
 
   handleSubmit = values => {
-    authenticationService
-      .register(values)
+    register(values)
       .then(() => {
         this.setState({ message: `A verification email has been sent to ${this.state.email}` });
       })

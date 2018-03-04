@@ -11,7 +11,7 @@ import { selectors } from './reducers';
 
 import DotsLoader from './DotsLoader';
 
-import authenticationService from './service/authenticationService';
+import { logout } from './service/authenticationService';
 
 class Header extends Component {
   handleSelectUserAction = (eventKey, event) => {
@@ -22,7 +22,7 @@ class Header extends Component {
         this.props.history.push('/admin');
         break;
       case 'Logout':
-        authenticationService.logout().then(() => {
+        logout().then(() => {
           this.props.logoutUser();
         });
         break;

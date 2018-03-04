@@ -7,7 +7,7 @@ import { setLoginStatus } from './actions/auth';
 
 import Spinner from './Spinner';
 
-import authenticationService from './service/authenticationService';
+import { verify } from './service/authenticationService';
 
 class UserVerify extends Component {
   state = {
@@ -17,8 +17,7 @@ class UserVerify extends Component {
 
   componentDidMount() {
     const code = this.props.code;
-    authenticationService
-      .verify({ code })
+    verify({ code })
       .then(data => {
         this.setState({ loaded: true, message: "You've successfully verified your account!" });
         this.props.loginUser({ userName: data.name, isAdmin: data.isAdmin });

@@ -20,7 +20,7 @@ import UserVerify from './UserVerify';
 // import ErrorMessage from './ErrorMessage';
 import PageNotFoundMessage from './PageNotFoundMessage';
 
-import authenticationService from './service/authenticationService';
+import { getLoginStatus, getCurrentUser } from './service/authenticationService';
 
 class MainRoute extends Component {
   state = {
@@ -34,7 +34,7 @@ class MainRoute extends Component {
   }
 
   initializeLoginSatus = () =>
-    Promise.all([authenticationService.getLoginStatus(), authenticationService.getCurrentUser()])
+    Promise.all([getLoginStatus(), getCurrentUser()])
       .then(data => {
         const loggedIn = data[0];
         const currentUser = data[1];

@@ -1,12 +1,11 @@
 import axios from 'axios';
-import authenticationService from '../service/authenticationService';
+import { getToken } from '../service/authenticationService';
 import { SET_SPRINTS, ADD_SPRINT, UPDATE_SPRINT, DELETE_SPRINT } from '../constants/actions';
 
 export const setSprints = ({ sprints }) => ({ type: SET_SPRINTS, payload: sprints });
 
 export const getSprintsFromApi = () => dispatch => {
-  authenticationService
-    .getToken()
+  getToken()
     .then(token => {
       axios
         .get('/api/sprint', {

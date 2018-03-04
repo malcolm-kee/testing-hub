@@ -12,7 +12,7 @@ import { getSprintsFromApi } from './../../actions/sprint';
 import Header from './../../Header';
 import LoginForm from './LoginForm';
 
-import authenticationService from './../../service/authenticationService';
+import { login } from './../../service/authenticationService';
 
 class LoginPage extends Component {
   state = {
@@ -27,8 +27,7 @@ class LoginPage extends Component {
   }
 
   handleSubmit = values => {
-    authenticationService
-      .login(values)
+    login(values)
       .then(data => {
         this.setState({ message: 'Your have logged in successfully!' });
         this.props.initializeFeatures();
