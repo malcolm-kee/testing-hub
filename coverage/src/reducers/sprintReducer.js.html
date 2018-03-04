@@ -3,12 +3,12 @@
 <head>
     <title>Code coverage report for src/reducers/sprintReducer.js</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="..\..\prettify.css" />
-    <link rel="stylesheet" href="..\..\base.css" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(..\..\sort-arrow-sprite.png);
+            background-image: url(../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -16,28 +16,28 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="..\..\index.html">All files</a> / <a href="index.html">src/reducers</a> sprintReducer.js
+      <a href="../../index.html">All files</a> / <a href="index.html">src/reducers</a> sprintReducer.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">95.45% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>21/22</span>
+        <span class='fraction'>1/1</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">75% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>6/8</span>
+        <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>7/7</span>
+        <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">94.74% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>18/19</span>
+        <span class='fraction'>1/1</span>
       </div>
     </div>
   </div>
@@ -60,122 +60,38 @@
 15
 16
 17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+18</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { SET_SPRINTS, ADD_SPRINT, UPDATE_SPRINT, DELETE_SPRINT } from './../constants/actions';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {
+  SET_SPRINTS,
+  ADD_SPRINT,
+  UPDATE_SPRINT,
+  DELETE_SPRINT
+} from "./../constants/actions";
 &nbsp;
-const DEFAULT_STATE = [];
+import { createListDataReducer } from "./utils/createDataReducer";
 &nbsp;
-const setSprints = (state, action) =&gt; action.payload;
-&nbsp;
-const addSprint = (state, action) =&gt; state.concat(action.payload);
-&nbsp;
-const updateSprint = (state, action) =&gt; {
-	const updatedSprint = action.payload;
-&nbsp;
-	return state.map(sprint =&gt; {
-		if (sprint.id === updatedSprint.id) {
-			return updatedSprint;
-		}
-		return sprint;
-	});
-};
-&nbsp;
-const deleteSprint = (state, action) =&gt; {
-	const deletedId = action.payload;
-&nbsp;
-	return state.filter(sprint =&gt; sprint.id !== deletedId);
-};
-&nbsp;
-const sprintReducer = (state = <span class="branch-0 cbranch-no" title="branch not covered" >DEFAULT_STATE,</span> action) =&gt; {
-	switch (action.type) {
-		case SET_SPRINTS:
-			return setSprints(state, action);
-&nbsp;
-		case ADD_SPRINT:
-			return addSprint(state, action);
-&nbsp;
-		case UPDATE_SPRINT:
-			return updateSprint(state, action);
-&nbsp;
-		case DELETE_SPRINT:
-			return deleteSprint(state, action);
-&nbsp;
-<span class="branch-4 cbranch-no" title="branch not covered" >		default:</span>
-<span class="cstat-no" title="statement not covered" >			return state;</span>
-	}
-};
+const sprintReducer = createListDataReducer({
+  SET: SET_SPRINTS,
+  APPEND: ADD_SPRINT,
+  UPDATE: UPDATE_SPRINT,
+  DELETE: DELETE_SPRINT
+});
 &nbsp;
 export default sprintReducer;
 &nbsp;</pre></td></tr>
@@ -184,10 +100,10 @@ export default sprintReducer;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Nov 25 2017 22:52:01 GMT+0800 (Malay Peninsula Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Mar 04 2018 12:46:23 GMT+0800 (+08)
 </div>
 </div>
-<script src="..\..\prettify.js"></script>
+<script src="../../prettify.js"></script>
 <script>
 window.onload = function () {
         if (typeof prettyPrint === 'function') {
@@ -195,6 +111,6 @@ window.onload = function () {
         }
 };
 </script>
-<script src="..\..\sorter.js"></script>
+<script src="../../sorter.js"></script>
 </body>
 </html>
