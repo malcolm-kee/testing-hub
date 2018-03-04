@@ -1,7 +1,7 @@
 import { createReducer } from './createReducer';
 
 export const createLoadingReducer = ({ SET, APPEND, UPDATE, DELETE, LOADING, ERROR }) =>
-  createReducer([], {
+  createReducer(false, {
     [SET]: () => false,
     [APPEND]: () => false,
     [UPDATE]: () => false,

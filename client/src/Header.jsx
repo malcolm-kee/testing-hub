@@ -76,8 +76,12 @@ class Header extends Component {
               bsStyle="info"
               id="header-options"
             >
-              <MenuItem eventKey="Administer">Administer</MenuItem>
-              <MenuItem eventKey="Logout">Logout</MenuItem>
+              <MenuItem id="nav-Admin" eventKey="Administer">
+                Administer
+              </MenuItem>
+              <MenuItem id="auth-Logout" eventKey="Logout">
+                Logout
+              </MenuItem>
             </DropdownButton>
           </Nav>
         );
