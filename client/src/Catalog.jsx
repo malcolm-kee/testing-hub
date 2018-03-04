@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Navbar, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
 
+import { selectors } from './reducers';
+
 import Feature from './Feature';
 import Header from './Header';
 import SearchBar from './SearchBar';
@@ -14,160 +16,166 @@ import DotsLoader from './DotsLoader';
 import preferenceService from './service/preferenceService';
 
 class Catalog extends Component {
-	state = {
-		searchTerm: '',
-		fav: []
-	};
+  state = {
+    searchTerm: '',
+    fav: []
+  };
 
-	componentDidMount() {
-		// increase security to require login to access
-		if (this.props.loggedIn === false) {
-			this.props.history.push('/landing');
-		} else {
-			preferenceService.getFavFeatures().then(favFeatures => {
-				this.setState({ fav: favFeatures });
-			});
-		}
-	}
+  componentDidMount() {
+    // increase security to require login to access
+    if (this.props.loggedIn === false) {
+      this.props.history.push('/landing');
+    } else {
+      preferenceService.getFavFeatures().then(favFeatures => {
+        this.setState({ fav: favFeatures });
+      });
+    }
+  }
 
-	componentWillReceiveProps(nextProps) {
-		if (nextProps.loggedIn === false) {
-			this.props.history.push('/landing');
-		} else if (nextProps.loggedIn === true && this.props.loggedIn === false) {
-			preferenceService.getFavFeatures().then(favFeatures => {
-				this.setState({ fav: favFeatures });
-			});
-		}
-	}
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.loggedIn === false) {
+      this.props.history.push('/landing');
+    } else if (nextProps.loggedIn === true && this.props.loggedIn === false) {
+      preferenceService.getFavFeatures().then(favFeatures => {
+        this.setState({ fav: favFeatures });
+      });
+    }
+  }
 
-	handleSearchTermChange = event => {
-		this.setState({ searchTerm: event.target.value });
-	};
+  handleSearchTermChange = event => {
+    this.setState({ searchTerm: event.target.value });
+  };
 
-	toggleFav = id => {
-		if (this.state.fav.includes(id) === true) {
-			preferenceService.removeFavFeature(id).then(favFeatures => {
-				this.setState({ fav: favFeatures });
-			});
-		} else {
-			preferenceService.addFavFeature(id).then(favFeatures => {
-				this.setState({ fav: favFeatures });
-			});
-		}
-	};
+  toggleFav = id => {
+    if (this.state.fav.includes(id) === true) {
+      preferenceService.removeFavFeature(id).then(favFeatures => {
+        this.setState({ fav: favFeatures });
+      });
+    } else {
+      preferenceService.addFavFeature(id).then(favFeatures => {
+        this.setState({ fav: favFeatures });
+      });
+    }
+  };
 
-	render() {
-		let sprintPageNav;
-		let featureContent;
+  render() {
+    let sprintPageNav;
+    let featureContent;
 
-		if (this.props.loggedIn === true) {
-			if (this.props.sprints === null) {
-				sprintPageNav = (
-					<div className="container">
-						<Navbar inverse>
-							<Navbar.Text>
-								<DotsLoader />
-							</Navbar.Text>
-						</Navbar>
-					</div>
-				);
-			} else if (this.props.sprints.length > 0) {
-				const sprintNavItems = this.props.sprints.map(sprint => {
-					const urlTarget = `/sprint/${sprint.url}`;
-					return (
-						<MenuItem key={sprint.id}>
-							<Link to={urlTarget} className="text-xlarge">
-								{sprint.name}
-							</Link>
-						</MenuItem>
-					);
-				});
-				sprintPageNav = (
-					<div className="container">
-						<Navbar inverse>
-							<Nav className="text-xxlarge">
-								<NavDropdown title="Sprint">{sprintNavItems}</NavDropdown>
-							</Nav>
-						</Navbar>
-					</div>
-				);
-			} else {
-				sprintPageNav = (
-					<div className="container">
-						<Navbar inverse>
-							<Navbar.Text>No Sprint is Available.</Navbar.Text>
-						</Navbar>
-					</div>
-				);
-			}
-		}
+    if (this.props.loggedIn === true) {
+      if (this.props.sprints === null) {
+        sprintPageNav = (
+          <div className="container">
+            <Navbar inverse>
+              <Navbar.Text>
+                <DotsLoader />
+              </Navbar.Text>
+            </Navbar>
+          </div>
+        );
+      } else if (this.props.sprints.length > 0) {
+        const sprintNavItems = this.props.sprints.map(sprint => {
+          const urlTarget = `/sprint/${sprint.url}`;
+          return (
+            <MenuItem key={sprint.id}>
+              <Link to={urlTarget} className="text-xlarge">
+                {sprint.name}
+              </Link>
+            </MenuItem>
+          );
+        });
+        sprintPageNav = (
+          <div className="container">
+            <Navbar inverse>
+              <Nav className="text-xxlarge">
+                <NavDropdown title="Sprint">{sprintNavItems}</NavDropdown>
+              </Nav>
+            </Navbar>
+          </div>
+        );
+      } else {
+        sprintPageNav = (
+          <div className="container">
+            <Navbar inverse>
+              <Navbar.Text>No Sprint is Available.</Navbar.Text>
+            </Navbar>
+          </div>
+        );
+      }
+    }
 
-		if (this.props.features.length > 0) {
-			featureContent = this.props.features
-				.filter(feature => feature.name.toUpperCase().indexOf(this.state.searchTerm.toUpperCase()) >= 0)
-				.sort((a, b) => {
-					if (this.state.fav.includes(a.id) && !this.state.fav.includes(b.id)) {
-						return -1;
-					} else if (!this.state.fav.includes(a.id) && this.state.fav.includes(b.id)) {
-						return 1;
-					}
-					return 0;
-				})
-				.map(feature => {
-					const pinned = this.state.fav.includes(feature.id);
-					return (
-						<div key={feature.id} className="col-xs-12 col-sm-6 col-md-4 col-lg-3 pad-vertical">
-							<Feature toggleFav={this.toggleFav} pinned={pinned} {...feature} />
-						</div>
-					);
-				});
-		} else {
-			featureContent = <Spinner />;
-		}
+    if (this.props.features.length > 0) {
+      featureContent = this.props.features
+        .filter(
+          feature => feature.name.toUpperCase().indexOf(this.state.searchTerm.toUpperCase()) >= 0
+        )
+        .sort((a, b) => {
+          if (this.state.fav.includes(a.id) && !this.state.fav.includes(b.id)) {
+            return -1;
+          } else if (!this.state.fav.includes(a.id) && this.state.fav.includes(b.id)) {
+            return 1;
+          }
+          return 0;
+        })
+        .map(feature => {
+          const pinned = this.state.fav.includes(feature.id);
+          return (
+            <div key={feature.id} className="col-xs-12 col-sm-6 col-md-4 col-lg-3 pad-vertical">
+              <Feature toggleFav={this.toggleFav} pinned={pinned} {...feature} />
+            </div>
+          );
+        });
+    } else {
+      featureContent = <Spinner />;
+    }
 
-		return (
-			<div>
-				<Header showLogin />
-				<div className="container-fluid">
-					<div className="row">
-						<header className="page-header">
-							<h1>Testing Links</h1>
-						</header>
-						{sprintPageNav}
-						<div className="container">
-							<SearchBar
-								handleSearchTermChange={this.handleSearchTermChange}
-								searchTerm={this.state.searchTerm}
-							/>
-							<div className="row">
-								<div className="col-sm-12 col-xs-12">{featureContent}</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		);
-	}
+    return (
+      <div>
+        <Header showLogin />
+        <div className="container-fluid">
+          <div className="row">
+            <header className="page-header">
+              <h1>Testing Links</h1>
+            </header>
+            {sprintPageNav}
+            <div className="container">
+              <SearchBar
+                handleSearchTermChange={this.handleSearchTermChange}
+                searchTerm={this.state.searchTerm}
+              />
+              <div className="row">
+                <div className="col-sm-12 col-xs-12">{featureContent}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
-const mapStateToProps = state => ({ loggedIn: state.user.loggedIn, features: state.features, sprints: state.sprints });
+const mapStateToProps = state => ({
+  loggedIn: selectors.getLoginState(state),
+  features: selectors.getFeatures(state),
+  sprints: selectors.getSprints(state)
+});
 
 Catalog.propTypes = {
-	features: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string.isRequired })).isRequired,
-	sprints: PropTypes.arrayOf(
-		PropTypes.shape({
-			id: PropTypes.string.isRequired,
-			url: PropTypes.string.isRequired,
-			name: PropTypes.string.isRequired
-		})
-	),
-	loggedIn: PropTypes.bool,
-	history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired
+  features: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string.isRequired })).isRequired,
+  sprints: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      url: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired
+    })
+  ),
+  loggedIn: PropTypes.bool,
+  history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired
 };
 
 Catalog.defaultProps = {
-	loggedIn: null,
-	sprints: null
+  loggedIn: null,
+  sprints: null
 };
 
 export default withRouter(connect(mapStateToProps)(Catalog));

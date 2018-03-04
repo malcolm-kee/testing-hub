@@ -22,7 +22,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>0/24</span>
+        <span class='fraction'>0/31</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
@@ -32,12 +32,12 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/4</span>
+        <span class='fraction'>0/7</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>0/10</span>
+        <span class='fraction'>0/12</span>
       </div>
     </div>
   </div>
@@ -68,7 +68,8 @@
 23
 24
 25
-26</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+26
+27</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -92,39 +93,41 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { SET_<span class="cstat-no" title="statement not covered" >LOGIN_STATUS, SET_USER_NAME } from './../constants/actions';<span class="cstat-no" title="statement not covered" ></span></span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { SET_<span class="cstat-no" title="statement not covered" >LOGIN_STATUS, SET_USER_NAME } from './../constants/actions';<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ></span></span></span>
 &nbsp;
 const DEFAULT_STATE <span class="cstat-no" title="statement not covered" >= {</span>
-	loggedIn: null,
-	userName: '',
-	isAdmin: false
+  loggedIn: null,
+  userName: '',
+  isAdmin: false
 };
 &nbsp;
 const setLoginStatus <span class="cstat-no" title="statement not covered" >= (state,<span class="fstat-no" title="function not covered" > action) =&gt; Obj</span>ect.assign({}, s<span class="cstat-no" title="statement not covered" >tate, action.payload);</span></span>
 &nbsp;
 const setUserName <span class="cstat-no" title="statement not covered" >= (state,<span class="fstat-no" title="function not covered" > action) =&gt; </span>Object.assign({}<span class="cstat-no" title="statement not covered" >, state, { userName: action.payload });</span></span>
 &nbsp;
-const userReducer <span class="cstat-no" title="statement not covered" >= (state <span class="fstat-no" title="function not covered" >= DEFAULT_ST</span>ATE, action) =&gt;<span class="cstat-no" title="statement not covered" > {<span class="cstat-no" title="statement not covered" ></span></span></span>
-<span class="cstat-no" title="statement not covered" >	switch (action.type) {</span>
-		case SET_LOGIN_STATUS:
-<span class="cstat-no" title="statement not covered" >			return setLoginStatus(state, action);</span>
-		case SET_USER_NAME:
-<span class="cstat-no" title="statement not covered" >			return setUserName(state, action);</span>
-		default:
-<span class="cstat-no" title="statement not covered" >			return state;</span>
-	}
+export const userR<span class="cstat-no" title="statement not covered" >educer = (state = DEFAULT_STATE<span class="fstat-no" title="function not covered" >, action) =&gt;</span> {<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ></span></span></span>
+<span class="cstat-no" title="statement not covered" >  switch (action.type) {</span>
+    case SET_LOGIN_STATUS:
+<span class="cstat-no" title="statement not covered" >      return setLoginStatus(state, action);</span>
+    case SET_USER_NAME:
+<span class="cstat-no" title="statement not covered" >      return setUserName(state, action);</span>
+    default:
+<span class="cstat-no" title="statement not covered" >      return state;</span>
+  }
 };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export defau<span class="cstat-no" title="statement not covered" ></span>lt userReducer;<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span></span></span></span></span></span></span></span>
-&nbsp;
+export const getLogi<span class="cstat-no" title="statement not covered" >nState = state =&gt; state.loggedIn;<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span>
+export const getUs<span class="cstat-no" title="statement not covered" >erName = state =&gt; state.userNam<span class="fstat-no" title="function not covered" >e;<span class="cstat-no" title="statement not covered" ></span></span></span>
+export const getI<span class="cstat-no" title="statement not covered" >sAdmin = state =&gt; state.isAdmi<span class="fstat-no" title="function not covered" >n;<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span></span></span></span></span></span></span></span></span></span></span></span>
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Mar 04 2018 12:46:23 GMT+0800 (+08)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Mar 04 2018 16:09:26 GMT+0800 (+08)
 </div>
 </div>
 <script src="../../prettify.js"></script>

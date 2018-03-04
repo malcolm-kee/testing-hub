@@ -1,44 +1,44 @@
 import deepFreeze from 'deep-freeze';
 
 import { setSprints, addSprint, updateSprint, deleteSprint } from './../sprintActionCreators';
-import sprintReducer from './sprintReducer';
+import { sprintReducer } from './sprintReducer';
 
 test('setSprints', () => {
-	const oldState = [];
-	const finalState = [{ id: 2, name: 'object2' }, { id: 123, name: 'object1' }];
-	const sprints = [{ id: 2, name: 'object2' }, { id: 123, name: 'object1' }];
+  const oldState = [];
+  const finalState = [{ id: 2, name: 'object2' }, { id: 123, name: 'object1' }];
+  const sprints = [{ id: 2, name: 'object2' }, { id: 123, name: 'object1' }];
 
-	deepFreeze(oldState);
+  deepFreeze(oldState);
 
-	expect(sprintReducer(oldState, setSprints({ sprints }))).toEqual(finalState);
+  expect(sprintReducer(oldState, setSprints({ sprints }))).toEqual(finalState);
 });
 
 test('addSprint', () => {
-	const oldState = [{ id: 2, name: 'object2' }];
-	const finalState = [{ id: 2, name: 'object2' }, { id: 123, name: 'object1' }];
-	const sprint = { id: 123, name: 'object1' };
+  const oldState = [{ id: 2, name: 'object2' }];
+  const finalState = [{ id: 2, name: 'object2' }, { id: 123, name: 'object1' }];
+  const sprint = { id: 123, name: 'object1' };
 
-	deepFreeze(oldState);
+  deepFreeze(oldState);
 
-	expect(sprintReducer(oldState, addSprint({ sprint }))).toEqual(finalState);
+  expect(sprintReducer(oldState, addSprint({ sprint }))).toEqual(finalState);
 });
 
 test('updateSprint', () => {
-	const oldState = [{ id: 2, name: 'oldValue' }, { id: 123, name: 'object1' }];
-	const finalState = [{ id: 2, name: 'New Value' }, { id: 123, name: 'object1' }];
-	const sprint = { id: 2, name: 'New Value' };
+  const oldState = [{ id: 2, name: 'oldValue' }, { id: 123, name: 'object1' }];
+  const finalState = [{ id: 2, name: 'New Value' }, { id: 123, name: 'object1' }];
+  const sprint = { id: 2, name: 'New Value' };
 
-	deepFreeze(oldState);
+  deepFreeze(oldState);
 
-	expect(sprintReducer(oldState, updateSprint({ sprint }))).toEqual(finalState);
+  expect(sprintReducer(oldState, updateSprint({ sprint }))).toEqual(finalState);
 });
 
 test('deleteSprint', () => {
-	const oldState = [{ id: 123, name: 'object1' }, { id: 2, name: 'object2' }];
-	const finalState = [{ id: 2, name: 'object2' }];
-	const id = 123;
+  const oldState = [{ id: 123, name: 'object1' }, { id: 2, name: 'object2' }];
+  const finalState = [{ id: 2, name: 'object2' }];
+  const id = 123;
 
-	deepFreeze(oldState);
+  deepFreeze(oldState);
 
-	expect(sprintReducer(oldState, deleteSprint({ id }))).toEqual(finalState);
+  expect(sprintReducer(oldState, deleteSprint({ id }))).toEqual(finalState);
 });
