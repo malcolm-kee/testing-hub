@@ -26,6 +26,7 @@ URL=http://localhost:3000
 ```
 heroku local
 ```
+7. Run `yarn dev`
 
 ## Pending changes
 
