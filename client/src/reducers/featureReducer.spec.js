@@ -10,20 +10,20 @@ const features = [feature1, feature2];
 test('setFeatures', () => {
   const oldState = [];
 
-  const finalState = features;
-
   deepFreeze(oldState);
 
   const reducedState = featureReducer(oldState, setFeatures({ features }));
 
-  expect(reducedState).toEqual(finalState);
   expect(featureSelector.getAll(reducedState)).toEqual(features);
   expect(featureSelector.getOne(reducedState)(2)).toEqual(feature1);
 });
 
 test('addFeature', () => {
-  const oldState = [{ id: 2, name: 'object2' }];
-  const finalState = [{ id: 2, name: 'object2' }, { id: 123, name: 'object1' }];
+  const oldState = { data: [{ id: 2, name: 'object2' }], loading: true };
+  const finalState = {
+    data: [{ id: 2, name: 'object2' }, { id: 123, name: 'object1' }],
+    loading: false
+  };
   const feature = { id: 123, name: 'object1' };
 
   deepFreeze(oldState);
@@ -32,9 +32,15 @@ test('addFeature', () => {
 });
 
 test('updateFeature', () => {
-  const oldState = [{ id: 2, name: 'oldValue' }, { id: 123, name: 'object1' }];
-  const finalState = [{ id: 2, name: 'New Value' }, { id: 123, name: 'object1' }];
+  const oldState = {
+    data: features,
+    loading: true
+  };
   const feature = { id: 2, name: 'New Value' };
+  const finalState = {
+    data: [{ id: 2, name: 'New Value' }, feature2],
+    loading: false
+  };
 
   deepFreeze(oldState);
 
@@ -42,9 +48,15 @@ test('updateFeature', () => {
 });
 
 test('deleteFeature', () => {
-  const oldState = [{ id: 123, name: 'object1' }, { id: 2, name: 'object2' }];
-  const finalState = [{ id: 2, name: 'object2' }];
-  const id = 123;
+  const oldState = {
+    data: features,
+    loading: true
+  };
+  const id = feature2.id;
+  const finalState = {
+    data: [feature1],
+    loading: false
+  };
 
   deepFreeze(oldState);
 

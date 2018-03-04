@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 import { selectors } from '../../reducers';
 import { setLoginStatus } from './../../actions/auth';
-import { getFeaturesFromApi } from './../../actions/feature';
+import { loadFeatures } from './../../actions/feature';
 import { getSprintsFromApi } from './../../actions/sprint';
 
 import Header from './../../Header';
@@ -89,7 +89,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setLoginStatus({ loggedIn: true, userName, isAdmin }));
   },
   initializeFeatures() {
-    dispatch(getFeaturesFromApi());
+    dispatch(loadFeatures());
   },
   initializeSprints() {
     dispatch(getSprintsFromApi());

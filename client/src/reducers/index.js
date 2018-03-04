@@ -37,10 +37,16 @@ export const selectors = {
   getFeature(store) {
     return featureSelector.getOne(store.features);
   },
+  getFeatureLoading(store) {
+    return featureSelector.getLoadingState(store.features);
+  },
   getSprints(store) {
     return sprintSelector.getAll(store.sprints);
   },
   getSprint(store) {
     return sprintSelector.getOne(store.sprints);
+  },
+  getSprintLoading(store) {
+    return sprintSelector.getLoadingState(store.sprints);
   }
 };

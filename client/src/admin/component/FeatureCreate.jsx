@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
-import { addFeature } from './../../actions/feature';
+import { creatingFeature } from './../../actions/feature';
 
 import Header from './../../Header';
 import FeatureConfigLink from './FeatureConfigLink';
 import FeatureConfigLinkCreate from './FeatureConfigLinkCreate';
-import featureService from './../../service/featureService';
 
 class FeatureCreate extends Component {
   state = {
@@ -51,6 +50,9 @@ class FeatureCreate extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+
+    const { invokeCreateFeature, history } = this.props;
+
     this.setState({ error: '' });
     if (this.validateForm()) {
       const feature = {
@@ -58,17 +60,8 @@ class FeatureCreate extends Component {
         requireLogin: this.state.requireLogin,
         links: this.state.links
       };
-      featureService
-        .create(feature)
-        .then(() => {
-          this.props.invokeAddFeature({ feature });
-          this.props.history.goBack();
-        })
-        .catch(() => {
-          this.setState({
-            error: 'Sorry, we have problem add your test link. Please try again.'
-          });
-        });
+      invokeCreateFeature({ feature });
+      history.goBack();
     }
   };
 
@@ -190,14 +183,14 @@ class FeatureCreate extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  invokeAddFeature({ feature }) {
-    dispatch(addFeature({ feature }));
+  invokeCreateFeature({ feature }) {
+    dispatch(creatingFeature(feature));
   }
 });
 
 FeatureCreate.propTypes = {
   history: PropTypes.shape({ goBack: PropTypes.func.isRequired }).isRequired,
-  invokeAddFeature: PropTypes.func.isRequired
+  invokeCreateFeature: PropTypes.func.isRequired
 };
 
 export default withRouter(connect(null, mapDispatchToProps)(FeatureCreate));

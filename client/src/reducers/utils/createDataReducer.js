@@ -9,13 +9,11 @@ export const createListDataReducer = ({ SET, APPEND, UPDATE, DELETE }) =>
     [DELETE]: (state, action) => state.filter(item => item.id !== action.payload)
   });
 
-export const createListDataSelector = () => ({
+export const createListDataSelector = path => ({
   getAll(state) {
-    return state;
+    return state[path];
   },
   getOne(state) {
-    return id => state.find(item => item.id === id);
+    return id => state[path].find(item => item.id === id);
   }
 });
-
-export default createListDataReducer;

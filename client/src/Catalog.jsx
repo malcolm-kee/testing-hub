@@ -59,11 +59,13 @@ class Catalog extends Component {
   };
 
   render() {
+    const { loggedIn, sprints, sprintLoading, features, featureLoading } = this.props;
+
     let sprintPageNav;
     let featureContent;
 
-    if (this.props.loggedIn === true) {
-      if (this.props.sprints === null) {
+    if (loggedIn === true) {
+      if (sprintLoading) {
         sprintPageNav = (
           <div className="container">
             <Navbar inverse>
@@ -73,8 +75,8 @@ class Catalog extends Component {
             </Navbar>
           </div>
         );
-      } else if (this.props.sprints.length > 0) {
-        const sprintNavItems = this.props.sprints.map(sprint => {
+      } else if (sprints.length > 0) {
+        const sprintNavItems = sprints.map(sprint => {
           const urlTarget = `/sprint/${sprint.url}`;
           return (
             <MenuItem key={sprint.id}>
@@ -104,8 +106,10 @@ class Catalog extends Component {
       }
     }
 
-    if (this.props.features.length > 0) {
-      featureContent = this.props.features
+    if (featureLoading) {
+      featureContent = <Spinner />;
+    } else if (features.length > 0) {
+      featureContent = features
         .filter(
           feature => feature.name.toUpperCase().indexOf(this.state.searchTerm.toUpperCase()) >= 0
         )
@@ -126,7 +130,7 @@ class Catalog extends Component {
           );
         });
     } else {
-      featureContent = <Spinner />;
+      featureContent = <div>No feature is available</div>;
     }
 
     return (
@@ -157,11 +161,15 @@ class Catalog extends Component {
 const mapStateToProps = state => ({
   loggedIn: selectors.getLoginState(state),
   features: selectors.getFeatures(state),
-  sprints: selectors.getSprints(state)
+  featureLoading: selectors.getFeatureLoading(state),
+  sprints: selectors.getSprints(state),
+  sprintLoading: selectors.getSprintLoading(state)
 });
 
 Catalog.propTypes = {
+  featureLoading: PropTypes.bool.isRequired,
   features: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string.isRequired })).isRequired,
+  sprintLoading: PropTypes.bool.isRequired,
   sprints: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
