@@ -9,6 +9,7 @@
       "jsx": true
     }
   },
+  "rules": {},
   "env": {
     "es6": true,
     "browser": true,
