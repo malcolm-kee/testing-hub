@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">60% </span>
+        <span class="strong">64.29% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>9/15</span>
+        <span class='fraction'>18/28</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -30,14 +30,14 @@
         <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">40% </span>
+        <span class="strong">33.33% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>4/10</span>
+        <span class='fraction'>4/12</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">50% </span>
+        <span class="strong">63.64% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>5/10</span>
+        <span class='fraction'>14/22</span>
       </div>
     </div>
   </div>
@@ -80,10 +80,70 @@
 35
 36
 37
-38</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -99,13 +159,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -114,44 +168,83 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import axios from 'axios';
-import authenticationService from '../service/authenticationService';
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { createPendingAction, createErrorAction } from './utils';
+import { getAll, create } from '../service/featureService';
 &nbsp;
-import { SET_FEATURES, ADD_FEATURE, UPDATE_FEATURE, DELETE_FEATURE } from '../constants/actions';
+import {
+  SET_FEATURES,
+  LOADING_FEATURES,
+  LOAD_FEATURE_ERROR,
+  ADD_FEATURE,
+  ADDING_FEATURE,
+  ADD_FEATURE_ERROR,
+  UPDATE_FEATURE,
+  UPDATING_FEATURE,
+  UPDATE_FEATURE_ERROR,
+  DELETE_FEATURE,
+  DELETING_FEATURE,
+  DELETE_FEATURE_ERROR
+} from '../constants/actions';
 &nbsp;
 export const setFeatures = ({ features }) =&gt; ({ type: SET_FEATURES, payload: features });
 &nbsp;
+export const loadingFeature = createPendingAction(LOADING_FEATURES);
+&nbsp;
+export const loadFeatureError = createErrorAction(LOAD_FEATURE_ERROR);
+&nbsp;
 export const addFeature = ({ feature }) =&gt; ({ type: ADD_FEATURE, payload: feature });
+&nbsp;
+export const addingFeature = createPendingAction(ADDING_FEATURE);
+&nbsp;
+export const addFeatureError = createErrorAction(ADD_FEATURE_ERROR);
 &nbsp;
 export const updateFeature = ({ feature }) =&gt; ({ type: UPDATE_FEATURE, payload: feature });
 &nbsp;
-export const deleteFeature = ({ id }) =&gt; ({ type: DELETE_FEATURE, payload: id });
+export const updatingFeature = createPendingAction(UPDATING_FEATURE);
+&nbsp;
+export const updateFeatureError = createErrorAction(UPDATE_FEATURE_ERROR);
+&nbsp;
+export const deleteFeature = ({ id }) =&gt; ({ type: DELETE_FEATURE, payload: id.toString() });
+&nbsp;
+export const deletingFeature = createPendingAction(DELETING_FEATURE);
+&nbsp;
+export const deleteFeatureError = createErrorAction(DELETE_FEATURE_ERROR);
 &nbsp;
 /*
 * Thunk Actions
 */
-export const getFeaturesFromApi = <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >di</span>spatch =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  authenticationService</span>
-    .getToken()
-    .then(<span class="fstat-no" title="function not covered" >to</span>ken =&gt; {
-<span class="cstat-no" title="statement not covered" >      axios</span>
-        .get('/api/featureAll', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        })
-        .then(<span class="fstat-no" title="function not covered" >re</span>sponse =&gt; {
-<span class="cstat-no" title="statement not covered" >          dispatch(setFeatures({ features: response.data }));</span>
-        })
-        .catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {
-<span class="cstat-no" title="statement not covered" >          console.error('error in getFeaturesFromApi', err); </span>// eslint-disable-line no-console
-        });
+export const loadFeatures = <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >di</span>spatch =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  dispatch(loadingFeature());</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  getAll()</span>
+    .then(<span class="fstat-no" title="function not covered" >fe</span>atures =&gt; {
+<span class="cstat-no" title="statement not covered" >      dispatch(setFeatures({ features }));</span>
     })
     .catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {
-<span class="cstat-no" title="statement not covered" >      console.error('error in getToken', err); </span>// eslint-disable-line no-console
+<span class="cstat-no" title="statement not covered" >      dispatch(loadFeatureError(err));</span>
+    });
+};
+&nbsp;
+export const creatingFeature = <span class="fstat-no" title="function not covered" >fe</span>ature =&gt; <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >di</span>spatch =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  dispatch(loadingFeature());</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  create(feature)</span>
+    .then(<span class="fstat-no" title="function not covered" >fe</span>atureWithId =&gt; {
+<span class="cstat-no" title="statement not covered" >      dispatch(addFeature({ feature: featureWithId }));</span>
+    })
+    .catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {
+<span class="cstat-no" title="statement not covered" >      dispatch(loadFeatureError(err));</span>
     });
 };
 &nbsp;</pre></td></tr>
@@ -160,7 +253,7 @@ export const getFeaturesFromApi = <span class="fstat-no" title="function not cov
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Mar 04 2018 16:50:43 GMT+0800 (+08)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Mar 06 2018 23:54:30 GMT+0800 (+08)
 </div>
 </div>
 <script src="../prettify.js"></script>

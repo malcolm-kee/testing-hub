@@ -1,0 +1,5 @@
+export function reduceReducers(...reducers) {
+  return (previous, current) => reducers.reduce((p, r) => r(p, current), previous);
+}
+
+export default reduceReducers;

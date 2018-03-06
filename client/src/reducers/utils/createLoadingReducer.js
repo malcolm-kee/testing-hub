@@ -10,8 +10,11 @@ export const createLoadingReducer = ({ SET, APPEND, UPDATE, DELETE, LOADING, ERR
     [LOADING]: () => true
   });
 
-export const createLoadingSelector = path => ({
+export const createLoadingSelector = path => (mapper = f => f) => ({
   getLoadingState(state) {
-    return state[path];
+    if (typeof path === 'undefined') {
+      return mapper(state);
+    }
+    return mapper(state[path]);
   }
 });

@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">8.45% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>0/65</span>
+        <span class='fraction'>6/71</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>0/33</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">8.45% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>0/65</span>
+        <span class='fraction'>6/71</span>
       </div>
     </div>
   </div>
@@ -217,17 +217,11 @@
 172
 173
 174
-175
-176
-177
-178
-179
-180
-181</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+175</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -237,8 +231,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -248,8 +241,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -259,8 +251,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -282,8 +273,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -317,8 +307,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -348,7 +337,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -407,179 +395,173 @@
 // import idbKeyval from 'idb-keyval';
 // dono why the library doesn't work
 &nbsp;
-function <span class="fstat-no" title="function not covered" >saveToken(</span>token) {
-<span class="cstat-no" title="statement not covered" >	return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >		try {</span>
-<span class="cstat-no" title="statement not covered" >			window.localStorage.setItem('token', token);</span>
-<span class="cstat-no" title="statement not covered" >			resolve();</span>
-		} catch (err) {
-<span class="cstat-no" title="statement not covered" >			reject(err);</span>
-		}
-	});
+export const saveToken = <span class="fstat-no" title="function not covered" >to</span>ken =&gt;
+<span class="cstat-no" title="statement not covered" >  new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    try {</span>
+<span class="cstat-no" title="statement not covered" >      window.localStorage.setItem('token', token);</span>
+<span class="cstat-no" title="statement not covered" >      resolve();</span>
+    } catch (err) {
+<span class="cstat-no" title="statement not covered" >      reject(err);</span>
+    }
+  });
+&nbsp;
+export const getToken = <span class="fstat-no" title="function not covered" >()</span> =&gt;
+<span class="cstat-no" title="statement not covered" >  new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    try {</span>
+      const token = <span class="cstat-no" title="statement not covered" >window.localStorage.getItem('token');</span>
+<span class="cstat-no" title="statement not covered" >      resolve(token);</span>
+    } catch (err) {
+<span class="cstat-no" title="statement not covered" >      reject(err);</span>
+    }
+  });
+&nbsp;
+export const removeToken = <span class="fstat-no" title="function not covered" >()</span> =&gt;
+<span class="cstat-no" title="statement not covered" >  new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    try {</span>
+<span class="cstat-no" title="statement not covered" >      window.localStorage.removeItem('token');</span>
+<span class="cstat-no" title="statement not covered" >      resolve();</span>
+    } catch (err) {
+<span class="cstat-no" title="statement not covered" >      reject(err);</span>
+    }
+  });
+&nbsp;
+export const register = <span class="fstat-no" title="function not covered" >({</span> name, email, isAdmin, password }) =&gt;
+<span class="cstat-no" title="statement not covered" >  new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    axios</span>
+      .post('/api/register', { name, email, isAdmin, password })
+      .then(<span class="fstat-no" title="function not covered" >re</span>sponse =&gt; {
+<span class="cstat-no" title="statement not covered" >        if (response.status === 200) {</span>
+<span class="cstat-no" title="statement not covered" >          resolve();</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >          reject();</span>
+        }
+      })
+      .catch(<span class="fstat-no" title="function not covered" >er</span>ror =&gt; {
+<span class="cstat-no" title="statement not covered" >        if (error.response) {</span>
+<span class="cstat-no" title="statement not covered" >          reject({</span>
+            message: error.response.data.message
+          });
+        } else {
+<span class="cstat-no" title="statement not covered" >          reject();</span>
+        }
+      });
+  });
+&nbsp;
+export const verify = <span class="fstat-no" title="function not covered" >({</span> code }) =&gt;
+<span class="cstat-no" title="statement not covered" >  new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    axios</span>
+      .post('/api/verify', { code })
+      .then(<span class="fstat-no" title="function not covered" >re</span>sponse =&gt; {
+<span class="cstat-no" title="statement not covered" >        if (response.status === 200) {</span>
+          const token = <span class="cstat-no" title="statement not covered" >response.data.token;</span>
+<span class="cstat-no" title="statement not covered" >          saveToken(token)</span>
+            .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+              const payload = <span class="cstat-no" title="statement not covered" >JSON.parse(window.atob(token.split('.')[1]));</span>
+<span class="cstat-no" title="statement not covered" >              resolve({</span>
+                email: payload.email,
+                name: payload.name,
+                isAdmin: payload.isAdmin
+              });
+            })
+            .catch(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >              reject();</span>
+            });
+        } else {
+<span class="cstat-no" title="statement not covered" >          reject();</span>
+        }
+      })
+      .catch(<span class="fstat-no" title="function not covered" >er</span>ror =&gt; {
+<span class="cstat-no" title="statement not covered" >        if (error.response) {</span>
+<span class="cstat-no" title="statement not covered" >          reject({</span>
+            message: error.response.data.message
+          });
+        } else {
+<span class="cstat-no" title="statement not covered" >          reject();</span>
+        }
+      });
+  });
+&nbsp;
+export const login = <span class="fstat-no" title="function not covered" >({</span> email, password }) =&gt;
+<span class="cstat-no" title="statement not covered" >  new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    axios</span>
+      .post('/api/login', { email, password })
+      .then(<span class="fstat-no" title="function not covered" >re</span>sponse =&gt; {
+<span class="cstat-no" title="statement not covered" >        if (response.status === 200) {</span>
+          const token = <span class="cstat-no" title="statement not covered" >response.data.token;</span>
+<span class="cstat-no" title="statement not covered" >          saveToken(token)</span>
+            .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+              const payload = <span class="cstat-no" title="statement not covered" >JSON.parse(window.atob(token.split('.')[1]));</span>
+<span class="cstat-no" title="statement not covered" >              resolve({</span>
+                email: payload.email,
+                name: payload.name,
+                isAdmin: payload.isAdmin
+              });
+            })
+            .catch(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >              reject();</span>
+            });
+        } else {
+<span class="cstat-no" title="statement not covered" >          reject();</span>
+        }
+      })
+      .catch(<span class="fstat-no" title="function not covered" >er</span>ror =&gt; {
+<span class="cstat-no" title="statement not covered" >        if (error.response) {</span>
+<span class="cstat-no" title="statement not covered" >          reject({</span>
+            message: error.response.data.message
+          });
+        } else {
+<span class="cstat-no" title="statement not covered" >          reject();</span>
+        }
+      });
+  });
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >logout(</span>) {
+<span class="cstat-no" title="statement not covered" >  return removeToken();</span>
 }
 &nbsp;
-function <span class="fstat-no" title="function not covered" >getToken(</span>) {
-<span class="cstat-no" title="statement not covered" >	return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >		try {</span>
-			const token = <span class="cstat-no" title="statement not covered" >window.localStorage.getItem('token');</span>
-<span class="cstat-no" title="statement not covered" >			resolve(token);</span>
-		} catch (err) {
-<span class="cstat-no" title="statement not covered" >			reject(err);</span>
-		}
-	});
+export function <span class="fstat-no" title="function not covered" >getLoginStatus(</span>) {
+<span class="cstat-no" title="statement not covered" >  return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    getToken()</span>
+      .then(<span class="fstat-no" title="function not covered" >to</span>ken =&gt; {
+<span class="cstat-no" title="statement not covered" >        if (token) {</span>
+          const payload = <span class="cstat-no" title="statement not covered" >JSON.parse(window.atob(token.split('.')[1]));</span>
+          const loggedIn = <span class="cstat-no" title="statement not covered" >payload.exp &gt; Date.now() / 1000;</span>
+<span class="cstat-no" title="statement not covered" >          resolve(loggedIn);</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >          reject();</span>
+        }
+      })
+      .catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {
+<span class="cstat-no" title="statement not covered" >        reject(err);</span>
+      });
+  });
 }
 &nbsp;
-function <span class="fstat-no" title="function not covered" >removeToken(</span>) {
-<span class="cstat-no" title="statement not covered" >	return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >		try {</span>
-<span class="cstat-no" title="statement not covered" >			window.localStorage.removeItem('token');</span>
-<span class="cstat-no" title="statement not covered" >			resolve();</span>
-		} catch (err) {
-<span class="cstat-no" title="statement not covered" >			reject(err);</span>
-		}
-	});
-}
-&nbsp;
-function <span class="fstat-no" title="function not covered" >register(</span>{ name, email, isAdmin, password }) {
-<span class="cstat-no" title="statement not covered" >	return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >		axios</span>
-			.post('/api/register', { name, email, isAdmin, password })
-			.then(<span class="fstat-no" title="function not covered" >re</span>sponse =&gt; {
-<span class="cstat-no" title="statement not covered" >				if (response.status === 200) {</span>
-<span class="cstat-no" title="statement not covered" >					resolve();</span>
-				} else {
-<span class="cstat-no" title="statement not covered" >					reject();</span>
-				}
-			})
-			.catch(<span class="fstat-no" title="function not covered" >er</span>ror =&gt; {
-<span class="cstat-no" title="statement not covered" >				if (error.response) {</span>
-<span class="cstat-no" title="statement not covered" >					reject({</span>
-						message: error.response.data.message
-					});
-				} else {
-<span class="cstat-no" title="statement not covered" >					reject();</span>
-				}
-			});
-	});
-}
-&nbsp;
-function <span class="fstat-no" title="function not covered" >verify(</span>{ code }) {
-<span class="cstat-no" title="statement not covered" >	return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >		axios</span>
-			.post('/api/verify', { code })
-			.then(<span class="fstat-no" title="function not covered" >re</span>sponse =&gt; {
-<span class="cstat-no" title="statement not covered" >				if (response.status === 200) {</span>
-					const token = <span class="cstat-no" title="statement not covered" >response.data.token;</span>
-<span class="cstat-no" title="statement not covered" >					saveToken(token)</span>
-						.then(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
-							const payload = <span class="cstat-no" title="statement not covered" >JSON.parse(window.atob(token.split('.')[1]));</span>
-<span class="cstat-no" title="statement not covered" >							resolve({</span>
-								email: payload.email,
-								name: payload.name,
-								isAdmin: payload.isAdmin
-							});
-						})
-						.catch(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
-<span class="cstat-no" title="statement not covered" >							reject();</span>
-						});
-				} else {
-<span class="cstat-no" title="statement not covered" >					reject();</span>
-				}
-			})
-			.catch(<span class="fstat-no" title="function not covered" >er</span>ror =&gt; {
-<span class="cstat-no" title="statement not covered" >				if (error.response) {</span>
-<span class="cstat-no" title="statement not covered" >					reject({</span>
-						message: error.response.data.message
-					});
-				} else {
-<span class="cstat-no" title="statement not covered" >					reject();</span>
-				}
-			});
-	});
-}
-&nbsp;
-function <span class="fstat-no" title="function not covered" >login(</span>{ email, password }) {
-<span class="cstat-no" title="statement not covered" >	return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >		axios</span>
-			.post('/api/login', { email, password })
-			.then(<span class="fstat-no" title="function not covered" >re</span>sponse =&gt; {
-<span class="cstat-no" title="statement not covered" >				if (response.status === 200) {</span>
-					const token = <span class="cstat-no" title="statement not covered" >response.data.token;</span>
-<span class="cstat-no" title="statement not covered" >					saveToken(token)</span>
-						.then(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
-							const payload = <span class="cstat-no" title="statement not covered" >JSON.parse(window.atob(token.split('.')[1]));</span>
-<span class="cstat-no" title="statement not covered" >							resolve({</span>
-								email: payload.email,
-								name: payload.name,
-								isAdmin: payload.isAdmin
-							});
-						})
-						.catch(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
-<span class="cstat-no" title="statement not covered" >							reject();</span>
-						});
-				} else {
-<span class="cstat-no" title="statement not covered" >					reject();</span>
-				}
-			})
-			.catch(<span class="fstat-no" title="function not covered" >er</span>ror =&gt; {
-<span class="cstat-no" title="statement not covered" >				if (error.response) {</span>
-<span class="cstat-no" title="statement not covered" >					reject({</span>
-						message: error.response.data.message
-					});
-				} else {
-<span class="cstat-no" title="statement not covered" >					reject();</span>
-				}
-			});
-	});
-}
-&nbsp;
-function <span class="fstat-no" title="function not covered" >logout(</span>) {
-<span class="cstat-no" title="statement not covered" >	return removeToken();</span>
-}
-&nbsp;
-function <span class="fstat-no" title="function not covered" >getLoginStatus(</span>) {
-<span class="cstat-no" title="statement not covered" >	return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >		getToken()</span>
-			.then(<span class="fstat-no" title="function not covered" >to</span>ken =&gt; {
-<span class="cstat-no" title="statement not covered" >				if (token) {</span>
-					const payload = <span class="cstat-no" title="statement not covered" >JSON.parse(window.atob(token.split('.')[1]));</span>
-					const loggedIn = <span class="cstat-no" title="statement not covered" >payload.exp &gt; Date.now() / 1000;</span>
-<span class="cstat-no" title="statement not covered" >					resolve(loggedIn);</span>
-				} else {
-<span class="cstat-no" title="statement not covered" >					reject();</span>
-				}
-			})
-			.catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {
-<span class="cstat-no" title="statement not covered" >				reject(err);</span>
-			});
-	});
-}
-&nbsp;
-function <span class="fstat-no" title="function not covered" >getCurrentUser(</span>) {
-<span class="cstat-no" title="statement not covered" >	return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >		getLoginStatus()</span>
-			.then(<span class="fstat-no" title="function not covered" >lo</span>ggedIn =&gt; {
-<span class="cstat-no" title="statement not covered" >				if (loggedIn) {</span>
-<span class="cstat-no" title="statement not covered" >					getToken()</span>
-						.then(<span class="fstat-no" title="function not covered" >to</span>ken =&gt; {
-							const payload = <span class="cstat-no" title="statement not covered" >JSON.parse(window.atob(token.split('.')[1]));</span>
-<span class="cstat-no" title="statement not covered" >							resolve({</span>
-								email: payload.email,
-								name: payload.name,
-								isAdmin: payload.isAdmin
-							});
-						})
-						.catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {
-<span class="cstat-no" title="statement not covered" >							reject(err);</span>
-						});
-				} else {
-<span class="cstat-no" title="statement not covered" >					reject();</span>
-				}
-			})
-			.catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {
-<span class="cstat-no" title="statement not covered" >				reject(err);</span>
-			});
-	});
+export function <span class="fstat-no" title="function not covered" >getCurrentUser(</span>) {
+<span class="cstat-no" title="statement not covered" >  return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    getLoginStatus()</span>
+      .then(<span class="fstat-no" title="function not covered" >lo</span>ggedIn =&gt; {
+<span class="cstat-no" title="statement not covered" >        if (loggedIn) {</span>
+<span class="cstat-no" title="statement not covered" >          getToken()</span>
+            .then(<span class="fstat-no" title="function not covered" >to</span>ken =&gt; {
+              const payload = <span class="cstat-no" title="statement not covered" >JSON.parse(window.atob(token.split('.')[1]));</span>
+<span class="cstat-no" title="statement not covered" >              resolve({</span>
+                email: payload.email,
+                name: payload.name,
+                isAdmin: payload.isAdmin
+              });
+            })
+            .catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {
+<span class="cstat-no" title="statement not covered" >              reject(err);</span>
+            });
+        } else {
+<span class="cstat-no" title="statement not covered" >          reject();</span>
+        }
+      })
+      .catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {
+<span class="cstat-no" title="statement not covered" >        reject(err);</span>
+      });
+  });
 }
 &nbsp;
 export default { getToken, register, verify, login, logout, getLoginStatus, getCurrentUser };
@@ -589,7 +571,7 @@ export default { getToken, register, verify, login, logout, getLoginStatus, getC
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Mar 04 2018 16:50:43 GMT+0800 (+08)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Mar 06 2018 23:54:30 GMT+0800 (+08)
 </div>
 </div>
 <script src="../prettify.js"></script>

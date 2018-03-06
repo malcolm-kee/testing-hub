@@ -29,4 +29,4 @@ export const addSprint = ({ sprint }) => ({ type: ADD_SPRINT, payload: sprint })
 
 export const updateSprint = ({ sprint }) => ({ type: UPDATE_SPRINT, payload: sprint });
 
-export const deleteSprint = ({ id }) => ({ type: DELETE_SPRINT, payload: id });
+export const deleteSprint = ({ id }) => ({ type: DELETE_SPRINT, payload: id.toString() });

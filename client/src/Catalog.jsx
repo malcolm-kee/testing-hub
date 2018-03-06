@@ -161,9 +161,7 @@ class Catalog extends Component {
 const mapStateToProps = state => ({
   loggedIn: selectors.getLoginState(state),
   features: selectors.getFeatures(state),
-  featureLoading: selectors.getFeatureLoading(state),
-  sprints: selectors.getSprints(state),
-  sprintLoading: selectors.getSprintLoading(state)
+  sprints: selectors.getSprints(state)
 });
 
 Catalog.propTypes = {

@@ -5,32 +5,25 @@ import { sprintReducer } from './sprintReducer';
 
 const sprint1 = { id: 2, name: 'object2' };
 const sprint2 = { id: 123, name: 'object1' };
-const sprints = [sprint1, sprint2];
+const sprints = {
+  [sprint1.id]: sprint1,
+  [sprint2.id]: sprint2
+};
 
 test('setSprints', () => {
-  const oldState = {
-    data: [],
-    loading: true
-  };
-  const finalState = {
-    data: sprints,
-    loading: false
-  };
+  const oldState = {};
+  const finalState = sprints;
 
   deepFreeze(oldState);
 
-  expect(sprintReducer(oldState, setSprints({ sprints }))).toEqual(finalState);
+  expect(sprintReducer(oldState, setSprints({ sprints: [sprint1, sprint2] }))).toEqual(finalState);
 });
 
 test('addSprint', () => {
   const oldState = {
-    data: [sprint1],
-    loading: true
+    [sprint1.id]: sprint1
   };
-  const finalState = {
-    data: [sprint1, sprint2],
-    loading: false
-  };
+  const finalState = sprints;
 
   deepFreeze(oldState);
 
@@ -38,14 +31,11 @@ test('addSprint', () => {
 });
 
 test('updateSprint', () => {
-  const oldState = {
-    data: sprints,
-    loading: true
-  };
+  const oldState = sprints;
   const sprint1Updated = { id: 2, name: 'New Value' };
   const finalState = {
-    data: [sprint1Updated, sprint2],
-    loading: false
+    [sprint1.id]: sprint1Updated,
+    [sprint2.id]: sprint2
   };
 
   deepFreeze(oldState);
@@ -54,13 +44,9 @@ test('updateSprint', () => {
 });
 
 test('deleteSprint', () => {
-  const oldState = {
-    data: sprints,
-    loading: true
-  };
+  const oldState = sprints;
   const finalState = {
-    data: [sprint2],
-    loading: false
+    [sprint2.id]: sprint2
   };
   const id = sprint1.id;
 

@@ -1,31 +1,30 @@
-import { combineReducers } from 'redux';
-import {
-  SET_SPRINTS,
-  ADD_SPRINT,
-  UPDATE_SPRINT,
-  DELETE_SPRINT,
-  LOADING_SPRINT,
-  LOAD_SPRINT_ERROR
-} from './../constants/actions';
+import { SET_SPRINTS, ADD_SPRINT, UPDATE_SPRINT, DELETE_SPRINT } from './../constants/actions';
 
-import { createListDataReducer, createListDataSelector } from './utils/createDataReducer';
-import { createLoadingReducer, createLoadingSelector } from './utils/createLoadingReducer';
+import { reduceReducers } from './utils/reduceReducers';
+import { createKeyedListDataReducer, createKeyedListDataSelector } from './utils/createDataReducer';
 
 const actionTypes = {
   SET: SET_SPRINTS,
   APPEND: ADD_SPRINT,
-  UPDATE: UPDATE_SPRINT,
-  DELETE: DELETE_SPRINT,
-  LOADING: LOADING_SPRINT,
-  ERROR: LOAD_SPRINT_ERROR
+  DELETE: DELETE_SPRINT
 };
 
-export const sprintReducer = combineReducers({
-  data: createListDataReducer(actionTypes),
-  loading: createLoadingReducer(actionTypes)
-});
+export const sprintReducer = reduceReducers(
+  createKeyedListDataReducer(actionTypes),
+  (state, action) => {
+    switch (action.type) {
+      case UPDATE_SPRINT:
+        return {
+          ...state,
+          [action.payload.id]: action.payload
+        };
+
+      default:
+        return state;
+    }
+  }
+);
 
 export const sprintSelector = {
-  ...createListDataSelector('data'),
-  ...createLoadingSelector('loading')
+  ...createKeyedListDataSelector()()
 };
