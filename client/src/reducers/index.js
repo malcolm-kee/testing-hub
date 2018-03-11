@@ -13,8 +13,18 @@ const combineReducers = reducers => (state = {}, action) =>
 import { userReducer, getLoginState, getIsAdmin, getUserName } from './userReducer';
 import { featuresReducer, featureSelector } from './featureReducer';
 import { sprintReducer, sprintSelector } from './sprintReducer';
+import { entitiesReducer } from './entitiesReducer';
+
+export {
+  selectFeatures,
+  selectSprints,
+  selectFeatureCount,
+  selectSprintCount,
+  selectSprintShallow
+} from './entitiesReducer';
 
 export const rootReducer = combineReducers({
+  entities: entitiesReducer,
   user: userReducer,
   features: featuresReducer,
   sprints: sprintReducer,

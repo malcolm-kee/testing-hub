@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Navbar, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
 
-import { selectors } from './reducers';
+import { selectors, selectFeatures, selectSprintShallow } from './reducers';
 
 import Feature from './Feature';
 import Header from './Header';
@@ -160,8 +160,8 @@ class Catalog extends Component {
 
 const mapStateToProps = state => ({
   loggedIn: selectors.getLoginState(state),
-  features: selectors.getFeatures(state),
-  sprints: selectors.getSprints(state)
+  features: selectFeatures(state),
+  sprints: selectSprintShallow(state)
 });
 
 Catalog.propTypes = {

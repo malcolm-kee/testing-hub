@@ -1,6 +1,12 @@
 import axios from 'axios';
 import { getToken } from '../service/authenticationService';
-import { SET_SPRINTS, ADD_SPRINT, UPDATE_SPRINT, DELETE_SPRINT } from '../constants/actions';
+import {
+  SET_SPRINTS,
+  ADD_SPRINT,
+  UPDATE_SPRINT,
+  DELETE_SPRINT,
+  UPDATE_SPRINT_ITEM_STATUS
+} from '../constants/actions';
 
 export const setSprints = ({ sprints }) => ({ type: SET_SPRINTS, payload: sprints });
 
@@ -30,3 +36,11 @@ export const addSprint = ({ sprint }) => ({ type: ADD_SPRINT, payload: sprint })
 export const updateSprint = ({ sprint }) => ({ type: UPDATE_SPRINT, payload: sprint });
 
 export const deleteSprint = ({ id }) => ({ type: DELETE_SPRINT, payload: id.toString() });
+
+export const updateSprintItemStatus = ({ itemId, status }) => ({
+  type: UPDATE_SPRINT_ITEM_STATUS,
+  payload: {
+    itemId,
+    status
+  }
+});

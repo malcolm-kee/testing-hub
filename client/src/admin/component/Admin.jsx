@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { selectors } from '../../reducers';
+import { selectors, selectFeatures, selectSprintShallow } from '../../reducers';
 
 import Header from './../../Header';
 import SearchBar from './../../SearchBar';
@@ -105,8 +105,8 @@ class Admin extends Component {
 const mapStateToProps = state => ({
   loggedIn: selectors.getLoginState(state),
   isAdmin: selectors.getIsAdmin(state),
-  features: selectors.getFeatures(state),
-  sprints: selectors.getSprints(state)
+  features: selectFeatures(state),
+  sprints: selectSprintShallow(state)
 });
 
 Admin.propTypes = {
