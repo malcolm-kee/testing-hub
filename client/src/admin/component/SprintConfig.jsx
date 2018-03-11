@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import copy from 'copy-to-clipboard';
 import { connect } from 'react-redux';
 
-import { selectors } from '../../reducers';
+import { selectors, selectFeatures } from '../../reducers';
 import { updateSprint, deleteSprint } from './../../actions/sprint';
 
 import Header from './../../Header';
@@ -292,7 +292,7 @@ class SprintConfig extends Component {
 const mapStateToProps = (state, ownProps) => ({
   ...selectors.getSprint(state)(ownProps.match.params.id),
   isAdmin: selectors.getIsAdmin(state),
-  features: selectors.getFeatures(state)
+  features: selectFeatures(state)
 });
 
 const mapDispatchToProps = dispatch => ({

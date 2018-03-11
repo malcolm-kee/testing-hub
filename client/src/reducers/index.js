@@ -11,7 +11,6 @@ const combineReducers = reducers => (state = {}, action) =>
 */
 
 import { userReducer, getLoginState, getIsAdmin, getUserName } from './userReducer';
-import { featuresReducer, featureSelector } from './featureReducer';
 import { sprintReducer, sprintSelector } from './sprintReducer';
 import { entitiesReducer } from './entitiesReducer';
 
@@ -20,13 +19,13 @@ export {
   selectSprints,
   selectFeatureCount,
   selectSprintCount,
-  selectSprintShallow
+  selectSprintShallow,
+  makeSelectOneFeature
 } from './entitiesReducer';
 
 export const rootReducer = combineReducers({
   entities: entitiesReducer,
   user: userReducer,
-  features: featuresReducer,
   sprints: sprintReducer,
   form: formReducer
 });
@@ -40,15 +39,6 @@ export const selectors = {
   },
   getIsAdmin(store) {
     return getIsAdmin(store.user);
-  },
-  getFeatures(store) {
-    return featureSelector.getAllAsList(store.features);
-  },
-  getFeature(store) {
-    return featureSelector.getOne(store.features);
-  },
-  getFeatureLoading(store) {
-    return featureSelector.getLoadingState(store.features);
   },
   getSprints(store) {
     return sprintSelector.getAllAsList(store.sprints);

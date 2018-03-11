@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import { PanelGroup } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
-import { selectors } from '../../reducers';
+import { selectFeatures } from '../../reducers';
 import { addSprint } from './../../actions/sprint';
 
 import Header from './../../Header';
@@ -220,7 +220,7 @@ class SprintCreate extends Component {
   }
 }
 
-const mapStateToProps = state => ({ features: selectors.getFeatures(state) });
+const mapStateToProps = state => ({ features: selectFeatures(state) });
 
 const mapDispatchToProps = dispatch => ({
   invokeCreateSprint({ sprint }) {

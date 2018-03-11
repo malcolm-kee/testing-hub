@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { isURL } from 'validator';
 
-import { selectors } from '../../reducers';
+import { selectors, makeSelectOneFeature } from '../../reducers';
 import { updateFeature, deleteFeature } from './../../actions/feature';
 
 import Header from './../../Header';
@@ -284,10 +284,14 @@ class FeatureConfig extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  ...selectors.getFeature(state)(ownProps.match.params.id),
-  isAdmin: selectors.getIsAdmin(state)
-});
+const mapStateToProps = (state, ownProps) => {
+  const featureSelector = makeSelectOneFeature(ownProps.match.params.id);
+
+  return {
+    ...featureSelector(state),
+    isAdmin: selectors.getIsAdmin(state)
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   invokeUpdateFeature({ feature }) {
