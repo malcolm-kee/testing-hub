@@ -5,13 +5,11 @@ import { withRouter } from 'react-router';
 import { isURL } from 'validator';
 
 import { selectors, makeSelectOneFeature } from '../../reducers';
-import { updateFeature, deleteFeature } from './../../actions/feature';
+import { changingFeature, removingFeature } from './../../actions/feature';
 
 import Header from './../../Header';
 import FeatureConfigLink from './FeatureConfigLink';
 import FeatureConfigLinkCreate from './FeatureConfigLinkCreate';
-
-import { update, remove } from './../../service/featureService';
 
 class FeatureConfig extends Component {
   state = {
@@ -68,16 +66,9 @@ class FeatureConfig extends Component {
         requireLogin: this.state.requireLogin,
         links: this.state.links
       };
-      update(feature)
-        .then(() => {
-          this.props.invokeUpdateFeature({ feature });
-          this.props.history.goBack();
-        })
-        .catch(() => {
-          this.setState({
-            error: 'Sorry, we have problem saving your changes. Please try again.'
-          });
-        });
+
+      this.props.invokeUpdateFeature({ feature });
+      this.props.history.goBack();
     }
   };
 
@@ -85,16 +76,9 @@ class FeatureConfig extends Component {
     event.preventDefault();
     this.setState({ error: '' });
     const id = this.state.id;
-    remove({ id })
-      .then(() => {
-        this.props.invokeDeleteFeature({ id });
-        this.props.history.goBack();
-      })
-      .catch(() => {
-        this.setState({
-          error: 'Sorry, we have problem delete this test link. Please try again.'
-        });
-      });
+
+    this.props.invokeDeleteFeature({ id });
+    this.props.history.goBack();
   };
 
   handleLinkInputChange = event => {
@@ -295,10 +279,10 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => ({
   invokeUpdateFeature({ feature }) {
-    dispatch(updateFeature({ feature }));
+    dispatch(changingFeature(feature));
   },
   invokeDeleteFeature({ id }) {
-    dispatch(deleteFeature({ id }));
+    dispatch(removingFeature(id));
   }
 });
 

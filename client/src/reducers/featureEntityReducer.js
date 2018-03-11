@@ -1,10 +1,12 @@
 import { createSelector } from 'redux-orm';
 import { orm } from '../models';
-import { SET_FEATURES } from '../constants/actions';
+import { SET_FEATURES, ADD_FEATURE, UPDATE_FEATURE, DELETE_FEATURE } from '../constants/actions';
 
 export const featureEntityReducer = (state, action) => {
   let Feature;
   let features;
+  let featureData;
+  let featureId;
 
   const session = orm.session(state);
 
@@ -13,6 +15,24 @@ export const featureEntityReducer = (state, action) => {
       Feature = session.Feature;
       features = action.payload;
       features.forEach(feature => Feature.parse(feature));
+      break;
+
+    case ADD_FEATURE:
+      Feature = session.Feature;
+      featureData = action.payload;
+      Feature.parse(featureData);
+      break;
+
+    case UPDATE_FEATURE:
+      Feature = session.Feature;
+      featureData = action.payload;
+      Feature.withId(featureData.id).update(featureData);
+      break;
+
+    case DELETE_FEATURE:
+      Feature = session.Feature;
+      featureId = action.payload;
+      Feature.withId(featureId).delete();
       break;
 
     default:

@@ -1,5 +1,5 @@
 import { createPendingAction, createErrorAction } from './utils';
-import { getAll, create } from '../service/featureService';
+import { getAll, create, update, remove } from '../service/featureService';
 
 import {
   SET_FEATURES,
@@ -56,13 +56,37 @@ export const loadFeatures = () => dispatch => {
 };
 
 export const creatingFeature = feature => dispatch => {
-  dispatch(loadingFeature());
+  dispatch(addingFeature());
 
   create(feature)
     .then(featureWithId => {
       dispatch(addFeature({ feature: featureWithId }));
     })
     .catch(err => {
-      dispatch(loadFeatureError(err));
+      dispatch(addFeatureError(err));
+    });
+};
+
+export const changingFeature = feature => dispatch => {
+  dispatch(updatingFeature(feature.id));
+
+  update(feature)
+    .then(() => {
+      dispatch(updateFeature({ feature }));
+    })
+    .catch(err => {
+      dispatch(updateFeatureError(err, feature.id));
+    });
+};
+
+export const removingFeature = id => dispatch => {
+  dispatch(deletingFeature(id));
+
+  remove({ id })
+    .then(() => {
+      dispatch(deleteFeature({ id }));
+    })
+    .catch(err => {
+      dispatch(deleteFeatureError(err, id));
     });
 };
