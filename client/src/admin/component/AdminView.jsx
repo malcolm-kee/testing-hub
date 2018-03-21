@@ -21,7 +21,7 @@ const AdminView = props => {
         <AdminFeatureItem key={feature.id} {...feature} />
       ));
     } else {
-      featureList = <div className="text-xlarge">There is no feature available.</div>;
+      featureList = <div className="text-xlarge">{localize('no available feature')}</div>;
     }
   } else {
     featureList = <Spinner />;
@@ -35,7 +35,7 @@ const AdminView = props => {
         </ListGroup>
       );
     } else {
-      sprintList = <div className="text-xlarge">There is no sprint available.</div>;
+      sprintList = <div className="text-xlarge">{localize('no available sprint')}</div>;
     }
   } else {
     sprintList = <Spinner />;

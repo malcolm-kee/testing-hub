@@ -15,5 +15,8 @@
     "browser": true,
     "node": true,
     "jest": true
+  },
+  "globals": {
+    "localize": false
   }
 }
