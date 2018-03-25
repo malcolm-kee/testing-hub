@@ -4,11 +4,12 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { selectors } from './reducers';
 
 import Header from './Header';
 
-class Landing extends Component {
+class LandingContainer extends Component {
   componentWillMount() {
     if (this.props.loggedIn === true) {
       this.props.history.push('/');
@@ -44,9 +45,15 @@ class Landing extends Component {
 
 const mapStateToProps = state => ({ loggedIn: selectors.getLoginState(state) });
 
-Landing.propTypes = {
+LandingContainer.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
   history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired
 };
+
+const Landing = props => (
+  <ErrorBoundary>
+    <LandingContainer {...props} />
+  </ErrorBoundary>
+);
 
 export default connect(mapStateToProps)(withRouter(Landing));

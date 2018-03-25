@@ -9,12 +9,13 @@ import { setLoginStatus } from './../../actions/auth';
 import { loadFeatures } from './../../actions/feature';
 import { getSprintsFromApi } from './../../actions/sprint';
 
+import { ErrorBoundary } from '../../components/ErrorBoundary';
 import Header from './../../Header';
 import LoginForm from './LoginForm';
 
 import { login } from './../../service/authenticationService';
 
-class LoginPage extends Component {
+class LoginPageContainer extends Component {
   state = {
     error: '',
     message: ''
@@ -95,7 +96,7 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-LoginPage.propTypes = {
+LoginPageContainer.propTypes = {
   loggedIn: PropTypes.bool,
   history: PropTypes.shape({ push: PropTypes.func.isRequired, goBack: PropTypes.func.isRequired })
     .isRequired,
@@ -104,8 +105,14 @@ LoginPage.propTypes = {
   initializeSprints: PropTypes.func.isRequired
 };
 
-LoginPage.defaultProps = {
+LoginPageContainer.defaultProps = {
   loggedIn: false
 };
+
+const LoginPage = props => (
+  <ErrorBoundary>
+    <LoginPageContainer {...props} />
+  </ErrorBoundary>
+);
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginPage));

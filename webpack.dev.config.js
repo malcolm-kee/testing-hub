@@ -6,11 +6,14 @@ const prodconfig = require('./webpack.config.js');
 module.exports = merge.strategy({
   entry: 'prepend'
 })(prodconfig, {
-  entry: [
-    'react-hot-loader/patch',
-    'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/only-dev-server'
-  ],
+  entry: {
+    vendor: ['react-hot-loader/patch'],
+    app: [
+      'react-hot-loader/patch',
+      'webpack-dev-server/client?http://localhost:3000',
+      'webpack/hot/only-dev-server'
+    ]
+  },
   devtool: 'eval',
   devServer: {
     hot: true,

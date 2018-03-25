@@ -7,6 +7,7 @@ import { Navbar, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
 
 import { selectors, selectFeatures, selectSprintShallow } from './reducers';
 
+import { ErrorBoundary } from './components/ErrorBoundary';
 import Feature from './Feature';
 import Header from './Header';
 import SearchBar from './SearchBar';
@@ -15,7 +16,7 @@ import DotsLoader from './DotsLoader';
 
 import preferenceService from './service/preferenceService';
 
-class Catalog extends Component {
+class CatalogContainer extends Component {
   state = {
     searchTerm: '',
     fav: []
@@ -164,7 +165,7 @@ const mapStateToProps = state => ({
   sprints: selectSprintShallow(state)
 });
 
-Catalog.propTypes = {
+CatalogContainer.propTypes = {
   featureLoading: PropTypes.bool.isRequired,
   features: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string.isRequired })).isRequired,
   sprintLoading: PropTypes.bool.isRequired,
@@ -179,9 +180,15 @@ Catalog.propTypes = {
   history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired
 };
 
-Catalog.defaultProps = {
+CatalogContainer.defaultProps = {
   loggedIn: null,
   sprints: null
 };
+
+const Catalog = props => (
+  <ErrorBoundary>
+    <CatalogContainer {...props} />
+  </ErrorBoundary>
+);
 
 export default withRouter(connect(mapStateToProps)(Catalog));
