@@ -1,7 +1,5 @@
 <?xml version="1.0" standalone="no"?>
 
-<?xml-stylesheet type="text/css" href="style8.css"?>
-
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 
@@ -20,38 +18,38 @@
 
 @keyframes spinning {
   0% {
-    stroke-dasharray: 0 630;
+    stroke-dasharray: 0 1260;
     transform: rotate(-90deg);
   }
   50% {
-    stroke-dasharray: 630 630;
+    stroke-dasharray: 1260 1260;
     transform: rotate(-90deg);
   }
   100% {
-    stroke-dasharray: 0 630;
+    stroke-dasharray: 0 1260;
     transform: rotate(270deg);
   }
 }
 
 .circle {
   stroke: #fff;
-  transform-origin: 200px 215px;
+  transform-origin: 150px 250px;
   fill: none;
-  stroke-width: 200px;
+  stroke-width: 400px;
   animation: spinning 3s ease-in-out 0.5 forwards;
   stroke-dasharray: 100 630;
 }
 
 .text-circle {
   stroke: #fff;
-  transform-origin: 200px 215px;
+  transform-origin: 150px 250px;
   fill: none;
-  stroke-width: 200px;
+  stroke-width: 400px;
   animation: spinning 3s -1.5s ease-in-out 1 forwards;
   stroke-dasharray: 100 630;
 }
 
-.triangle {
+.square {
   mask: url(#loading-mask);
 }
 
@@ -66,19 +64,22 @@
   </style>
       <defs>
         <mask id="loading-mask">
-          <circle cx="200" cy="215" r="100" class="circle" /> 
+          <circle cx="150" cy="250" r="200" class="circle" /> 
         </mask>
         <mask id="text-mask">
-          <circle cx="200" cy="215" r="100" class="text-circle" /> 
-          <polygon fill="#fff" points="50,330 50,70 200,70" class="triangle" />
-          <polygon fill="#fff" points="350,70 350,330 200,70" class="triangle" /> 
+          <!-- <circle cx="150" cy="250" r="100" />  -->
+          <circle fill="#fff" cx="150" cy="250" r="200" class="text-circle" /> 
+          <rect fill="#fff" x="96" y="196" width="108" height="108" />
+          <rect fill="#fff" x="300" y="0" width="100" height="400" />
         </mask>
-        <text id="title" x="200" y="300" text-anchor="middle" font-size="50">
-          Testing Hub
+        <text id="title" text-anchor="end" font-size="60">
+          <tspan x="350" y="290" >Testing</tspan>
+          <tspan x="350" y="350" >Hub</tspan>
         </text>
       </defs>
       
-        <polygon fill="#3B78E7" points="50,330 350,330 200,70" class="triangle" />
+        <rect fill="#3B78E7" x="0" y="100" width="300" height="300" class="square" />
+        <rect fill="#fff" x="96" y="196" width="108" height="108" />
       <use xlink:href="#title" fill="#fafafa" class="title" />
-  <use xlink:href="#title" fill="#3B78E7" class="title title-opp"  />
+      <use xlink:href="#title" fill="#3B78E7" class="title title-opp"  />
     </svg>
