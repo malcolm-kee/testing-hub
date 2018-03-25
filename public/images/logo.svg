@@ -1,0 +1,84 @@
+<?xml version="1.0" standalone="no"?>
+
+<?xml-stylesheet type="text/css" href="style8.css"?>
+
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink" class="loader" viewBox="0 0 400 400">
+  <style>
+  /* <![CDATA[ */
+@keyframes fading {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes spinning {
+  0% {
+    stroke-dasharray: 0 630;
+    transform: rotate(-90deg);
+  }
+  50% {
+    stroke-dasharray: 630 630;
+    transform: rotate(-90deg);
+  }
+  100% {
+    stroke-dasharray: 0 630;
+    transform: rotate(270deg);
+  }
+}
+
+.circle {
+  stroke: #fff;
+  transform-origin: 200px 215px;
+  fill: none;
+  stroke-width: 200px;
+  animation: spinning 3s ease-in-out 0.5 forwards;
+  stroke-dasharray: 100 630;
+}
+
+.text-circle {
+  stroke: #fff;
+  transform-origin: 200px 215px;
+  fill: none;
+  stroke-width: 200px;
+  animation: spinning 3s -1.5s ease-in-out 1 forwards;
+  stroke-dasharray: 100 630;
+}
+
+.triangle {
+  mask: url(#loading-mask);
+}
+
+.title {
+  font-family: Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+}
+
+.title-opp {
+  mask: url(#text-mask);
+}
+/* ]]> */
+  </style>
+      <defs>
+        <mask id="loading-mask">
+          <circle cx="200" cy="215" r="100" class="circle" /> 
+        </mask>
+        <mask id="text-mask">
+          <circle cx="200" cy="215" r="100" class="text-circle" /> 
+          <polygon fill="#fff" points="50,330 50,70 200,70" class="triangle" />
+          <polygon fill="#fff" points="350,70 350,330 200,70" class="triangle" /> 
+        </mask>
+        <text id="title" x="200" y="300" text-anchor="middle" font-size="50">
+          Testing Hub
+        </text>
+      </defs>
+      
+        <polygon fill="#3B78E7" points="50,330 350,330 200,70" class="triangle" />
+      <use xlink:href="#title" fill="#fafafa" class="title" />
+  <use xlink:href="#title" fill="#3B78E7" class="title title-opp"  />
+    </svg>

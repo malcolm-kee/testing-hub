@@ -4,5 +4,5 @@ npm-debug.log
 /*.env
 *.sublime-workspace
 ~
-public/js
 /*.log
+build

@@ -1,7 +1,10 @@
-import React from "react";
-import { Provider } from "react-redux";
-import { configureStore } from "./config/configureStore";
-import MainRoute from "./MainRoute";
+import React from 'react';
+import { Provider } from 'react-redux';
+
+import './style/style.css';
+
+import { configureStore } from './config/configureStore';
+import MainRoute from './MainRoute';
 
 const store = configureStore();
 
