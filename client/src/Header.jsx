@@ -110,7 +110,7 @@ class Header extends Component {
       <Navbar fixedTop collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/">Testing Hub</Link>
+            <Link to="/">All New Testing Hub</Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>

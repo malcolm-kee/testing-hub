@@ -5,6 +5,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const I18nPlugin = require('i18n-webpack-plugin');
 const WebpackPwaManifestPlugin = require('webpack-pwa-manifest');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 const enConfig = require('./i18n/en.json');
@@ -68,10 +69,11 @@ module.exports = {
     new ExtractTextPlugin('style.css'),
     new WebpackPwaManifestPlugin({
       name: 'Testing Hub',
+      start_url: '/',
       short_name: 'Testing Hub',
       lang: 'en-US',
       description: 'An app to manage your testing',
-      background_color: '#3498db',
+      background_color: '#fff',
       theme_color: '#3498db',
       ios: true,
       icons: [
@@ -81,6 +83,10 @@ module.exports = {
           type: 'image/png'
         }
       ]
+    }),
+    new WorkboxPlugin.GenerateSW({
+      swDest: 'sw.js',
+      importWorkboxFrom: 'local'
     }),
     new ProgressBarPlugin()
   ]
