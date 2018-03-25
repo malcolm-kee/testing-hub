@@ -8,7 +8,7 @@ const I18nPlugin = require('i18n-webpack-plugin');
 const WebpackPwaManifestPlugin = require('webpack-pwa-manifest');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const enConfig = require('./i18n/en.json');
 
@@ -119,12 +119,12 @@ module.exports = {
         }
       ]
     }),
-    new ProgressBarPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
-    }),
-    new UglifyJsPlugin({
-      sourceMap: true
-    })
+    new ProgressBarPlugin()
+    // new webpack.DefinePlugin({
+    //   'process.env.NODE_ENV': JSON.stringify('production')
+    // }),
+    // new UglifyJsPlugin({
+    //   sourceMap: true
+    // })
   ]
 };
