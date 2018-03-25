@@ -11,7 +11,7 @@ module.exports = merge.strategy({
     'webpack-dev-server/client?http://localhost:3000',
     'webpack/hot/only-dev-server'
   ],
-  devtool: 'source-map',
+  devtool: 'eval',
   devServer: {
     hot: true,
     port: 3000,

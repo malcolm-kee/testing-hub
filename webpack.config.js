@@ -5,12 +5,9 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const I18nPlugin = require('i18n-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
 const WebpackPwaManifestPlugin = require('webpack-pwa-manifest');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-
 const enConfig = require('./i18n/en.json');
 
 module.exports = {
@@ -81,13 +78,6 @@ module.exports = {
     new I18nPlugin(enConfig, {
       functionName: 'localize'
     }),
-    new UglifyJsPlugin({
-      sourceMap: true
-    }),
-    new CompressionPlugin({
-      test: /\.js$/,
-      algorithm: 'gzip'
-    }),
     new CopyWebpackPlugin([
       {
         from: 'public/images',
@@ -123,15 +113,9 @@ module.exports = {
         {
           urlPattern: '/lib/',
           handler: 'staleWhileRevalidate'
-          // options: {
-          //   cacheName: 'static-file-cache'
-          // }
         }
       ]
     }),
-    new ProgressBarPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
-    })
+    new ProgressBarPlugin()
   ]
 };

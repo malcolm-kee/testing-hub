@@ -1,6 +1,7 @@
 require('dotenv').load();
 const express = require('express');
 const fallback = require('express-history-api-fallback');
+const compression = require('compression');
 const path = require('path');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
@@ -20,6 +21,7 @@ const rootPath = path.join(__dirname, 'build');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(compression());
 app.use(cookieParser());
 app.use(express.static(rootPath));
 
