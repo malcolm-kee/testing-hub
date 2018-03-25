@@ -1,9 +1,12 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const I18nPlugin = require('i18n-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 const WebpackPwaManifestPlugin = require('webpack-pwa-manifest');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
@@ -12,10 +15,24 @@ const enConfig = require('./i18n/en.json');
 
 module.exports = {
   context: __dirname,
-  entry: ['babel-polyfill', './client/src/ClientApp.jsx'],
+  entry: {
+    vendor: [
+      'babel-polyfill',
+      'react',
+      'react-dom',
+      'react-router-dom',
+      'redux',
+      'redux-thunk',
+      'redux-form',
+      'redux-orm',
+      'axios',
+      'react-bootstrap'
+    ],
+    app: './client/src/ClientApp.jsx'
+  },
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'js/app.[hash].js',
+    filename: 'js/[name].[hash].js',
     publicPath: '/'
   },
   resolve: {
@@ -53,8 +70,23 @@ module.exports = {
       title: 'Testing Hub',
       template: path.resolve(__dirname, 'public', 'index.html')
     }),
+    new webpack.HashedModuleIdsPlugin(),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: Infinity
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'manifest'
+    }),
     new I18nPlugin(enConfig, {
       functionName: 'localize'
+    }),
+    new UglifyJsPlugin({
+      sourceMap: true
+    }),
+    new CompressionPlugin({
+      test: /\.js$/,
+      algorithm: 'gzip'
     }),
     new CopyWebpackPlugin([
       {
@@ -97,6 +129,9 @@ module.exports = {
         }
       ]
     }),
-    new ProgressBarPlugin()
+    new ProgressBarPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production')
+    })
   ]
 };

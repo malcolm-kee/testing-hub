@@ -24,12 +24,7 @@ class Landing extends Component {
             <div className="container">
               <div className="landing-message">
                 <h1 className="heading">Welcome!</h1>
-                <img
-                  src="/images/testing-hub-logo.png"
-                  alt="Testing Hub Logo"
-                  width="250"
-                  height="191"
-                />
+                <img src="/images/logo.png" alt="Testing Hub Logo" width="200" height="200" />
                 <div className="btn-toolbar">
                   <Link to="/login" className="btn btn-primary">
                     Login
