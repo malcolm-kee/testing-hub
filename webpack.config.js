@@ -86,7 +86,16 @@ module.exports = {
     }),
     new WorkboxPlugin.GenerateSW({
       swDest: 'sw.js',
-      importWorkboxFrom: 'local'
+      importWorkboxFrom: 'local',
+      runtimeCaching: [
+        {
+          urlPattern: '/lib/',
+          handler: 'staleWhileRevalidate'
+          // options: {
+          //   cacheName: 'static-file-cache'
+          // }
+        }
+      ]
     }),
     new ProgressBarPlugin()
   ]
