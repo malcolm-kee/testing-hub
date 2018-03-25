@@ -36,7 +36,7 @@
   transform-origin: 150px 250px;
   fill: none;
   stroke-width: 400px;
-  animation: spinning 3s ease-in-out 0.5 forwards;
+  animation: spinning 3s ease-in-out infinite forwards;
   stroke-dasharray: 100 630;
 }
 
@@ -45,7 +45,7 @@
   transform-origin: 150px 250px;
   fill: none;
   stroke-width: 400px;
-  animation: spinning 3s -1.5s ease-in-out 1 forwards;
+  animation: spinning 3s -1.5s ease-in-out infinite forwards;
   stroke-dasharray: 100 630;
 }
 

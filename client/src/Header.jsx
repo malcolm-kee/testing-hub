@@ -73,7 +73,7 @@ class Header extends Component {
             <DropdownButton
               title={userNameNode}
               onSelect={this.handleSelectUserAction}
-              bsStyle="info"
+              bsStyle="primary"
               id="header-options"
             >
               <MenuItem id="nav-Admin" eventKey="Administer">
@@ -107,10 +107,10 @@ class Header extends Component {
     }
 
     return (
-      <Navbar fixedTop collapseOnSelect>
+      <Navbar fixedTop collapseOnSelect inverse>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/">All New Testing Hub</Link>
+            <Link to="/">Testing Hub</Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>

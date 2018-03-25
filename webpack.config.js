@@ -74,7 +74,7 @@ module.exports = {
       lang: 'en-US',
       description: 'An app to manage your testing',
       background_color: '#fff',
-      theme_color: '#3498db',
+      theme_color: '#d9230f',
       ios: true,
       icons: [
         {

@@ -83,10 +83,6 @@
     font-size: 1.5rem;
 }
 
-nav.navbar.navbar-fixed-top {
-    background-color: #3498db;
-}
-
 .user-auth-form {
     max-width: 280px;
     margin: 0 auto;
@@ -104,7 +100,7 @@ nav.navbar.navbar-fixed-top {
     top: 3px;
     right: 10px;
     font-weight: 200;
-    color: yellow;
+    color: #d9230f;
 }
 
 .fav-icon button,
@@ -183,10 +179,6 @@ nav.navbar.navbar-fixed-top {
 body {
     padding: 64px 2em 2em 2em;
     font: 10px 'Lucida Grande', Helvetica, Arial, sans-serif;
-}
-
-.navbar .navbar-brand {
-    color: inherit;
 }
 
 .btn {
