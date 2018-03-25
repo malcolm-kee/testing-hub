@@ -119,10 +119,10 @@ module.exports = {
         }
       ]
     }),
-    new ProgressBarPlugin()
-    // new webpack.DefinePlugin({
-    //   'process.env.NODE_ENV': JSON.stringify('production')
-    // }),
+    new ProgressBarPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production')
+    })
     // new UglifyJsPlugin({
     //   sourceMap: true
     // })
