@@ -90,7 +90,7 @@ module.exports = {
         to: 'lib'
       }
     ]),
-    new ExtractTextPlugin('style.css'),
+    new ExtractTextPlugin('style.[contenthash].css'),
     new WebpackPwaManifestPlugin({
       name: 'Testing Hub',
       start_url: '/',
@@ -111,6 +111,7 @@ module.exports = {
     new WorkboxPlugin.GenerateSW({
       swDest: 'sw.js',
       importWorkboxFrom: 'local',
+      exclude: [/\.map$/, /^manifest.*\.js(?:on)?$/, /\.js.map$/, /\.css.map/],
       runtimeCaching: [
         {
           urlPattern: '/lib/',
