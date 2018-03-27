@@ -13,6 +13,7 @@ const store = configureStore();
 registerSw()
   .then(result => {
     const { supportSw, waiting } = result;
+    console.log('registerSw resolves', supportSw, waiting);
     if (supportSw && waiting) {
       store.dispatch(showCloseToUpdate());
     }
