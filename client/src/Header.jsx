@@ -35,11 +35,13 @@ class Header extends Component {
     let navigator;
     let profileManager;
 
-    if (this.props.back === true || this.props.next === true) {
+    const { back, next, hasNewUpdate } = this.props;
+
+    if (back === true || next === true) {
       let backBtn;
       let nextBtn;
 
-      if (this.props.back === true) {
+      if (back === true) {
         backBtn = (
           <button type="button" className="btn btn-default" onClick={this.props.backAction}>
             <span className="glyphicon glyphicon-menu-left text-large" />
@@ -48,7 +50,7 @@ class Header extends Component {
         );
       }
 
-      if (this.props.next === true) {
+      if (next === true) {
         nextBtn = (
           <button type="button" className="btn btn-success" onClick={this.props.nextAction}>
             Next&nbsp;
@@ -112,6 +114,7 @@ class Header extends Component {
           <Navbar.Brand>
             <Link to="/">Testing Hub</Link>
           </Navbar.Brand>
+          {hasNewUpdate ? <span className="glyphicon glyphicon-alert text-large" /> : null}
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
@@ -125,7 +128,8 @@ class Header extends Component {
 
 const mapStateToProps = state => ({
   loggedIn: selectors.getLoginState(state),
-  userName: selectors.getUserName(state)
+  userName: selectors.getUserName(state),
+  hasNewUpdate: selectors.selectHasNewUpdate(state)
 });
 const mapDispatchToProps = dispatch => ({
   logoutUser() {
@@ -142,6 +146,7 @@ Header.propTypes = {
   userName: PropTypes.string,
   logoutUser: PropTypes.func.isRequired,
   showLogin: PropTypes.bool,
+  hasNewUpdate: PropTypes.bool.isRequired,
   history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired
 };
 

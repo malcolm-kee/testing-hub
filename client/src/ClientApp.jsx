@@ -1,6 +1,5 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { registerSw } from './registerSw';
 import App from './App';
 import { OfflineMessage } from './OfflineMessage';
 
@@ -12,7 +11,6 @@ const renderApp = () => {
   }
 };
 renderApp();
-registerSw();
 
 if (module.hot) {
   module.hot.accept('./App', () => {
