@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { selectors } from './reducers';
 import { setLoginStatus } from './actions/auth';
-import { loadFeatures } from './actions/feature';
+import { invokeLoadFeature } from './actions/feature';
 import { getSprintsFromApi } from './actions/sprint';
 // import preload from './data.json';
 
@@ -88,7 +88,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setLoginStatus({ loggedIn, userName, isAdmin }));
   },
   initializeFeatures() {
-    dispatch(loadFeatures());
+    dispatch(invokeLoadFeature());
   },
   initializeSprints() {
     dispatch(getSprintsFromApi());

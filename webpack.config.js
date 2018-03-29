@@ -21,6 +21,7 @@ module.exports = {
       'react-router-dom',
       'redux',
       'redux-thunk',
+      'redux-saga',
       'redux-form',
       'redux-orm',
       'axios',
