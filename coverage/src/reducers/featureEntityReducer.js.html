@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/reducers/featureEntityReducer.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">src/reducers</a> featureEntityReducer.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/65</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/11</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/10</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/45</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { crea<span class="cstat-no" title="statement not covered" >teSelector } from 'redux-orm';<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span></span></span></span></span></span></span></span></span>
+import { orm }<span class="cstat-no" title="statement not covered" > from '../models';</span>
+import { SET_FE<span class="cstat-no" title="statement not covered" >ATURES, ADD_FEATURE, UPDATE_FEAT</span>URE, DELETE_FEATURE } from '../constants/actions';
+&nbsp;
+export const featureEntityR<span class="cstat-no" title="statement not covered" >educer = (state, action) =&gt; {<span class="fstat-no" title="function not covered" ></span></span>
+  let Feature;<span class="cstat-no" title="statement not covered" ></span>
+  let features;<span class="cstat-no" title="statement not covered" ></span>
+  let featureData;<span class="cstat-no" title="statement not covered" ></span>
+  let featureId;<span class="cstat-no" title="statement not covered" ></span>
+&nbsp;
+  const session <span class="cstat-no" title="statement not covered" >= orm.session(state);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  switch (action.type) {</span>
+    case SET_FEATURES:
+<span class="cstat-no" title="statement not covered" >      Feature = session.Feature;</span>
+<span class="cstat-no" title="statement not covered" >      features = action.payload;</span>
+<span class="cstat-no" title="statement not covered" >      features.forEach(<span class="fstat-no" title="function not covered" >fe</span>ature =&gt; Feature.p<span class="cstat-no" title="statement not covered" >arse(feature));</span></span>
+<span class="cstat-no" title="statement not covered" >      break;</span>
+&nbsp;
+    case ADD_FEATURE:
+<span class="cstat-no" title="statement not covered" >      Feature = session.Feature;</span>
+<span class="cstat-no" title="statement not covered" >      featureData = action.payload;</span>
+<span class="cstat-no" title="statement not covered" >      Feature.parse(featureData);</span>
+<span class="cstat-no" title="statement not covered" >      break;</span>
+&nbsp;
+    case UPDATE_FEATURE:
+<span class="cstat-no" title="statement not covered" >      Feature = session.Feature;</span>
+<span class="cstat-no" title="statement not covered" >      featureData = action.payload;</span>
+<span class="cstat-no" title="statement not covered" >      Feature.withId(featureData.id).update(featureData);</span>
+<span class="cstat-no" title="statement not covered" >      break;</span>
+&nbsp;
+    case DELETE_FEATURE:
+<span class="cstat-no" title="statement not covered" >      Feature = session.Feature;</span>
+<span class="cstat-no" title="statement not covered" >      featureId = action.payload;</span>
+<span class="cstat-no" title="statement not covered" >      Feature.withId(featureId).delete();</span>
+<span class="cstat-no" title="statement not covered" >      break;</span>
+&nbsp;
+    default:
+<span class="cstat-no" title="statement not covered" >      break;</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return session.state;</span>
+};
+&nbsp;
+export const entitiesSe<span class="cstat-no" title="statement not covered" >lector = state =&gt; state.entities;<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span>
+&nbsp;
+export const featureEntity<span class="cstat-no" title="statement not covered" >Mapper = featureModel =&gt; {<span class="fstat-no" title="function not covered" ></span></span>
+  const obj <span class="cstat-no" title="statement not covered" >= featureModel.re</span>f;
+<span class="cstat-no" title="statement not covered" >  return {</span>
+    ...obj,
+    links: featureModel.links.toRefArray()
+  };
+};
+&nbsp;
+export const selectFeatur<span class="cstat-no" title="statement not covered" >eCount = createSelector(orm, entitiesSelector, session =&gt; {<span class="fstat-no" title="function not covered" ></span></span>
+<span class="cstat-no" title="statement not covered" >  try {</span>
+<span class="cstat-no" title="statement not covered" >    return session.Feature.all().count();</span>
+  } catch (e) {
+<span class="cstat-no" title="statement not covered" >    console.error('error in selectFeatureCount :', e);</span>
+<span class="cstat-no" title="statement not covered" >    return 0;</span>
+  }
+});
+&nbsp;
+export const selectFe<span class="cstat-no" title="statement not covered" >atures = createSelector(orm, entitiesSelector, session =&gt; {<span class="fstat-no" title="function not covered" ></span></span>
+<span class="cstat-no" title="statement not covered" >  try {</span>
+<span class="cstat-no" title="statement not covered" >    return session.Feature</span>
+      .all()
+      .toModelArray()
+      .map(featureEntityMapper);
+  } catch (e) {
+<span class="cstat-no" title="statement not covered" >    console.error('error in selectFeatures :', e);</span>
+<span class="cstat-no" title="statement not covered" >    return [];</span>
+  }
+});
+&nbsp;
+export const makeSelectOneF<span class="cstat-no" title="statement not covered" >eature = featureId =&gt;<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span>
+  createSelector(orm, entitiesSelector, session =&gt;<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span>
+    featureEntityMapper(session.Feature.withId(featureId))<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span></span></span></span></span></span></span></span>
+  );
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Mar 30 2018 02:15:01 GMT+0800 (+08)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

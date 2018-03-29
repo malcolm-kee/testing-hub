@@ -22,7 +22,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>0/75</span>
+        <span class='fraction'>0/74</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
@@ -209,11 +209,7 @@
 164
 165
 166
-167
-168
-169
-170
-171</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+167</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -237,7 +233,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -281,7 +276,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -324,7 +318,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -357,7 +350,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -384,172 +376,168 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import axios <span class="cstat-no" title="statement not covered" >from 'axios';<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ></span></span></span>
-import authenticationService <span class="cstat-no" title="statement not covered" >from './authenticationService';<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span></span>
+import { getToken } from './a<span class="cstat-no" title="statement not covered" >uthenticationService';<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span>
 &nbsp;
 function <span class="fstat-no" title="function not covered" >getOne(</span>{ id, url }) {<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ></span></span>
-<span class="cstat-no" title="statement not covered" >	return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
-		const apiTarget <span class="cstat-no" title="statement not covered" >= id ? `/api/sprint/id/${id}` : `/api/sprint/url/${url}</span>`;
-<span class="cstat-no" title="statement not covered" >		axios</span>
-			.get(apiTarget)
-			.the<span class="fstat-no" title="function not covered" >n(</span>response =&gt; {
-<span class="cstat-no" title="statement not covered" >				if (response.status === 200) {</span>
-<span class="cstat-no" title="statement not covered" >					resolve(response.data.sprints[0]);</span>
-				} else {
-<span class="cstat-no" title="statement not covered" >					reject();</span>
-				}
-			})
-			.catc<span class="fstat-no" title="function not covered" >h(</span>() =&gt; {
-<span class="cstat-no" title="statement not covered" >				reject();</span>
-			});
-	});
+<span class="cstat-no" title="statement not covered" >  return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
+    const apiTarget <span class="cstat-no" title="statement not covered" >= id ? `/api/sprint/id/${id}` : `/api/sprint/url/${url}</span>`;
+<span class="cstat-no" title="statement not covered" >    axios</span>
+      .get(apiTarget)
+      .th<span class="fstat-no" title="function not covered" >en</span>(response =&gt; {
+<span class="cstat-no" title="statement not covered" >        if (response.status === 200) {</span>
+<span class="cstat-no" title="statement not covered" >          resolve(response.data.sprints[0])</span>;
+        } else {
+<span class="cstat-no" title="statement not covered" >          reject()</span>;
+        }
+      })
+      .cat<span class="fstat-no" title="function not covered" >ch</span>(() =&gt; {
+<span class="cstat-no" title="statement not covered" >        reject()</span>;
+      });
+  });
 }
 &nbsp;
 function <span class="fstat-no" title="function not covered" >create(</span>{ name, url, desc, <span class="cstat-no" title="statement not covered" >sprintItems</span> }) {<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ></span></span></span>
-<span class="cstat-no" title="statement not covered" >	return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >		authenticationService</span>
-			.getToken()
-			.the<span class="fstat-no" title="function not covered" >n(</span>token =&gt; {
-<span class="cstat-no" title="statement not covered" >				axios</span>
-					.post(
-						'/api/sprint',
-						{
-							name,
-							url,
-							desc,
-							sprintItems
-						},
-						{
-							headers: {
-								Authorization: `Bearer ${token}`
-							}
-						}
-					)
-					.th<span class="fstat-no" title="function not covered" >en</span>(response =&gt; {
-<span class="cstat-no" title="statement not covered" >						if (response.status === 200) {</span>
-<span class="cstat-no" title="statement not covered" >							resolve(response.data.sprints[0])</span>;
-						} else {
-<span class="cstat-no" title="statement not covered" >							reject()</span>;
-						}
-					})
-					.cat<span class="fstat-no" title="function not covered" >ch</span>(error =&gt; {
-<span class="cstat-no" title="statement not covered" >						if (error.response) {</span>
-<span class="cstat-no" title="statement not covered" >							reject({</span>
-								message: error.response.data.message
-							});
-						} else {
-<span class="cstat-no" title="statement not covered" >							reject()</span>;
-						}
-					});
-			})
-			.catc<span class="fstat-no" title="function not covered" >h(</span>err =&gt; {
-<span class="cstat-no" title="statement not covered" >				reject(err);</span>
-			});
-	});
+<span class="cstat-no" title="statement not covered" >  return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    getToken()</span>
+      .th<span class="fstat-no" title="function not covered" >en</span>(token =&gt; {
+<span class="cstat-no" title="statement not covered" >        axios</span>
+          .post(
+            '/api/sprint',
+            {
+              name,
+              url,
+              desc,
+              sprintItems
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`
+              }
+            }
+          )
+          .<span class="fstat-no" title="function not covered" >th</span>en(response =&gt; {
+<span class="cstat-no" title="statement not covered" >            if (response.status === 200) {</span>
+<span class="cstat-no" title="statement not covered" >              resolve(response.data.sprints[0</span>]);
+            } else {
+<span class="cstat-no" title="statement not covered" >              reject</span>();
+            }
+          })
+          .c<span class="fstat-no" title="function not covered" >at</span>ch(error =&gt; {
+<span class="cstat-no" title="statement not covered" >            if (error.response) {</span>
+<span class="cstat-no" title="statement not covered" >              reject({</span>
+                message: error.response.data.message
+              });
+            } else {
+<span class="cstat-no" title="statement not covered" >              reject</span>();
+            }
+          });
+      })
+      .cat<span class="fstat-no" title="function not covered" >ch</span>(err =&gt; {
+<span class="cstat-no" title="statement not covered" >        reject(err)</span>;
+      });
+  });
 }
 &nbsp;
 function <span class="fstat-no" title="function not covered" >update(</span>{ id, name, url, <span class="cstat-no" title="statement not covered" >desc, spr</span>intItem<span class="cstat-no" title="statement not covered" >s }) {<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ></span></span></span></span>
-<span class="cstat-no" title="statement not covered" >	return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >		authenticationService</span>
-			.getToken()
-			.the<span class="fstat-no" title="function not covered" >n(</span>token =&gt; {
-<span class="cstat-no" title="statement not covered" >				axios</span>
-					.put(
-						`/api/sprint/id/${id}`,
-						{
-							name,
-							url,
-							desc,
-							sprintItems
-						},
-						{
-							headers: {
-								Authorization: `Bearer ${token}`
-							}
-						}
-					)
-					.th<span class="fstat-no" title="function not covered" >en</span>(response =&gt; {
-<span class="cstat-no" title="statement not covered" >						if (response.status === 200) {</span>
-<span class="cstat-no" title="statement not covered" >							resolve(response.data.sprints[0])</span>;
-						} else {
-<span class="cstat-no" title="statement not covered" >							reject()</span>;
-						}
-					})
-					.cat<span class="fstat-no" title="function not covered" >ch</span>(error =&gt; {
-<span class="cstat-no" title="statement not covered" >						if (error.response) {</span>
-<span class="cstat-no" title="statement not covered" >							reject({</span>
-								message: error.response.data.message
-							});
-						} else {
-<span class="cstat-no" title="statement not covered" >							reject()</span>;
-						}
-					});
-			})
-			.catc<span class="fstat-no" title="function not covered" >h(</span>err =&gt; {
-<span class="cstat-no" title="statement not covered" >				reject(err);</span>
-			});
-	});
+<span class="cstat-no" title="statement not covered" >  return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    getToken()</span>
+      .th<span class="fstat-no" title="function not covered" >en</span>(token =&gt; {
+<span class="cstat-no" title="statement not covered" >        axios</span>
+          .put(
+            `/api/sprint/id/${id}`,
+            {
+              name,
+              url,
+              desc,
+              sprintItems
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`
+              }
+            }
+          )
+          .<span class="fstat-no" title="function not covered" >th</span>en(response =&gt; {
+<span class="cstat-no" title="statement not covered" >            if (response.status === 200) {</span>
+<span class="cstat-no" title="statement not covered" >              resolve(response.data.sprints[0</span>]);
+            } else {
+<span class="cstat-no" title="statement not covered" >              reject</span>();
+            }
+          })
+          .c<span class="fstat-no" title="function not covered" >at</span>ch(error =&gt; {
+<span class="cstat-no" title="statement not covered" >            if (error.response) {</span>
+<span class="cstat-no" title="statement not covered" >              reject({</span>
+                message: error.response.data.message
+              });
+            } else {
+<span class="cstat-no" title="statement not covered" >              reject</span>();
+            }
+          });
+      })
+      .cat<span class="fstat-no" title="function not covered" >ch</span>(err =&gt; {
+<span class="cstat-no" title="statement not covered" >        reject(err)</span>;
+      });
+  });
 }
 &nbsp;
 function <span class="fstat-no" title="function not covered" >updateItemStatus(</span>{ id, itemId, sta<span class="cstat-no" title="statement not covered" >tus }) {<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ></span></span></span>
-<span class="cstat-no" title="statement not covered" >	return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >		authenticationService</span>
-			.getToken()
-			.the<span class="fstat-no" title="function not covered" >n(</span>token =&gt; {
-<span class="cstat-no" title="statement not covered" >				axios</span>
-					.put(
-						`/api/sprint/id/${id}/item/${itemId}`,
-						{
-							status
-						},
-						{
-							headers: {
-								Authorization: `Bearer ${token}`
-							}
-						}
-					)
-					.th<span class="fstat-no" title="function not covered" >en</span>(response =&gt; {
-<span class="cstat-no" title="statement not covered" >						if (response.status === 200) {</span>
-<span class="cstat-no" title="statement not covered" >							resolve(response.data.sprints[0])</span>;
-						} else {
-<span class="cstat-no" title="statement not covered" >							reject()</span>;
-						}
-					})
-					.cat<span class="fstat-no" title="function not covered" >ch</span>(() =&gt; {
-<span class="cstat-no" title="statement not covered" >						reject()</span>;
-					});
-			})
-			.catc<span class="fstat-no" title="function not covered" >h(</span>err =&gt; {
-<span class="cstat-no" title="statement not covered" >				reject(err);</span>
-			});
-	});
+<span class="cstat-no" title="statement not covered" >  return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    getToken()</span>
+      .th<span class="fstat-no" title="function not covered" >en</span>(token =&gt; {
+<span class="cstat-no" title="statement not covered" >        axios</span>
+          .put(
+            `/api/sprint/id/${id}/item/${itemId}`,
+            {
+              status
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`
+              }
+            }
+          )
+          .<span class="fstat-no" title="function not covered" >th</span>en(response =&gt; {
+<span class="cstat-no" title="statement not covered" >            if (response.status === 200) {</span>
+<span class="cstat-no" title="statement not covered" >              resolve(response.data.sprints[0</span>]);
+            } else {
+<span class="cstat-no" title="statement not covered" >              reject</span>();
+            }
+          })
+          .c<span class="fstat-no" title="function not covered" >at</span>ch(() =&gt; {
+<span class="cstat-no" title="statement not covered" >            reject</span>();
+          });
+      })
+      .cat<span class="fstat-no" title="function not covered" >ch</span>(err =&gt; {
+<span class="cstat-no" title="statement not covered" >        reject(err)</span>;
+      });
+  });
 }
 &nbsp;
 function <span class="fstat-no" title="function not covered" >remove(</span>{ id }) {<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >	return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >		authenticationService</span>
-			.getToken()
-			.the<span class="fstat-no" title="function not covered" >n(</span>token =&gt; {
-<span class="cstat-no" title="statement not covered" >				axios</span>
-					.delete(`/api/sprint/id/${id}`, {
-						headers: {
-							Authorization: `Bearer ${token}`
-						}
-					})
-					.th<span class="fstat-no" title="function not covered" >en</span>(response =&gt; {
-<span class="cstat-no" title="statement not covered" >						if (response.status === 200) {</span>
-<span class="cstat-no" title="statement not covered" >							resolve()</span>;
-						} else {
-<span class="cstat-no" title="statement not covered" >							reject()</span>;
-						}
-					})
-					.cat<span class="fstat-no" title="function not covered" >ch</span>(() =&gt; {
-<span class="cstat-no" title="statement not covered" >						reject()</span>;
-					});
-			})
-			.catc<span class="fstat-no" title="function not covered" >h(</span>err =&gt; {
-<span class="cstat-no" title="statement not covered" >				reject(err);</span>
-			});
-	});
+<span class="cstat-no" title="statement not covered" >  return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    getToken()</span>
+      .th<span class="fstat-no" title="function not covered" >en</span>(token =&gt; {
+<span class="cstat-no" title="statement not covered" >        axios</span>
+          .delete(`/api/sprint/id/${id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          })
+          .<span class="fstat-no" title="function not covered" >th</span>en(response =&gt; {
+<span class="cstat-no" title="statement not covered" >            if (response.status === 200) {</span>
+<span class="cstat-no" title="statement not covered" >              resolve</span>();
+            } else {
+<span class="cstat-no" title="statement not covered" >              reject</span>();
+            }
+          })
+          .c<span class="fstat-no" title="function not covered" >at</span>ch(() =&gt; {
+<span class="cstat-no" title="statement not covered" >            reject</span>();
+          });
+      })
+      .cat<span class="fstat-no" title="function not covered" >ch</span>(err =&gt; {
+<span class="cstat-no" title="statement not covered" >        reject(err)</span>;
+      });
+  });
 }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >export default { getOne, create, update, updateItemStatus, remove };<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span></span></span></span></span></span></span></span></span></span>
@@ -559,7 +547,7 @@ function <span class="fstat-no" title="function not covered" >remove(</span>{ id
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Mar 04 2018 16:15:50 GMT+0800 (+08)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Mar 30 2018 02:15:01 GMT+0800 (+08)
 </div>
 </div>
 <script src="../../prettify.js"></script>

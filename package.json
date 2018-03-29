@@ -8,6 +8,7 @@
     "lint": "eslint **/*.{js,jsx} --quiet",
     "watch": "webpack --watch --config webpack.dev.config.js",
     "test": "jest --coverage",
+    "test:dd": "jest --watch",
     "heroku-postbuild": "npm run build"
   },
   "engines": {
@@ -87,6 +88,7 @@
     "redux-form": "^7.1.2",
     "redux-orm": "^0.9.4",
     "redux-saga": "^0.16.0",
+    "redux-saga-testing": "^1.0.5",
     "redux-thunk": "^2.2.0",
     "request": "^2.79.0",
     "serve-favicon": "~2.3.0",

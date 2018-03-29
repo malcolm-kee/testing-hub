@@ -22,7 +22,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>0/21</span>
+        <span class='fraction'>0/34</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
@@ -32,12 +32,12 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/8</span>
+        <span class='fraction'>0/14</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>0/14</span>
+        <span class='fraction'>0/18</span>
       </div>
     </div>
   </div>
@@ -89,7 +89,43 @@
 44
 45
 46
-47</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -98,25 +134,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -135,8 +157,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { comb<span class="cstat-no" title="statement not covered" >ineReducers } from 'redux';<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ></span></span></span>
-import { reducer <span class="cstat-no" title="statement not covered" >as formReducer } from </span>'redux-form';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { comb<span class="cstat-no" title="statement not covered" >ineReducers } from 'redux';<span class="cstat-no" title="statement not covered" ></span></span>
+import { reducer as formReducer } from 'redux-form';
 &nbsp;
 // self-implemented combineReducers based on lesson on https://egghead.io/lessons/javascript-redux-implementing-combinereducers-from-scratch
 /*
@@ -147,38 +169,49 @@ const combineReducers = reducers =&gt; (state = {}, action) =&gt;
 	);
 */
 &nbsp;
-import { userReduce<span class="cstat-no" title="statement not covered" >r, getLoginState, getIsAd</span>min, getUserName } from './userReducer';
-import { featureReduce<span class="cstat-no" title="statement not covered" >r, featureSelector } from '.</span>/featureReducer';
-import { sprintReduce<span class="cstat-no" title="statement not covered" >r, sprintSelector } from '.</span>/sprintReducer';
+import { userReducer, getLoginState, getIsAdmin, getUserName } from './userReducer';
+import { sprintReducer, sprintSelector } from './sprintReducer';
+import { entitiesReduce<span class="cstat-no" title="statement not covered" >r } from './entitiesReducer';<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span></span>
+import { uiReducer, selectHasNewUpdate } from './uiReducer';
+&nbsp;
+export {
+  selectFeatures,<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span>
+  selectSprints,<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span>
+  selectFeatureCount,<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span>
+  selectSprintCount,<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span>
+  selectSprintShallow,<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span>
+  makeSelectOneFeature<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ></span></span></span></span></span>
+} from './entitiesReducer';
 &nbsp;
 export const rootR<span class="cstat-no" title="statement not covered" >educer = combineReducers({</span>
+  entities: entitiesReducer,
   user: userReducer,
-  features: featureReducer,
   sprints: sprintReducer,
+  ui: uiReducer,
   form: formReducer
 });
 &nbsp;
-export const selectors = {
-  getUserName(store) {
-    return getUserName(store.user);
+export const sel<span class="cstat-no" title="statement not covered" >ectors = {</span>
+  getUserName(store) {<span class="fstat-no" title="function not covered" ></span>
+<span class="cstat-no" title="statement not covered" >    return getUserName(store.user);</span>
   },
-  getLoginState(st<span class="cstat-no" title="statement not covered" >ore) {<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="fstat-no" title="function not covered" ></span></span></span></span>
+  getLoginState(store) {<span class="fstat-no" title="function not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    return getLoginState(store.user);</span>
   },
   getIsAdmin(store) {<span class="fstat-no" title="function not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    return getIsAdmin(store.user);</span>
   },
-  getFeatures(store) {<span class="fstat-no" title="function not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    return featureSelector.getAll(store.features);</span>
-  },
-  getFeature(store) {<span class="fstat-no" title="function not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    return featureSelector.getOne(store.features);</span>
-  },
   getSprints(store) {<span class="fstat-no" title="function not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    return sprintSelector.getAll(store.sprints);</span>
+<span class="cstat-no" title="statement not covered" >    return sprintSelector.getAllAsList(store.sprints);</span>
   },
   getSprint(store) {<span class="fstat-no" title="function not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    return sprintSelector.getOne(store.sprints);</span>
+  },
+  getSprintLoading(store) {<span class="fstat-no" title="function not covered" ></span>
+<span class="cstat-no" title="statement not covered" >    return sprintSelector.getLoadingState(store.sprints);</span>
+  },
+  selectHasNewUpdate(store) {<span class="fstat-no" title="function not covered" ></span>
+<span class="cstat-no" title="statement not covered" >    return selectHasNewUpdate(store.ui);</span>
   }<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span></span></span></span>
 };
 &nbsp;</pre></td></tr>
@@ -187,7 +220,7 @@ export const selectors = {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Mar 04 2018 16:15:50 GMT+0800 (+08)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Mar 30 2018 02:15:01 GMT+0800 (+08)
 </div>
 </div>
 <script src="../../prettify.js"></script>

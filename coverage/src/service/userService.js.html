@@ -22,7 +22,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>0/63</span>
+        <span class='fraction'>0/62</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
@@ -186,17 +186,12 @@
 141
 142
 143
-144
-145
-146
-147
-148</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+144</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -225,7 +220,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -252,7 +246,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -295,7 +288,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -338,149 +330,145 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import axios <span class="cstat-no" title="statement not covered" >from 'axios';<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ></span></span></span>
-import authenticationService <span class="cstat-no" title="statement not covered" >from './authenticationService';<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span></span>
+import { getToken } from './a<span class="cstat-no" title="statement not covered" >uthenticationService';<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span>
 &nbsp;
 function <span class="fstat-no" title="function not covered" >getAll(</span>) {
-<span class="cstat-no" title="statement not covered" >	return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >		authenticationService</span>
-			.getToken()
-			.the<span class="fstat-no" title="function not covered" >n(</span>token =&gt; {
-<span class="cstat-no" title="statement not covered" >				axios</span>
-					.get('/api/user', {
-						headers: {
-							Authorization: `Bearer ${token}`
-						}
-					})
-					.th<span class="fstat-no" title="function not covered" >en</span>(response =&gt; {
-<span class="cstat-no" title="statement not covered" >						if (response.status === 200) {</span>
-<span class="cstat-no" title="statement not covered" >							resolve(response.data)</span>;
-						} else {
-<span class="cstat-no" title="statement not covered" >							reject()</span>;
-						}
-					})
-					.cat<span class="fstat-no" title="function not covered" >ch</span>(() =&gt; {
-<span class="cstat-no" title="statement not covered" >						reject()</span>;
-					});
-			})
-			.catc<span class="fstat-no" title="function not covered" >h(</span>err =&gt; {
-<span class="cstat-no" title="statement not covered" >				reject(err);</span>
-			});
-	});
+<span class="cstat-no" title="statement not covered" >  return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    getToken()</span>
+      .th<span class="fstat-no" title="function not covered" >en</span>(token =&gt; {
+<span class="cstat-no" title="statement not covered" >        axios</span>
+          .get('/api/user', {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          })
+          .<span class="fstat-no" title="function not covered" >th</span>en(response =&gt; {
+<span class="cstat-no" title="statement not covered" >            if (response.status === 200) {</span>
+<span class="cstat-no" title="statement not covered" >              resolve(response.dat</span>a);
+            } else {
+<span class="cstat-no" title="statement not covered" >              reject</span>();
+            }
+          })
+          .c<span class="fstat-no" title="function not covered" >at</span>ch(() =&gt; {
+<span class="cstat-no" title="statement not covered" >            reject</span>();
+          });
+      })
+      .cat<span class="fstat-no" title="function not covered" >ch</span>(err =&gt; {
+<span class="cstat-no" title="statement not covered" >        reject(err)</span>;
+      });
+  });
 }
 &nbsp;
 function <span class="fstat-no" title="function not covered" >getOne(</span>{ id }) {<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >	return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >		authenticationService</span>
-			.getToken()
-			.the<span class="fstat-no" title="function not covered" >n(</span>token =&gt; {
-<span class="cstat-no" title="statement not covered" >				axios</span>
-					.get(`/api/user/id/${id}`, {
-						headers: {
-							Authorization: `Bearer ${token}`
-						}
-					})
-					.th<span class="fstat-no" title="function not covered" >en</span>(response =&gt; {
-<span class="cstat-no" title="statement not covered" >						if (response.status === 200) {</span>
-<span class="cstat-no" title="statement not covered" >							resolve(response.data.users[0])</span>;
-						} else {
-<span class="cstat-no" title="statement not covered" >							reject()</span>;
-						}
-					})
-					.cat<span class="fstat-no" title="function not covered" >ch</span>(() =&gt; {
-<span class="cstat-no" title="statement not covered" >						reject()</span>;
-					});
-			})
-			.catc<span class="fstat-no" title="function not covered" >h(</span>err =&gt; {
-<span class="cstat-no" title="statement not covered" >				reject(err);</span>
-			});
-	});
+<span class="cstat-no" title="statement not covered" >  return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    getToken()</span>
+      .th<span class="fstat-no" title="function not covered" >en</span>(token =&gt; {
+<span class="cstat-no" title="statement not covered" >        axios</span>
+          .get(`/api/user/id/${id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          })
+          .<span class="fstat-no" title="function not covered" >th</span>en(response =&gt; {
+<span class="cstat-no" title="statement not covered" >            if (response.status === 200) {</span>
+<span class="cstat-no" title="statement not covered" >              resolve(response.data.users[0</span>]);
+            } else {
+<span class="cstat-no" title="statement not covered" >              reject</span>();
+            }
+          })
+          .c<span class="fstat-no" title="function not covered" >at</span>ch(() =&gt; {
+<span class="cstat-no" title="statement not covered" >            reject</span>();
+          });
+      })
+      .cat<span class="fstat-no" title="function not covered" >ch</span>(err =&gt; {
+<span class="cstat-no" title="statement not covered" >        reject(err)</span>;
+      });
+  });
 }
 &nbsp;
 function <span class="fstat-no" title="function not covered" >create(</span>{ name, email, isAd<span class="cstat-no" title="statement not covered" >min, passwo</span>rd }) {<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ></span></span></span>
-<span class="cstat-no" title="statement not covered" >	return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >		authenticationService</span>
-			.getToken()
-			.the<span class="fstat-no" title="function not covered" >n(</span>token =&gt; {
-<span class="cstat-no" title="statement not covered" >				axios</span>
-					.post(
-						'/api/user',
-						{
-							name,
-							email,
-							isAdmin,
-							password
-						},
-						{
-							headers: {
-								Authorization: `Bearer ${token}`
-							}
-						}
-					)
-					.th<span class="fstat-no" title="function not covered" >en</span>(response =&gt; {
-<span class="cstat-no" title="statement not covered" >						if (response.status === 200) {</span>
-<span class="cstat-no" title="statement not covered" >							resolve()</span>;
-						} else {
-<span class="cstat-no" title="statement not covered" >							reject()</span>;
-						}
-					})
-					.cat<span class="fstat-no" title="function not covered" >ch</span>(error =&gt; {
-<span class="cstat-no" title="statement not covered" >						if (error.response) {</span>
-<span class="cstat-no" title="statement not covered" >							reject({</span>
-								message: error.response.data.message
-							});
-						} else {
-<span class="cstat-no" title="statement not covered" >							reject()</span>;
-						}
-					});
-			})
-			.catc<span class="fstat-no" title="function not covered" >h(</span>err =&gt; {
-<span class="cstat-no" title="statement not covered" >				reject(err);</span>
-			});
-	});
+<span class="cstat-no" title="statement not covered" >  return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    getToken()</span>
+      .th<span class="fstat-no" title="function not covered" >en</span>(token =&gt; {
+<span class="cstat-no" title="statement not covered" >        axios</span>
+          .post(
+            '/api/user',
+            {
+              name,
+              email,
+              isAdmin,
+              password
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`
+              }
+            }
+          )
+          .<span class="fstat-no" title="function not covered" >th</span>en(response =&gt; {
+<span class="cstat-no" title="statement not covered" >            if (response.status === 200) {</span>
+<span class="cstat-no" title="statement not covered" >              resolve</span>();
+            } else {
+<span class="cstat-no" title="statement not covered" >              reject</span>();
+            }
+          })
+          .c<span class="fstat-no" title="function not covered" >at</span>ch(error =&gt; {
+<span class="cstat-no" title="statement not covered" >            if (error.response) {</span>
+<span class="cstat-no" title="statement not covered" >              reject({</span>
+                message: error.response.data.message
+              });
+            } else {
+<span class="cstat-no" title="statement not covered" >              reject</span>();
+            }
+          });
+      })
+      .cat<span class="fstat-no" title="function not covered" >ch</span>(err =&gt; {
+<span class="cstat-no" title="statement not covered" >        reject(err)</span>;
+      });
+  });
 }
 &nbsp;
 function <span class="fstat-no" title="function not covered" >update(</span>{ id, name, email<span class="cstat-no" title="statement not covered" >, isAdmin</span>, verif<span class="cstat-no" title="statement not covered" >ied, passwo</span>rd }) {<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ></span></span></span></span>
-<span class="cstat-no" title="statement not covered" >	return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >		authenticationService</span>
-			.getToken()
-			.the<span class="fstat-no" title="function not covered" >n(</span>token =&gt; {
-<span class="cstat-no" title="statement not covered" >				axios</span>
-					.put(
-						`/api/user/id/${id}`,
-						{
-							name,
-							email,
-							isAdmin,
-							verified,
-							password
-						},
-						{
-							headers: {
-								Authorization: `Bearer ${token}`
-							}
-						}
-					)
-					.th<span class="fstat-no" title="function not covered" >en</span>(response =&gt; {
-<span class="cstat-no" title="statement not covered" >						if (response.status === 200) {</span>
-<span class="cstat-no" title="statement not covered" >							resolve()</span>;
-						} else {
-<span class="cstat-no" title="statement not covered" >							reject()</span>;
-						}
-					})
-					.cat<span class="fstat-no" title="function not covered" >ch</span>(error =&gt; {
-<span class="cstat-no" title="statement not covered" >						if (error.response) {</span>
-<span class="cstat-no" title="statement not covered" >							reject({</span>
-								message: error.response.data.message
-							});
-						} else {
-<span class="cstat-no" title="statement not covered" >							reject()</span>;
-						}
-					});
-			})
-			.catc<span class="fstat-no" title="function not covered" >h(</span>err =&gt; {
-<span class="cstat-no" title="statement not covered" >				reject(err);</span>
-			});
-	});
+<span class="cstat-no" title="statement not covered" >  return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    getToken()</span>
+      .th<span class="fstat-no" title="function not covered" >en</span>(token =&gt; {
+<span class="cstat-no" title="statement not covered" >        axios</span>
+          .put(
+            `/api/user/id/${id}`,
+            {
+              name,
+              email,
+              isAdmin,
+              verified,
+              password
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`
+              }
+            }
+          )
+          .<span class="fstat-no" title="function not covered" >th</span>en(response =&gt; {
+<span class="cstat-no" title="statement not covered" >            if (response.status === 200) {</span>
+<span class="cstat-no" title="statement not covered" >              resolve</span>();
+            } else {
+<span class="cstat-no" title="statement not covered" >              reject</span>();
+            }
+          })
+          .c<span class="fstat-no" title="function not covered" >at</span>ch(error =&gt; {
+<span class="cstat-no" title="statement not covered" >            if (error.response) {</span>
+<span class="cstat-no" title="statement not covered" >              reject({</span>
+                message: error.response.data.message
+              });
+            } else {
+<span class="cstat-no" title="statement not covered" >              reject</span>();
+            }
+          });
+      })
+      .cat<span class="fstat-no" title="function not covered" >ch</span>(err =&gt; {
+<span class="cstat-no" title="statement not covered" >        reject(err)</span>;
+      });
+  });
 }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >export default { getAll, getOne, create, update };<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span></span></span></span></span></span></span></span></span>
@@ -490,7 +478,7 @@ function <span class="fstat-no" title="function not covered" >update(</span>{ id
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Mar 04 2018 16:15:50 GMT+0800 (+08)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Mar 30 2018 02:15:01 GMT+0800 (+08)
 </div>
 </div>
 <script src="../../prettify.js"></script>

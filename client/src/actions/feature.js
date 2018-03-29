@@ -1,5 +1,5 @@
 import { createPendingAction, createEmptyAction, createErrorAction } from './utils';
-import { getAll, create, update, remove } from '../service/featureService';
+import { create, update, remove } from '../service/featureService';
 
 import {
   SET_FEATURES,
@@ -44,17 +44,6 @@ export const deleteFeatureError = createErrorAction(DELETE_FEATURE_ERROR);
 /*
 * Thunk Actions
 */
-export const loadFeatures = () => dispatch => {
-  dispatch(loadingFeature());
-
-  getAll()
-    .then(features => {
-      dispatch(setFeatures({ features }));
-    })
-    .catch(err => {
-      dispatch(loadFeatureError(err));
-    });
-};
 
 export const creatingFeature = feature => dispatch => {
   dispatch(addingFeature());
