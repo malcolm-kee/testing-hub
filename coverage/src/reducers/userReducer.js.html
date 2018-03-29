@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">68.75% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>0/31</span>
+        <span class='fraction'>11/16</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/9</span>
+        <span class='fraction'>2/4</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/7</span>
+        <span class='fraction'>3/6</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">81.82% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>0/12</span>
+        <span class='fraction'>9/11</span>
       </div>
     </div>
   </div>
-  <div class='status-line low'></div>
+  <div class='status-line medium'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -69,65 +69,65 @@
 24
 25
 26
-27</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+27</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { SET_<span class="cstat-no" title="statement not covered" >LOGIN_STATUS, SET_USER_NAME } from './../constants/actions';<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ></span></span></span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { SET_LOGIN_STATUS, SET_USER_NAME } from './../constants/actions';
 &nbsp;
-const DEFAULT_STATE <span class="cstat-no" title="statement not covered" >= {</span>
+const DEFAULT_STATE = {
   loggedIn: null,
   userName: '',
   isAdmin: false
 };
 &nbsp;
-const setLoginStatus <span class="cstat-no" title="statement not covered" >= (state,<span class="fstat-no" title="function not covered" > action) =&gt; Obj</span>ect.assign({}, s<span class="cstat-no" title="statement not covered" >tate, action.payload);</span></span>
+const setLoginStatus = <span class="fstat-no" title="function not covered" >(s</span>tate, action) =&gt; <span class="cstat-no" title="statement not covered" >Object.assign({}, state, action.payload);</span>
 &nbsp;
-const setUserName <span class="cstat-no" title="statement not covered" >= (state,<span class="fstat-no" title="function not covered" > action) =&gt; </span>Object.assign({}<span class="cstat-no" title="statement not covered" >, state, { userName: action.payload });</span></span>
+const setUserName = <span class="fstat-no" title="function not covered" >(s</span>tate, action) =&gt; <span class="cstat-no" title="statement not covered" >Object.assign({}, state, { userName: action.payload });</span>
 &nbsp;
-export const userR<span class="cstat-no" title="statement not covered" >educer = (state = DEFAULT_STATE<span class="fstat-no" title="function not covered" >, action) =&gt;</span> {<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ></span></span></span>
-<span class="cstat-no" title="statement not covered" >  switch (action.type) {</span>
-    case SET_LOGIN_STATUS:
+export const userReducer = (state = DEFAULT_STATE, action) =&gt; {
+  switch (action.type) {
+<span class="branch-0 cbranch-no" title="branch not covered" >    case SET_LOGIN_STATUS:</span>
 <span class="cstat-no" title="statement not covered" >      return setLoginStatus(state, action);</span>
-    case SET_USER_NAME:
+<span class="branch-1 cbranch-no" title="branch not covered" >    case SET_USER_NAME:</span>
 <span class="cstat-no" title="statement not covered" >      return setUserName(state, action);</span>
     default:
-<span class="cstat-no" title="statement not covered" >      return state;</span>
+      return state;
   }
 };
 &nbsp;
-export const getLogi<span class="cstat-no" title="statement not covered" >nState = state =&gt; state.loggedIn;<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span>
-export const getUs<span class="cstat-no" title="statement not covered" >erName = state =&gt; state.userNam<span class="fstat-no" title="function not covered" >e;<span class="cstat-no" title="statement not covered" ></span></span></span>
-export const getI<span class="cstat-no" title="statement not covered" >sAdmin = state =&gt; state.isAdmi<span class="fstat-no" title="function not covered" >n;<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span></span></span></span></span></span></span></span></span></span></span></span>
+export const getLoginState = state =&gt; state.loggedIn;
+export const getUserName = state =&gt; state.userName;
+export const getIsAdmin = <span class="fstat-no" title="function not covered" >st</span>ate =&gt; <span class="cstat-no" title="statement not covered" >state.isAdmin;</span>
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Mar 30 2018 02:15:01 GMT+0800 (+08)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Mar 30 2018 02:46:06 GMT+0800 (+08)
 </div>
 </div>
 <script src="../../prettify.js"></script>

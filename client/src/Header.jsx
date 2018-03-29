@@ -91,7 +91,9 @@ class Header extends Component {
         profileManager = (
           <Nav pullRight>
             <LinkContainer to="/login">
-              <NavItem className="text-xlarge">Login</NavItem>
+              <NavItem className="text-xlarge" data-testid="login-btn">
+                Login
+              </NavItem>
             </LinkContainer>
             <Navbar.Text>/</Navbar.Text>
             <LinkContainer to="/register">

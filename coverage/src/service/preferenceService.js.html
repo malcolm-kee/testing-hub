@@ -22,22 +22,22 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>0/33</span>
+        <span class='fraction'>0/23</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/8</span>
+        <span class='fraction'>0/6</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/8</span>
+        <span class='fraction'>0/7</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>0/24</span>
+        <span class='fraction'>0/22</span>
       </div>
     </div>
   </div>
@@ -87,7 +87,7 @@
 42
 43
 44
-45</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+45</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -130,16 +130,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// import idb<span class="cstat-no" title="statement not covered" >Keyval from 'idb-keyval';</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// import idbKeyval from 'idb-keyval';
 // dono why the library doesn't work
 &nbsp;
 function <span class="fstat-no" title="function not covered" >addFavFeature(</span>id) {
 <span class="cstat-no" title="statement not covered" >	return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >		try {</span>
-			const favList <span class="cstat-no" title="statement not covered" >= JSON.parse(window.localStorage.getItem('favFeatures')</span>);
-			const currentFavList <span class="cstat-no" title="statement not covered" >= favList || [</span>];
-			const updatedFavList <span class="cstat-no" title="statement not covered" >= currentFavList.concat(id</span>);
+			const favList = <span class="cstat-no" title="statement not covered" >JSON.parse(window.localStorage.getItem('favFeatures'));</span>
+			const currentFavList = <span class="cstat-no" title="statement not covered" >favList || [];</span>
+			const updatedFavList = <span class="cstat-no" title="statement not covered" >currentFavList.concat(id);</span>
 <span class="cstat-no" title="statement not covered" >			window.localStorage.setItem('favFeatures', JSON.stringify(updatedFavList));</span>
 <span class="cstat-no" title="statement not covered" >			resolve(updatedFavList);</span>
 		} catch (err) {
@@ -151,9 +151,9 @@ function <span class="fstat-no" title="function not covered" >addFavFeature(</sp
 function <span class="fstat-no" title="function not covered" >removeFavFeature(</span>id) {
 <span class="cstat-no" title="statement not covered" >	return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >		try {</span>
-			const favList <span class="cstat-no" title="statement not covered" >= JSON.parse(window.localStorage.getItem('favFeatures')</span>);
-			const currentFavList <span class="cstat-no" title="statement not covered" >= favList || [</span>];
-			const updatedFavList <span class="cstat-no" title="statement not covered" >= currentFavList.filte<span class="fstat-no" title="function not covered" >r(</span>fid =&gt; fid !==<span class="cstat-no" title="statement not covered" > id);</span></span>
+			const favList = <span class="cstat-no" title="statement not covered" >JSON.parse(window.localStorage.getItem('favFeatures'));</span>
+			const currentFavList = <span class="cstat-no" title="statement not covered" >favList || [];</span>
+			const updatedFavList = <span class="cstat-no" title="statement not covered" >currentFavList.filter(<span class="fstat-no" title="function not covered" >fi</span>d =&gt; <span class="cstat-no" title="statement not covered" >fid !== id)</span>;</span>
 <span class="cstat-no" title="statement not covered" >			window.localStorage.setItem('favFeatures', JSON.stringify(updatedFavList));</span>
 <span class="cstat-no" title="statement not covered" >			resolve(updatedFavList);</span>
 		} catch (err) {
@@ -165,8 +165,8 @@ function <span class="fstat-no" title="function not covered" >removeFavFeature(<
 function <span class="fstat-no" title="function not covered" >getFavFeatures(</span>) {
 <span class="cstat-no" title="statement not covered" >	return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >		try {</span>
-			const favList <span class="cstat-no" title="statement not covered" >= JSON.parse(window.localStorage.getItem('favFeatures')</span>);
-			const currentFavList <span class="cstat-no" title="statement not covered" >= favList || [</span>];
+			const favList = <span class="cstat-no" title="statement not covered" >JSON.parse(window.localStorage.getItem('favFeatures'));</span>
+			const currentFavList = <span class="cstat-no" title="statement not covered" >favList || [];</span>
 <span class="cstat-no" title="statement not covered" >			resolve(currentFavList);</span>
 		} catch (err) {
 <span class="cstat-no" title="statement not covered" >			reject(err);</span>
@@ -174,14 +174,14 @@ function <span class="fstat-no" title="function not covered" >getFavFeatures(</s
 	});
 }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export default { addFavFeature, removeFavFeature, getFavFeatures };<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span></span></span></span></span></span></span></span>
+export default { addFavFeature, removeFavFeature, getFavFeatures };
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Mar 30 2018 02:15:01 GMT+0800 (+08)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Mar 30 2018 02:46:06 GMT+0800 (+08)
 </div>
 </div>
 <script src="../../prettify.js"></script>

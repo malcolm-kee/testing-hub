@@ -4,7 +4,8 @@
     "build": "webpack -p --config webpack.prod.config.js",
     "build:dev": "webpack --config webpack.dev.config.js",
     "dev": "webpack-dev-server --config webpack.dev.config.js",
-    "format": "prettier --write --single-quote --print-width=120 --parser=flow \"{src/js,app_api,app_server}/**/*.{js,jsx}\"",
+    "format":
+      "prettier --write --single-quote --print-width=120 --parser=flow \"{src/js,app_api,app_server}/**/*.{js,jsx}\"",
     "lint": "eslint **/*.{js,jsx} --quiet",
     "watch": "webpack --watch --config webpack.dev.config.js",
     "test": "jest --coverage",
@@ -106,19 +107,20 @@
   "private": true,
   "devDependencies": {
     "prettier": "^1.7.0",
+    "react-testing-library": "^1.8.2",
     "webpack-dev-server": "^2.9.1"
   },
   "jest": {
-    "testRegex": "src/.+\\.(test|spec).js$",
+    "testRegex": "src/.+\\.(test|spec).jsx?$",
     "coverageDirectory": "coverage",
-    "coverageReporters": [
-      "text-summary",
-      "html"
-    ],
-    "collectCoverageFrom": [
-      "client/src/**/*.js",
-      "!client/src/**/*.spec.js"
-    ]
+    "coverageReporters": ["text-summary", "html"],
+    "collectCoverageFrom": ["client/src/**/*.js", "!client/src/**/*.spec.js"],
+    "setupFiles": ["<rootDir>/client/setupTest.js"],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
+        "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+    }
   },
   "prettier": {
     "singleQuote": true,

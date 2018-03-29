@@ -22,22 +22,22 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>0/40</span>
+        <span class='fraction'>0/5</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/25</span>
+        <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/9</span>
+        <span class='fraction'>0/2</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>0/9</span>
+        <span class='fraction'>0/5</span>
       </div>
     </div>
   </div>
@@ -68,9 +68,7 @@
 23
 24
 25
-26</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+26</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -79,23 +77,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Mode<span class="cstat-no" title="statement not covered" >l, attr } from 'redux-orm';<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="fstat-no" title="function not covered" ><span class="fstat-no" title="function not covered" ><span class="fstat-no" title="function not covered" ></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Model, attr } from 'redux-orm';
 &nbsp;
-export cl<span class="cstat-no" title="statement not covered" >ass Sprint extend<span class="fstat-no" title="function not covered" >s </span>Model {<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span></span></span></span>
+export class Sprint extends Model {
   static modelName = 'Sprint';
   static fields = {
     id: attr(),
@@ -104,27 +104,27 @@ export cl<span class="cstat-no" title="statement not covered" >ass Sprint extend
     desc: attr()
   };
 &nbsp;
-  static parse(spri<span class="fstat-no" title="function not covered" >ntData</span>) {
-    const { Sprin<span class="cstat-no" title="statement not covered" >tItem } = this.session;</span>
-    const clonedData <span class="cstat-no" title="statement not covered" >= {</span>
+<span class="fstat-no" title="function not covered" >  st</span>atic parse(sprintData) {
+    const { SprintItem } = <span class="cstat-no" title="statement not covered" >this.session;</span>
+    const clonedData = <span class="cstat-no" title="statement not covered" >{</span>
       ...sprintData,
-      sprintItems: sprintData.sprintItems.map(<span class="fstat-no" title="function not covered" >it</span>em =&gt;<span class="cstat-no" title="statement not covered" ></span>
-        SprintItem.parse({ ...item, sprint: sprintData.id })
+      sprintItems: sprintData.sprintItems.map(<span class="fstat-no" title="function not covered" >it</span>em =&gt;
+<span class="cstat-no" title="statement not covered" >        SprintItem.parse({ ...item, sprint: sprintData.id })</span>
       )
     };
 <span class="cstat-no" title="statement not covered" >    this.upsert(clonedData);</span>
 <span class="cstat-no" title="statement not covered" >    return sprintData.id;</span>
-  }<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ></span></span></span>
+  }
 }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export <span class="cstat-no" title="statement not covered" ></span>default Sprint;<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span></span></span></span></span>
+export default Sprint;
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Mar 30 2018 02:15:01 GMT+0800 (+08)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Mar 30 2018 02:46:06 GMT+0800 (+08)
 </div>
 </div>
 <script src="../../prettify.js"></script>

@@ -6189,6 +6189,12 @@ react-router@^4.2.0:
     prop-types "^15.5.4"
     warning "^3.0.0"
 
+react-testing-library@^1.8.2:
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/react-testing-library/-/react-testing-library-1.8.2.tgz#925b341e3df4df854228dca4ab5831ea854b8ed2"
+  dependencies:
+    wait-for-expect "0.4.0"
+
 react@^16.0.0:
   version "16.0.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.0.0.tgz#ce7df8f1941b036f02b2cca9dbd0cb1f0e855e2d"
@@ -7555,6 +7561,10 @@ vm-browserify@0.0.4:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-0.0.4.tgz#5d7ea45bbef9e4a6ff65f95438e0a87c357d5a73"
   dependencies:
     indexof "0.0.1"
+
+wait-for-expect@0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/wait-for-expect/-/wait-for-expect-0.4.0.tgz#341c96ab89d6102a0169a9be6cd0de354de92c17"
 
 walker@~1.0.5:
   version "1.0.7"

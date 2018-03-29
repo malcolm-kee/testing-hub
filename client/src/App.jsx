@@ -22,7 +22,7 @@ registerSw()
     console.log('registration of sw fail with error', err);
   });
 
-const App = () => (
+export const App = () => (
   <Provider store={store}>
     <MainRoute />
   </Provider>
