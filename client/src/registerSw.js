@@ -5,10 +5,16 @@ export const registerSw = () =>
         navigator.serviceWorker
           .register('/sw.js')
           .then(registration => {
+            console.log('done register sw in registerSw.js');
             if (registration.waiting) {
               resolve({
                 supportSw: true,
                 waiting: true
+              });
+            } else {
+              resolve({
+                supportSw: true,
+                waiting: false
               });
             }
           })
