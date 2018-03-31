@@ -19,6 +19,30 @@ function getOne({ id, url }) {
   });
 }
 
+export const getAll = () =>
+  new Promise((resolve, reject) => {
+    getToken()
+      .then(token =>
+        Promise.resolve(
+          axios.get('/api/sprint', {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          })
+        )
+      )
+      .then(response => {
+        if (response.status === 200) {
+          resolve(response.data);
+        } else {
+          reject(new Error(response.statusText));
+        }
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+
 function create({ name, url, desc, sprintItems }) {
   return new Promise((resolve, reject) => {
     getToken()

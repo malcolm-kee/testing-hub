@@ -6,7 +6,7 @@ import { ListGroup } from 'react-bootstrap';
 import AdminSprintItem from './AdminSprintItem';
 import AdminFeatureItem from './AdminFeatureItem';
 import User from './../../User';
-import Spinner from './../../Spinner';
+import { Spinner } from './../../Spinner';
 
 const AdminView = props => {
   let featureList;

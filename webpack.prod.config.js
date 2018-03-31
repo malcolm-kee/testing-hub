@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 const commonConfig = require('./webpack.config.js');
 
@@ -11,6 +12,17 @@ module.exports = merge(commonConfig, {
     }),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true
+    }),
+    new WorkboxPlugin.GenerateSW({
+      swDest: 'sw.js',
+      importWorkboxFrom: 'local',
+      exclude: [/\.map$/, /^manifest.*\.js(?:on)?$/, /\.js.map$/, /\.css.map/],
+      runtimeCaching: [
+        {
+          urlPattern: '/lib/',
+          handler: 'staleWhileRevalidate'
+        }
+      ]
     })
   ]
 });

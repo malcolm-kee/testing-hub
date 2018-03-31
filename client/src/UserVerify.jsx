@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { setLoginStatus } from './actions/auth';
 
-import Spinner from './Spinner';
+import { Spinner } from './Spinner';
 
 import { verify } from './service/authenticationService';
 
@@ -16,7 +16,8 @@ class UserVerify extends Component {
   };
 
   componentDidMount() {
-    const code = this.props.code;
+    const { match: { params } } = this.props;
+    const code = params.code;
     verify({ code })
       .then(data => {
         this.setState({ loaded: true, message: "You've successfully verified your account!" });
@@ -48,9 +49,13 @@ const mapDispatchToProps = dispatch => ({
 });
 
 UserVerify.propTypes = {
-  code: PropTypes.string.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      code: PropTypes.string.isRequired
+    }).isRequired
+  }).isRequired,
   history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
   loginUser: PropTypes.func.isRequired
 };
 
-export default connect(null, mapDispatchToProps)(withRouter(UserVerify));
+export default withRouter(connect(null, mapDispatchToProps)(UserVerify));

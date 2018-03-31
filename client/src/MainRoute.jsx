@@ -1,108 +1,47 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { selectors } from './reducers';
-import { setLoginStatus } from './actions/auth';
-import { invokeLoadFeature } from './actions/feature';
-import { getSprintsFromApi } from './actions/sprint';
-// import preload from './data.json';
 
-import Landing from './Landing';
+import { ROUTES } from './constants/routes';
+import { Landing } from './Landing';
 import Catalog from './Catalog';
 import Admin from './admin/component/Admin';
 import Sprint from './sprint/components/Sprint';
 import LoginPage from './auth/components/LoginPage';
 import RegisterPage from './auth/components/RegisterPage';
+import { InitializeService } from './components/ajax/InitializeService';
+import { AuthenticatedRoute, UnauthenticatedRoute } from './components/AuthenticatedRoute';
 import UserCreate from './UserCreate';
 import UserConfig from './UserConfig';
 import UserVerify from './UserVerify';
 // import ErrorMessage from './ErrorMessage';
 import PageNotFoundMessage from './PageNotFoundMessage';
+import { LandingPage } from './LandingPage';
 
-import { getLoginStatus, getCurrentUser } from './service/authenticationService';
+export const MainRoute = () => (
+  <InitializeService
+    initializeOnMount
+    render={({ isLoading }) =>
+      isLoading ? (
+        <LandingPage />
+      ) : (
+        <BrowserRouter>
+          <div className="app">
+            <Switch>
+              <AuthenticatedRoute exact path={ROUTES.Catalog} component={Catalog} />
+              <UnauthenticatedRoute exact path={ROUTES.Landing} component={Landing} />
+              <UnauthenticatedRoute exact path={ROUTES.Login} component={LoginPage} />
+              <UnauthenticatedRoute exact path={ROUTES.Register} component={RegisterPage} />
+              <UnauthenticatedRoute path={ROUTES.UserVerify} component={UserVerify} />
+              <AuthenticatedRoute exact path={ROUTES.UserCreate} component={UserCreate} />
+              <AuthenticatedRoute path={ROUTES.UserConfig} component={UserConfig} />
+              <AuthenticatedRoute path={ROUTES.Admin} component={Admin} />
+              <AuthenticatedRoute path={ROUTES.Sprint} component={Sprint} />
+              <Route component={PageNotFoundMessage} />
+            </Switch>
+          </div>
+        </BrowserRouter>
+      )}
+  />
+);
 
-class MainRoute extends Component {
-  state = {
-    error: false,
-    errorMessage: null
-  };
-
-  componentWillMount() {
-    this.initializeLoginSatus();
-    this.props.initializeSprints();
-  }
-
-  initializeLoginSatus = () =>
-    Promise.all([getLoginStatus(), getCurrentUser()])
-      .then(data => {
-        const loggedIn = data[0];
-        const currentUser = data[1];
-        this.props.updateLoginStatus({
-          loggedIn,
-          userName: currentUser.name,
-          isAdmin: currentUser.isAdmin
-        });
-
-        this.props.initializeFeatures();
-      })
-      .catch(() => {
-        this.props.updateLoginStatus({ loggedIn: false });
-      });
-
-  render() {
-    return (
-      <BrowserRouter>
-        <div className="app">
-          <Switch>
-            <Route exact path="/" component={Catalog} />
-            <Route exact path="/landing" component={Landing} />
-            <Route exact path="/login" component={LoginPage} />
-            <Route exact path="/register" component={RegisterPage} />
-            <Route
-              path="/verify-account/:code"
-              component={props => <UserVerify code={props.match.params.code} />}
-            />
-            <Route exact path="/user-create" component={UserCreate} />
-            <Route
-              path="/user-config/:id"
-              component={props => <UserConfig id={props.match.params.id} />}
-            />
-            <Route path="/admin" component={Admin} />
-            <Route
-              path="/sprint/:url"
-              component={props => <Sprint url={props.match.params.url} />}
-            />
-            <Route component={PageNotFoundMessage} />
-          </Switch>
-        </div>
-      </BrowserRouter>
-    );
-  }
-}
-
-const mapStateToProps = state => ({ loggedIn: selectors.getLoginState(state) });
-
-const mapDispatchToProps = dispatch => ({
-  updateLoginStatus({ loggedIn, userName, isAdmin }) {
-    dispatch(setLoginStatus({ loggedIn, userName, isAdmin }));
-  },
-  initializeFeatures() {
-    dispatch(invokeLoadFeature());
-  },
-  initializeSprints() {
-    dispatch(getSprintsFromApi());
-  }
-});
-
-MainRoute.propTypes = {
-  updateLoginStatus: PropTypes.func.isRequired,
-  initializeFeatures: PropTypes.func.isRequired,
-  initializeSprints: PropTypes.func.isRequired
-};
-
-MainRoute.defaultProps = {
-  loggedIn: null
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(MainRoute);
+export default MainRoute;

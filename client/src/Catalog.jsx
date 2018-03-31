@@ -11,8 +11,6 @@ import { ErrorBoundary } from './components/ErrorBoundary';
 import Feature from './Feature';
 import Header from './Header';
 import SearchBar from './SearchBar';
-import Spinner from './Spinner';
-import DotsLoader from './DotsLoader';
 
 import preferenceService from './service/preferenceService';
 
@@ -22,26 +20,26 @@ class CatalogContainer extends Component {
     fav: []
   };
 
-  componentDidMount() {
-    // increase security to require login to access
-    if (this.props.loggedIn === false) {
-      this.props.history.push('/landing');
-    } else {
-      preferenceService.getFavFeatures().then(favFeatures => {
-        this.setState({ fav: favFeatures });
-      });
-    }
-  }
+  // componentDidMount() {
+  //   // increase security to require login to access
+  //   if (this.props.loggedIn === false) {
+  //     this.props.history.push('/landing');
+  //   } else {
+  //     preferenceService.getFavFeatures().then(favFeatures => {
+  //       this.setState({ fav: favFeatures });
+  //     });
+  //   }
+  // }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.loggedIn === false) {
-      this.props.history.push('/landing');
-    } else if (nextProps.loggedIn === true && this.props.loggedIn === false) {
-      preferenceService.getFavFeatures().then(favFeatures => {
-        this.setState({ fav: favFeatures });
-      });
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.loggedIn === false) {
+  //     this.props.history.push('/landing');
+  //   } else if (nextProps.loggedIn === true && this.props.loggedIn === false) {
+  //     preferenceService.getFavFeatures().then(favFeatures => {
+  //       this.setState({ fav: favFeatures });
+  //     });
+  //   }
+  // }
 
   handleSearchTermChange = event => {
     this.setState({ searchTerm: event.target.value });
@@ -60,56 +58,42 @@ class CatalogContainer extends Component {
   };
 
   render() {
-    const { loggedIn, sprints, sprintLoading, features, featureLoading } = this.props;
+    const { sprints, features } = this.props;
 
     let sprintPageNav;
     let featureContent;
 
-    if (loggedIn === true) {
-      if (sprintLoading) {
-        sprintPageNav = (
-          <div className="container">
-            <Navbar inverse>
-              <Navbar.Text>
-                <DotsLoader />
-              </Navbar.Text>
-            </Navbar>
-          </div>
+    if (sprints.length > 0) {
+      const sprintNavItems = sprints.map(sprint => {
+        const urlTarget = `/sprint/${sprint.url}`;
+        return (
+          <MenuItem key={sprint.id}>
+            <Link to={urlTarget} className="text-xlarge">
+              {sprint.name}
+            </Link>
+          </MenuItem>
         );
-      } else if (sprints.length > 0) {
-        const sprintNavItems = sprints.map(sprint => {
-          const urlTarget = `/sprint/${sprint.url}`;
-          return (
-            <MenuItem key={sprint.id}>
-              <Link to={urlTarget} className="text-xlarge">
-                {sprint.name}
-              </Link>
-            </MenuItem>
-          );
-        });
-        sprintPageNav = (
-          <div className="container">
-            <Navbar inverse>
-              <Nav className="text-xxlarge">
-                <NavDropdown title="Sprint">{sprintNavItems}</NavDropdown>
-              </Nav>
-            </Navbar>
-          </div>
-        );
-      } else {
-        sprintPageNav = (
-          <div className="container">
-            <Navbar inverse>
-              <Navbar.Text>No Sprint is Available.</Navbar.Text>
-            </Navbar>
-          </div>
-        );
-      }
+      });
+      sprintPageNav = (
+        <div className="container">
+          <Navbar inverse>
+            <Nav className="text-xxlarge">
+              <NavDropdown title="Sprint">{sprintNavItems}</NavDropdown>
+            </Nav>
+          </Navbar>
+        </div>
+      );
+    } else {
+      sprintPageNav = (
+        <div className="container">
+          <Navbar inverse>
+            <Navbar.Text>No Sprint is Available.</Navbar.Text>
+          </Navbar>
+        </div>
+      );
     }
 
-    if (featureLoading) {
-      featureContent = <Spinner />;
-    } else if (features.length > 0) {
+    if (features.length > 0) {
       featureContent = features
         .filter(
           feature => feature.name.toUpperCase().indexOf(this.state.searchTerm.toUpperCase()) >= 0
@@ -166,9 +150,7 @@ const mapStateToProps = state => ({
 });
 
 CatalogContainer.propTypes = {
-  featureLoading: PropTypes.bool.isRequired,
   features: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string.isRequired })).isRequired,
-  sprintLoading: PropTypes.bool.isRequired,
   sprints: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -176,12 +158,10 @@ CatalogContainer.propTypes = {
       name: PropTypes.string.isRequired
     })
   ),
-  loggedIn: PropTypes.bool,
   history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired
 };
 
 CatalogContainer.defaultProps = {
-  loggedIn: null,
   sprints: null
 };
 

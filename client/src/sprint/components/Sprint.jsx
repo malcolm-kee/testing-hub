@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Header from './../../Header';
-import Spinner from './../../Spinner';
+import { Spinner } from './../../Spinner';
 
 import { selectFeatureCount, selectSprintCount } from '../../reducers';
 import { updateSprint } from './../../actions/sprint';
@@ -12,7 +12,8 @@ import { SprintContainer } from './SprintContainer';
 
 const Sprint = ({ featureCount, sprintCount, ...restProps }) => {
   if (featureCount > 0 && sprintCount > 0) {
-    return <SprintContainer {...restProps} />;
+    const { match: { params } } = this.props;
+    return <SprintContainer url={params.url} {...restProps} />;
   }
   return (
     <div>
@@ -34,6 +35,11 @@ const mapDispatchToProps = dispatch => ({
 });
 
 Sprint.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      url: PropTypes.string.isRequired
+    }).isRequired
+  }).isRequired,
   featureCount: PropTypes.number.isRequired,
   sprintCount: PropTypes.number.isRequired
 };

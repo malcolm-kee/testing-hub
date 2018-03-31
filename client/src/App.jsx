@@ -6,7 +6,7 @@ import './style/style.css';
 import { configureStore } from './config/configureStore';
 import { registerSw } from './registerSw';
 import { showCloseToUpdate } from './actions/ui';
-import MainRoute from './MainRoute';
+import { MainRoute } from './MainRoute';
 
 const store = configureStore();
 

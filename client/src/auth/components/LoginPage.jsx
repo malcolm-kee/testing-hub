@@ -6,10 +6,9 @@ import { Link } from 'react-router-dom';
 
 import { selectors } from '../../reducers';
 import { setLoginStatus } from './../../actions/auth';
-import { loadFeatures } from './../../actions/feature';
-import { getSprintsFromApi } from './../../actions/sprint';
 
 import { ErrorBoundary } from '../../components/ErrorBoundary';
+import { InitializeService } from '../../components/ajax/InitializeService';
 import Header from './../../Header';
 import LoginForm from './LoginForm';
 
@@ -28,14 +27,14 @@ class LoginPageContainer extends Component {
   }
 
   handleSubmit = values => {
+    const { initializeData } = this.props;
+
     login(values)
       .then(data => {
         this.setState({ message: 'Your have logged in successfully!' });
-        this.props.initializeFeatures();
-        this.props.initializeSprints();
-        window.setTimeout(() => {
+        initializeData().then(() => {
           this.props.loginUser({ userName: data.name, isAdmin: data.isAdmin });
-        }, 1500);
+        });
       })
       .catch(() => {
         this.setState({
@@ -87,12 +86,6 @@ const mapStateToProps = state => ({ loggedIn: selectors.getLoginState(state) });
 const mapDispatchToProps = dispatch => ({
   loginUser({ userName, isAdmin }) {
     dispatch(setLoginStatus({ loggedIn: true, userName, isAdmin }));
-  },
-  initializeFeatures() {
-    dispatch(loadFeatures());
-  },
-  initializeSprints() {
-    dispatch(getSprintsFromApi());
   }
 });
 
@@ -101,8 +94,7 @@ LoginPageContainer.propTypes = {
   history: PropTypes.shape({ push: PropTypes.func.isRequired, goBack: PropTypes.func.isRequired })
     .isRequired,
   loginUser: PropTypes.func.isRequired,
-  initializeFeatures: PropTypes.func.isRequired,
-  initializeSprints: PropTypes.func.isRequired
+  initializeData: PropTypes.func.isRequired
 };
 
 LoginPageContainer.defaultProps = {
@@ -111,7 +103,11 @@ LoginPageContainer.defaultProps = {
 
 const LoginPage = props => (
   <ErrorBoundary>
-    <LoginPageContainer {...props} />
+    <InitializeService
+      render={({ triggerService }) => (
+        <LoginPageContainer initializeData={triggerService} {...props} />
+      )}
+    />
   </ErrorBoundary>
 );
 

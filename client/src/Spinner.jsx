@@ -32,19 +32,19 @@ const round = keyframes`
 `;
 
 const Div = styled.div`
-	color: #c0c0c0;
-	font-size: 90px;
-	text-indent: -9999em;
-	overflow: hidden;
-	width: 1em;
-	height: 1em;
-	border-radius: 50%;
-	margin: 72px auto;
-	position: relative;
-	transform: translateZ(0);
-	animation: ${dots} 1.7s infinite ease, ${round} 1.7s infinite ease;
+  color: #c0c0c0;
+  font-size: 90px;
+  text-indent: -9999em;
+  overflow: hidden;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  margin: 72px auto;
+  position: relative;
+  transform: translateZ(0);
+  animation: ${dots} 1.7s infinite ease, ${round} 1.7s infinite ease;
 `;
 
-const Spinner = () => <Div>Loading...</Div>;
+export const Spinner = () => <Div>Loading...</Div>;
 
 export default Spinner;

@@ -6,7 +6,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const I18nPlugin = require('i18n-webpack-plugin');
 const WebpackPwaManifestPlugin = require('webpack-pwa-manifest');
-const WorkboxPlugin = require('workbox-webpack-plugin');
+
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 const enConfig = require('./i18n/en.json');
@@ -106,17 +106,6 @@ module.exports = {
           src: path.resolve('public/images/logo.png'),
           sizes: [96, 128, 192, 256, 384, 512, 1024],
           type: 'image/png'
-        }
-      ]
-    }),
-    new WorkboxPlugin.GenerateSW({
-      swDest: 'sw.js',
-      importWorkboxFrom: 'local',
-      exclude: [/\.map$/, /^manifest.*\.js(?:on)?$/, /\.js.map$/, /\.css.map/],
-      runtimeCaching: [
-        {
-          urlPattern: '/lib/',
-          handler: 'staleWhileRevalidate'
         }
       ]
     }),

@@ -8,7 +8,7 @@ import { updateSprintItemStatus } from './../../actions/sprint';
 
 import SprintSummary from './SprintSummary';
 import Header from './../../Header';
-import Spinner from './../../Spinner';
+import { Spinner } from './../../Spinner';
 import DotsLoader from './../../DotsLoader';
 import SprintItemCardView from './SprintItemCardView';
 import SprintItemTableView from './SprintItemTableView';

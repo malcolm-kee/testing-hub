@@ -1,9 +1,8 @@
-import { createPendingAction, createEmptyAction, createErrorAction } from './utils';
+import { createPendingAction, createErrorAction } from './utils';
 import { create, update, remove } from '../service/featureService';
 
 import {
   SET_FEATURES,
-  INVOKE_LOAD_FEATURE,
   LOADING_FEATURES,
   LOAD_FEATURE_ERROR,
   ADD_FEATURE,
@@ -80,6 +79,3 @@ export const removingFeature = id => dispatch => {
       dispatch(deleteFeatureError(err, id));
     });
 };
-
-/* saga action */
-export const invokeLoadFeature = createEmptyAction(INVOKE_LOAD_FEATURE);

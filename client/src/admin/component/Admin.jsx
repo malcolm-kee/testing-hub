@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 import { selectors, selectFeatures, selectSprintShallow } from '../../reducers';
 
 import Header from './../../Header';
@@ -22,15 +21,7 @@ class Admin extends Component {
   };
 
   componentWillMount() {
-    if (this.props.loggedIn === false) {
-      this.props.history.push('/login');
-    } else if (this.props.isAdmin) {
-      this.refreshUsers();
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (!this.props.loggedIn && nextProps.loggedIn === true) {
+    if (this.props.isAdmin) {
       this.refreshUsers();
     }
   }
@@ -118,16 +109,13 @@ Admin.propTypes = {
       name: PropTypes.string.isRequired
     })
   ),
-  loggedIn: PropTypes.bool,
-  isAdmin: PropTypes.bool,
-  history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired
+  isAdmin: PropTypes.bool
 };
 
 Admin.defaultProps = {
-  loggedIn: null,
   isAdmin: null,
   sprints: null,
   features: null
 };
 
-export default withRouter(connect(mapStateToProps)(Admin));
+export default connect(mapStateToProps)(Admin);

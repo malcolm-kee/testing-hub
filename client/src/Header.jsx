@@ -162,4 +162,4 @@ Header.defaultProps = {
   showLogin: false
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
