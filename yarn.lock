@@ -6209,7 +6209,7 @@ react-testing-library@^1.8.2:
   dependencies:
     wait-for-expect "0.4.0"
 
-react-transition-group@^2.0.0, react-transition-group@^2.2.0:
+react-transition-group@^2.0.0, react-transition-group@^2.2.0, react-transition-group@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-2.3.0.tgz#8dd1af58f6af284b19fd057f512e74f20438ad31"
   dependencies:

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
 import { selectors, selectFeatures, selectSprintShallow } from '../../reducers';
 
@@ -82,13 +83,21 @@ class Admin extends Component {
     );
 
     return (
-      <Switch>
-        <Route exact path="/admin" component={AdminOverview} />
-        <Route exact path="/admin/feature-create" component={FeatureCreate} />
-        <Route path="/admin/feature-config/:id" component={FeatureConfig} />
-        <Route exact path="/admin/sprint-create" component={SprintCreate} />
-        <Route path="/admin/sprint-config/:id" component={SprintConfig} />
-      </Switch>
+      <Route
+        render={({ location }) => (
+          <TransitionGroup>
+            <CSSTransition key={location.key} classNames="fade" timeout={300}>
+              <Switch>
+                <Route exact path="/admin" component={AdminOverview} />
+                <Route exact path="/admin/feature-create" component={FeatureCreate} />
+                <Route path="/admin/feature-config/:id" component={FeatureConfig} />
+                <Route exact path="/admin/sprint-create" component={SprintCreate} />
+                <Route path="/admin/sprint-config/:id" component={SprintConfig} />
+              </Switch>
+            </CSSTransition>
+          </TransitionGroup>
+        )}
+      />
     );
   }
 }

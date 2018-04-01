@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import { ROUTES } from './constants/routes';
 import { Landing } from './Landing';
@@ -26,18 +27,26 @@ export const MainRoute = () => (
       ) : (
         <BrowserRouter>
           <div className="app">
-            <Switch>
-              <AuthenticatedRoute exact path={ROUTES.Catalog} component={Catalog} />
-              <UnauthenticatedRoute exact path={ROUTES.Landing} component={Landing} />
-              <UnauthenticatedRoute exact path={ROUTES.Login} component={LoginPage} />
-              <UnauthenticatedRoute exact path={ROUTES.Register} component={RegisterPage} />
-              <UnauthenticatedRoute path={ROUTES.UserVerify} component={UserVerify} />
-              <AuthenticatedRoute exact path={ROUTES.UserCreate} component={UserCreate} />
-              <AuthenticatedRoute path={ROUTES.UserConfig} component={UserConfig} />
-              <AuthenticatedRoute path={ROUTES.Admin} component={Admin} />
-              <AuthenticatedRoute path={ROUTES.Sprint} component={Sprint} />
-              <Route component={PageNotFoundMessage} />
-            </Switch>
+            <Route
+              render={({ location }) => (
+                <TransitionGroup>
+                  <CSSTransition key={location.key} classNames="fade" timeout={300}>
+                    <Switch location={location}>
+                      <AuthenticatedRoute exact path={ROUTES.Catalog} component={Catalog} />
+                      <UnauthenticatedRoute exact path={ROUTES.Landing} component={Landing} />
+                      <UnauthenticatedRoute exact path={ROUTES.Login} component={LoginPage} />
+                      <UnauthenticatedRoute exact path={ROUTES.Register} component={RegisterPage} />
+                      <UnauthenticatedRoute path={ROUTES.UserVerify} component={UserVerify} />
+                      <AuthenticatedRoute exact path={ROUTES.UserCreate} component={UserCreate} />
+                      <AuthenticatedRoute path={ROUTES.UserConfig} component={UserConfig} />
+                      <AuthenticatedRoute path={ROUTES.Admin} component={Admin} />
+                      <AuthenticatedRoute path={ROUTES.Sprint} component={Sprint} />
+                      <Route component={PageNotFoundMessage} />
+                    </Switch>
+                  </CSSTransition>
+                </TransitionGroup>
+              )}
+            />
           </div>
         </BrowserRouter>
       )}

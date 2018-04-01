@@ -1,4 +1,25 @@
+/* Router Animation */
+.fade-enter {
+    opacity: 0;
+    z-index: 1;
+}
+
+.fade-enter.fade-enter-active {
+    opacity: 1;
+    transition: opacity 250ms ease-in;
+}
+
+.fade-exit {
+    transition: opacity 250ms ease-in;
+    opacity: 1;
+}
+
+.fade-exit.fade-exit-active {
+    opacity: 0;
+}
+
 /* CUSTOM CLASS */
+
 .loader {
     color: #c0c0c0;
 	font-size: 90px;
