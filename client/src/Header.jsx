@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { Navbar, Nav, NavItem, DropdownButton, MenuItem } from 'react-bootstrap';
+import { Button, Navbar, Nav, NavItem, NavDropdown, MenuItem, FormGroup } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
 import { setLoginStatus } from './actions/auth';
@@ -43,39 +42,38 @@ class Header extends Component {
 
       if (back === true) {
         backBtn = (
-          <button type="button" className="btn btn-default" onClick={this.props.backAction}>
+          <Button type="button" className="btn btn-default" onClick={this.props.backAction}>
             <span className="glyphicon glyphicon-menu-left text-large" />
             &nbsp;Back
-          </button>
+          </Button>
         );
       }
 
       if (next === true) {
         nextBtn = (
-          <button type="button" className="btn btn-success" onClick={this.props.nextAction}>
+          <Button type="button" className="btn btn-success" onClick={this.props.nextAction}>
             Next&nbsp;
             <span className="glyphicon glyphicon-ok text-large" />
-          </button>
+          </Button>
         );
       }
 
       navigator = (
-        <Nav pullRight>
-          <form className="navbar-form navbar-right">
+        <Navbar.Form pullRight>
+          <FormGroup>
             {backBtn}
             {nextBtn}
-          </form>
-        </Nav>
+          </FormGroup>
+        </Navbar.Form>
       );
     } else if (this.props.showLogin) {
       if (this.props.loggedIn === true) {
         const userNameNode = <span className="text-xlarge">{this.props.userName}</span>;
         profileManager = (
           <Nav pullRight>
-            <DropdownButton
+            <NavDropdown
               title={userNameNode}
               onSelect={this.handleSelectUserAction}
-              bsStyle="primary"
               id="header-options"
             >
               <MenuItem id="nav-Admin" eventKey="Administer">
@@ -84,7 +82,7 @@ class Header extends Component {
               <MenuItem id="auth-Logout" eventKey="Logout">
                 Logout
               </MenuItem>
-            </DropdownButton>
+            </NavDropdown>
           </Nav>
         );
       } else if (this.props.loggedIn === false) {
@@ -113,9 +111,9 @@ class Header extends Component {
     return (
       <Navbar fixedTop collapseOnSelect inverse>
         <Navbar.Header>
-          <Navbar.Brand>
-            <Link to="/">Testing Hub</Link>
-          </Navbar.Brand>
+          <LinkContainer to="/login">
+            <Navbar.Brand>Testing Hub</Navbar.Brand>
+          </LinkContainer>
           {hasNewUpdate ? <span className="glyphicon glyphicon-alert text-large" /> : null}
           <Navbar.Toggle />
         </Navbar.Header>

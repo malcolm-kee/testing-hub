@@ -6,18 +6,15 @@ import { Route, Redirect } from 'react-router-dom';
 import { ROUTES } from '../constants/routes';
 import { selectors } from '../reducers';
 
-const AuthenticatedRouteComponent = ({ component: Component, loggedIn, ...restProps }) => {
-  console.log(`in AuthenticatedRouteComponent with loginStatus ${loggedIn} component`, restProps);
-  return (
-    <Route
-      {...restProps}
-      render={props => (loggedIn ? <Component {...props} /> : <Redirect to={ROUTES.Login} />)}
-    />
-  );
-};
+const AuthenticatedRouteComponent = ({ component: Component, loggedIn, ...restProps }) => (
+  <Route
+    {...restProps}
+    render={props => (loggedIn ? <Component {...props} /> : <Redirect to={ROUTES.Login} />)}
+  />
+);
 
 AuthenticatedRouteComponent.propTypes = {
-  component: PropTypes.element.isRequired,
+  component: PropTypes.func.isRequired,
   loggedIn: PropTypes.bool.isRequired
 };
 
@@ -29,7 +26,7 @@ const UnauthenticatedRouteComponent = ({ component: Component, loggedIn, ...rest
 );
 
 UnauthenticatedRouteComponent.propTypes = {
-  component: PropTypes.element.isRequired,
+  component: PropTypes.func.isRequired,
   loggedIn: PropTypes.bool.isRequired
 };
 

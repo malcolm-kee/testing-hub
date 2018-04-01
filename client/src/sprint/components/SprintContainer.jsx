@@ -70,7 +70,7 @@ class SprintContainerView extends Component {
       progressBar = <SprintSummary sprintItems={thisSprint.sprintItems} />;
 
       content = (
-        <Tabs defaultActiveKey={1} bsStyle="pills">
+        <Tabs id="sprint-view--view-switcher" defaultActiveKey={1} bsStyle="pills">
           <Tab eventKey={1} title="Card View">
             <SprintItemCardView
               sprintItems={sprintItems}

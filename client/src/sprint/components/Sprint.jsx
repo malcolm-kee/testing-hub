@@ -12,7 +12,7 @@ import { SprintContainer } from './SprintContainer';
 
 const Sprint = ({ featureCount, sprintCount, ...restProps }) => {
   if (featureCount > 0 && sprintCount > 0) {
-    const { match: { params } } = this.props;
+    const { match: { params } } = restProps;
     return <SprintContainer url={params.url} {...restProps} />;
   }
   return (

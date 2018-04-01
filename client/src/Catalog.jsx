@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Navbar, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
 import { selectors, selectFeatures, selectSprintShallow } from './reducers';
 
@@ -19,27 +19,6 @@ class CatalogContainer extends Component {
     searchTerm: '',
     fav: []
   };
-
-  // componentDidMount() {
-  //   // increase security to require login to access
-  //   if (this.props.loggedIn === false) {
-  //     this.props.history.push('/landing');
-  //   } else {
-  //     preferenceService.getFavFeatures().then(favFeatures => {
-  //       this.setState({ fav: favFeatures });
-  //     });
-  //   }
-  // }
-
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.loggedIn === false) {
-  //     this.props.history.push('/landing');
-  //   } else if (nextProps.loggedIn === true && this.props.loggedIn === false) {
-  //     preferenceService.getFavFeatures().then(favFeatures => {
-  //       this.setState({ fav: favFeatures });
-  //     });
-  //   }
-  // }
 
   handleSearchTermChange = event => {
     this.setState({ searchTerm: event.target.value });
@@ -67,18 +46,18 @@ class CatalogContainer extends Component {
       const sprintNavItems = sprints.map(sprint => {
         const urlTarget = `/sprint/${sprint.url}`;
         return (
-          <MenuItem key={sprint.id}>
-            <Link to={urlTarget} className="text-xlarge">
-              {sprint.name}
-            </Link>
-          </MenuItem>
+          <LinkContainer to={urlTarget} key={sprint.id}>
+            <MenuItem className="text-xlarge">{sprint.name}</MenuItem>
+          </LinkContainer>
         );
       });
       sprintPageNav = (
         <div className="container">
           <Navbar inverse>
             <Nav className="text-xxlarge">
-              <NavDropdown title="Sprint">{sprintNavItems}</NavDropdown>
+              <NavDropdown id="sprints-list" title="Sprint">
+                {sprintNavItems}
+              </NavDropdown>
             </Nav>
           </Navbar>
         </div>

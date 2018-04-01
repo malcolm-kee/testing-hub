@@ -24,7 +24,7 @@ class InitializeServiceContainer extends React.Component {
   };
 
   state = {
-    isLoading: false,
+    isLoading: true,
     error: ''
   };
 

@@ -137,14 +137,15 @@ AdminView.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired
     })
-  ).isRequired,
+  ),
   isAdmin: PropTypes.bool
 };
 
 AdminView.defaultProps = {
   isAdmin: false,
   features: null,
-  sprints: null
+  sprints: null,
+  users: []
 };
 
 export default AdminView;

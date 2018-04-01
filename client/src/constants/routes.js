@@ -3,7 +3,7 @@ export const ROUTES = {
   Landing: '/landing',
   Login: '/login',
   Register: '/register',
-  UserVerify: '/user-config/:id',
+  UserVerify: '/verify-account/:id',
   UserCreate: '/user-create',
   UserConfig: '/user-config/:id',
   Admin: '/admin',
