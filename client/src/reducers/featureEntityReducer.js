@@ -56,7 +56,6 @@ export const selectFeatureCount = createSelector(orm, entitiesSelector, session 
   try {
     return session.Feature.all().count();
   } catch (e) {
-    console.error('error in selectFeatureCount :', e);
     return 0;
   }
 });
@@ -68,7 +67,6 @@ export const selectFeatures = createSelector(orm, entitiesSelector, session => {
       .toModelArray()
       .map(featureEntityMapper);
   } catch (e) {
-    console.error('error in selectFeatures :', e);
     return [];
   }
 });

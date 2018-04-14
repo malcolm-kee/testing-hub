@@ -9,7 +9,15 @@
       "jsx": true
     }
   },
-  "rules": {},
+  "rules": {
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [".storybook/**", "stories/**", "client/src/components/stories/**"]
+      }
+    ],
+    "react/forbid-prop-types": [false]
+  },
   "env": {
     "es6": true,
     "browser": true,
